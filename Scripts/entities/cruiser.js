@@ -7,3 +7,15 @@ class Battlecruiser extends Entity {
         this.sprite.src = './Images/Sprites/battlecruiser.png';
     }
 }
+
+class Cruiser__Bow extends Battlecruiser {
+    
+}
+
+class Cruiser__Deck extends Battlecruiser {
+
+}
+
+class Cruiser__Aft extends Battlecruiser {
+
+}
