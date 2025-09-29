@@ -5,7 +5,7 @@ class Battlecruiser extends Entity {
         this.width = 81;
         this.height = 118;
         this.sprite.src = './Images/Sprites/battlecruiser.png';
-        this.bow = new Cruiser__Bow;
+        this.bow = new Cruiser__Bow(x, y, deg);
     }
 }
 
