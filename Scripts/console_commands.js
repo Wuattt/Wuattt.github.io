@@ -20,7 +20,7 @@ form.addEventListener('submit', (e) => {
     let usedCommand = document.createElement('p');
     usedCommand.innerHTML = input.value;
     if (isFlashFirst) {
-        usedCommand.style.color = 'green';
+        usedCommand.style.color = 'gray';
     }
     input.before(usedCommand);
     switch (input.value) {

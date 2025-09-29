@@ -1,9 +1,5 @@
 'use strict'
 
-const log = (subject) => {
-    console.log(subject);
-}
-
 
 const sleep = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));

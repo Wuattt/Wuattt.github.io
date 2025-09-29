@@ -19,4 +19,4 @@ let input = document.getElementById('console-input');
 
 let timerElem = document.getElementById('round-time');
 let roundTime = 0;
-let gameSpeed = 60;
+let gameSpeed = 60; // updates (ticks) per second

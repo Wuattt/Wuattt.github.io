@@ -9,8 +9,14 @@ let eKeyPressed = false;
 let consoleIsOpen = false;
 
 
+/*
+const whichKeyPressed = (subject) => {
+    console.log(subject);
+}
+*/
+
 $(document).on("keydown", async function (event) {
-    log(event.which);
+    // whichKeyPressed(event.which);
     switch(event.which) {
         case 87:
             if (consoleIsOpen == false && wKeyPressed != true) {
