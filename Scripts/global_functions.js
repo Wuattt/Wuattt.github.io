@@ -16,8 +16,4 @@ const renderEntity = (entity) => {
 }
 
 
-const update = () => {
-    mapCtx.clearRect(0, 0, map.width, map.height);
-    timeCountOne();
-    entitiesList.forEach(renderEntity);
-}
+

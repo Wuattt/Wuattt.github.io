@@ -10,11 +10,18 @@ const setGameSpeed = (coefficient = gameSpeed) => {
     })(gameSpeed);
 }
 
+const update = () => {
+    mapCtx.clearRect(0, 0, map.width, map.height);
+    timeCountOne();
+    renderCollisionMap();
+    entitiesList.forEach(renderEntity);
+}
+
 const init = () => {
     setGameSpeed();
 }
 
 init();
 
-let dragon = new Battlecruiser(350, 222, 90);
-let cyclops = new Battlecruiser(950, 222, 270);
+let dragon = new Battlecruiser(450, 322, 90);
+let cyclops = new Battlecruiser(650, 322, 270);
