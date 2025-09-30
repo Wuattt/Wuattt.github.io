@@ -1,36 +1,5 @@
 'use strict'
 
-
-
-function strafeLeft () {
-    dragon.x += 1 * (Math.round(((Math.cos(inRad(dragon.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
-    dragon.y += 1 * (Math.round(((Math.sin(inRad(dragon.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
-}
-
-function strafeRight () {
-    dragon.x -= 1 * (Math.round(((Math.cos(inRad(dragon.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
-    dragon.y -= 1 * (Math.round(((Math.sin(inRad(dragon.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
-}
-
-function moveForward () {
-    dragon.x += 1 * (Math.round(((Math.cos(inRad(dragon.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-    dragon.y += 1 * (Math.round(((Math.sin(inRad(dragon.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-}
-
-function moveBackwards () {
-    dragon.x -= 1 * (Math.round(((Math.cos(inRad(dragon.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-    dragon.y -= 1 * (Math.round(((Math.sin(inRad(dragon.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-}
-
-function rotateLeft () {
-    dragon.deg -= 1;
-}
-
-function rotateRight () {
-    dragon.deg +=1;
-}
-
-
 const setGameSpeed = (coefficient = gameSpeed) => {
     gameSpeed = coefficient;
     clearInterval(timeLoop);
@@ -41,11 +10,18 @@ const setGameSpeed = (coefficient = gameSpeed) => {
     })(gameSpeed);
 }
 
+const update = () => {
+    mapCtx.clearRect(0, 0, map.width, map.height);
+    timeCountOne();
+    renderCollisionMap();
+    entitiesList.forEach(renderEntity);
+}
+
 const init = () => {
     setGameSpeed();
 }
 
 init();
 
-let dragon = new Battlecruiser(350, 222, 90);
-let cyclops = new Battlecruiser(950, 222, 270);
+let dragon = new Battlecruiser(450, 322, 90);
+let cyclops = new Battlecruiser(650, 322, 270);
