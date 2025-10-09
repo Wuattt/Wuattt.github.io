@@ -20,15 +20,12 @@ class Cruiser__Bow extends Entity {
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     render () {
-        this.x = this.cruiser.width / 2 + this.cruiser.x * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Number.EPSILON) * 1000))) / 1000) + this.cruiser.y * (Math.round(((Math.sin(inRad(this.cruiser.deg) + Number.EPSILON) * 1000))) / 1000) - (this.cruiser.width / 2);
-        this.y = this.cruiser.x * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000) + this.cruiser.y * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Number.EPSILON) * 1000))) / 1000) - this.cruiser.height / 2.65;
-        mapCtx.save();
-        mapCtx.rotate(inRad(this.cruiser.deg));
+        this.x = this.cruiser.x - this.cruiser.height / 2.65 * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
+        this.y = this.cruiser.y - this.cruiser.height / 2.65 * (Math.round(((Math.sin(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+        mapCtx.arc(this.x, this.y, 13, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-        mapCtx.restore();
     }
 }
 
