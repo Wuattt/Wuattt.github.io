@@ -28,7 +28,7 @@ form.addEventListener('submit', (e) => {
             closeConsole();
             break;
         case '/help':
-            let usedCommand = document.createElement('p');
+            usedCommand = document.createElement('p');
             usedCommand.innerHTML = '/exit /help';
             usedCommand.style.color = 'green';
             input.before(usedCommand);
