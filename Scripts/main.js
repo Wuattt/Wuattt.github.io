@@ -17,6 +17,7 @@ const update = () => {
         entity.updateCoordinates();
         entity.render();
     })
+    checkCollision();
 }
 
 const init = () => {

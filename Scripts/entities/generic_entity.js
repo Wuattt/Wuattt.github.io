@@ -13,6 +13,9 @@ class Entity {
     updateCoordinates () {
         // this exists only for cruisers' parts updating coordinates
     }
+    collide () {
+
+    }
     render () {
         mapCtx.save();
         mapCtx.rotate(inRad(this.deg));
@@ -23,7 +26,7 @@ class Entity {
         mapCtx.arc(this.x, this.y, 3, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-        mapCtx.strokeStyle = 'red';
+        mapCtx.strokeStyle = 'white';
     }
     strafeLeft () {
         this.x += 1 * (Math.round(((Math.cos(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
