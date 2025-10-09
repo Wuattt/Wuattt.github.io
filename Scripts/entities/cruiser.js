@@ -17,8 +17,8 @@ class Cruiser__Bow extends Entity {
         this.sprite.src = './Images/Sprites/red-border.png';
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
-    render () {
-        
+    async render () {
+        //await this.Prototype.render();
     }
 }
 

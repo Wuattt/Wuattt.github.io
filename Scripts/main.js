@@ -14,7 +14,9 @@ const update = () => {
     mapCtx.clearRect(0, 0, map.width, map.height);
     timeCountOne();
     renderCollisionMap();
-    entitiesList.forEach(renderEntity);
+    entitiesList.forEach((entity) => {
+        entity.render();
+    })
 }
 
 const init = () => {
