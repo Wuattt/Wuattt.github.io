@@ -15,6 +15,7 @@ const update = () => {
     timeCountOne();
     renderCollisionMap();
     entitiesList.forEach((entity) => {
+        entity.updateCoordinates();
         entity.render();
     })
 }

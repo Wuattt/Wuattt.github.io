@@ -10,6 +10,9 @@ class Entity {
         this.sprite = new Image();
         this.sprite.src = './Images/Sprites/missing-sprite.png';
     }
+    updateCoordinates () {
+        // this exists only for cruisers' parts updating coordinates
+    }
     render () {
         mapCtx.save();
         mapCtx.rotate(inRad(this.deg));
