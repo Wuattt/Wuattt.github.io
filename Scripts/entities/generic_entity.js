@@ -16,10 +16,6 @@ class Entity {
         mapCtx.rotate(inRad(this.deg));
         mapCtx.drawImage(this.sprite, this.x * (Math.round(((Math.cos(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) + this.y * (Math.round(((Math.sin(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) - (this.width / 2), this.x * (Math.round(((Math.cos(inRad(this.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000) + this.y * (Math.round(((Math.cos(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) - this.height / 2);
         // rotate() rotates canvas instead of sprite image, so need to account for that when drawing.
-        mapCtx.beginPath();
-        mapCtx.arc(this.width / 2 + this.x * (Math.round(((Math.cos(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) + this.y * (Math.round(((Math.sin(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) - (this.width / 2), this.x * (Math.round(((Math.cos(inRad(this.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000) + this.y * (Math.round(((Math.cos(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) - this.height / 2.65, 13, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
         mapCtx.restore();
         mapCtx.strokeRect(this.x, this.y, 5, 5);
         mapCtx.strokeStyle = 'red';

@@ -17,8 +17,14 @@ class Cruiser__Bow extends Entity {
         this.sprite.src = './Images/Sprites/red-border.png';
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
-    async render () {
-        //await this.Prototype.render();
+    render () {
+        mapCtx.save();
+        mapCtx.rotate(inRad(this.deg));
+        mapCtx.beginPath();
+        mapCtx.arc(this.width / 2 + this.x * (Math.round(((Math.cos(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) + this.y * (Math.round(((Math.sin(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) - (this.width / 2), this.x * (Math.round(((Math.cos(inRad(this.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000) + this.y * (Math.round(((Math.cos(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) - this.height / 2.65, 13, 0, 2 * Math.PI);
+        mapCtx.closePath();
+        mapCtx.stroke();
+        mapCtx.restore();
     }
 }
 
