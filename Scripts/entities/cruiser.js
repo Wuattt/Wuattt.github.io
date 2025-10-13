@@ -62,6 +62,14 @@ class Cruiser__leftBow extends Entity {
         mapCtx.closePath();
         mapCtx.stroke();
     }
+    collide () {
+        mapCtx.strokeStyle = 'red';
+        mapCtx.beginPath();
+        mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+        mapCtx.closePath();
+        mapCtx.stroke();
+        mapCtx.strokeStyle = 'white';
+    }
 }
 class Cruiser__rightBow extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
@@ -81,6 +89,14 @@ class Cruiser__rightBow extends Entity {
         mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
+    }
+    collide () {
+        mapCtx.strokeStyle = 'red';
+        mapCtx.beginPath();
+        mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+        mapCtx.closePath();
+        mapCtx.stroke();
+        mapCtx.strokeStyle = 'white';
     }
 }
 
@@ -104,6 +120,14 @@ class Cruiser__Deck extends Entity {
         mapCtx.closePath();
         mapCtx.stroke();
     }
+    collide () {
+        mapCtx.strokeStyle = 'red';
+        mapCtx.beginPath();
+        mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+        mapCtx.closePath();
+        mapCtx.stroke();
+        mapCtx.strokeStyle = 'white';
+    }
 }
 
 class Cruiser__Aft extends Entity {
@@ -125,6 +149,14 @@ class Cruiser__Aft extends Entity {
         mapCtx.closePath();
         mapCtx.stroke();
     }
+    collide () {
+        mapCtx.strokeStyle = 'red';
+        mapCtx.beginPath();
+        mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+        mapCtx.closePath();
+        mapCtx.stroke();
+        mapCtx.strokeStyle = 'white';
+    }
 }
 class Cruiser__LeftWing extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
@@ -145,6 +177,14 @@ class Cruiser__LeftWing extends Entity {
         mapCtx.closePath();
         mapCtx.stroke();
     }
+    collide () {
+        mapCtx.strokeStyle = 'red';
+        mapCtx.beginPath();
+        mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+        mapCtx.closePath();
+        mapCtx.stroke();
+        mapCtx.strokeStyle = 'white';
+    }
 }
 class Cruiser__RightWing extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
@@ -164,5 +204,13 @@ class Cruiser__RightWing extends Entity {
         mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
+    }
+    collide () {
+        mapCtx.strokeStyle = 'red';
+        mapCtx.beginPath();
+        mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+        mapCtx.closePath();
+        mapCtx.stroke();
+        mapCtx.strokeStyle = 'white';
     }
 }
