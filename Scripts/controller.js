@@ -127,3 +127,7 @@ $(document).on("keyup", function (event) {
             break;
     }
 });
+let test;
+$('canvas').on('click', (event) => {
+    test = new Laser(event.clientX, event.clientY, 0);
+})
