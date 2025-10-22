@@ -11,9 +11,3 @@ const inRad = (degrees) => {
 }
 
 
-const renderEntity = (entity) => {
-    entity.render();
-}
-
-
-

@@ -13,8 +13,11 @@ const setGameSpeed = (coefficient = gameSpeed) => {
 const update = () => {
     mapCtx.clearRect(0, 0, map.width, map.height);
     timeCountOne();
-    renderCollisionMap();
-    entitiesList.forEach(renderEntity);
+    entitiesList.forEach((entity) => {
+        entity.updateCoordinates();
+        entity.render();
+    })
+    checkAllCollisions();
 }
 
 const init = () => {

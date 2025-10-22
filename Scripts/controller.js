@@ -8,6 +8,7 @@ let qKeyPressed = false;
 let eKeyPressed = false;
 let consoleIsOpen = false;
 
+let controlledEntity = dragon;
 
 /*
 const whichKeyPressed = (subject) => {
@@ -22,7 +23,9 @@ $(document).on("keydown", async function (event) {
             if (consoleIsOpen == false && wKeyPressed != true) {
                 wKeyPressed = true;
                 while(wKeyPressed) {
-                    moveForward();
+                    if (controlledEntity.moveForward != undefined) {
+                        controlledEntity.moveForward();
+                    }
                     await sleep(10);
                 }
             }
@@ -31,7 +34,9 @@ $(document).on("keydown", async function (event) {
             if (consoleIsOpen == false && sKeyPressed != true) {
                 sKeyPressed = true;
                 while(sKeyPressed) {
-                    moveBackwards();
+                    if (controlledEntity.moveBackwards != undefined) {
+                        controlledEntity.moveBackwards();
+                    }
                     await sleep(10);
                 }
             }
@@ -40,7 +45,9 @@ $(document).on("keydown", async function (event) {
             if (consoleIsOpen == false && aKeyPressed != true) {
                 aKeyPressed = true;
                 while(aKeyPressed) {
-                    rotateLeft();
+                    if (controlledEntity.rotateLeft != undefined) {
+                        controlledEntity.rotateLeft();
+                    }
                     await sleep(10);
                 }
             }
@@ -49,7 +56,9 @@ $(document).on("keydown", async function (event) {
             if (consoleIsOpen == false && dKeyPressed != true) {
                 dKeyPressed = true;
                 while(dKeyPressed) {
-                    rotateRight();
+                    if (controlledEntity.rotateRight != undefined) {
+                        controlledEntity.rotateRight();
+                    }
                     await sleep(10);
                 }
             }
@@ -58,7 +67,9 @@ $(document).on("keydown", async function (event) {
             if (consoleIsOpen == false && qKeyPressed != true) {
                 qKeyPressed = true;
                 while(qKeyPressed) {
-                    strafeLeft();
+                    if (controlledEntity.strafeLeft != undefined) {
+                        controlledEntity.strafeLeft();
+                    }
                     await sleep(10);
                 }
             }
@@ -67,7 +78,9 @@ $(document).on("keydown", async function (event) {
             if (consoleIsOpen == false && eKeyPressed != true) {
                 eKeyPressed = true;
                 while(eKeyPressed) {
-                    strafeRight();
+                    if (controlledEntity.strafeRight != undefined) {
+                        controlledEntity.strafeRight();
+                    }
                     await sleep(10);
                 }
             }
@@ -114,3 +127,8 @@ $(document).on("keyup", function (event) {
             break;
     }
 });
+
+$('canvas').on('click', (event) => {
+    let degree = event.clientX + event.clientY; // TODO: shoot lasers at position of cursor
+    new Laser(controlledEntity.x, controlledEntity.y, degree);
+})
