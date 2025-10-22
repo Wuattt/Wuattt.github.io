@@ -5,10 +5,12 @@ class Entity {
         this.x = x;
         this.y = y;
         this.deg = deg;
+        this.speed = 1;
         this.id = entityIdCounter;
         entitiesList.add(this);
         this.sprite = new Image();
         this.sprite.src = './Images/Sprites/missing-sprite.png';
+        this.isCruiser = false;
     }
     updateCoordinates () {
         // this exists only for cruisers' parts updating coordinates
@@ -29,20 +31,20 @@ class Entity {
         mapCtx.strokeStyle = 'white';
     }
     strafeLeft () {
-        this.x += 1 * (Math.round(((Math.cos(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
-        this.y += 1 * (Math.round(((Math.sin(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
+        this.x += this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
+        this.y += this.speed * (Math.round(((Math.sin(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
     }
     strafeRight () {
-        this.x -= 1 * (Math.round(((Math.cos(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
-        this.y -= 1 * (Math.round(((Math.sin(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
+        this.x -= this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
+        this.y -= this.speed * (Math.round(((Math.sin(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
     }
     moveForward () {
-        this.x += 1 * (Math.round(((Math.cos(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-        this.y += 1 * (Math.round(((Math.sin(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
+        this.x += this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
+        this.y += this.speed * (Math.round(((Math.sin(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
     moveBackwards () {
-        this.x -= 1 * (Math.round(((Math.cos(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-        this.y -= 1 * (Math.round(((Math.sin(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
+        this.x -= this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
+        this.y -= this.speed * (Math.round(((Math.sin(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
     rotateLeft () {
         this.deg -= 1;

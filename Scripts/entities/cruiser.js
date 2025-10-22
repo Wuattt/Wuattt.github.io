@@ -12,6 +12,7 @@ class Battlecruiser extends Entity {
         this.aft = new Cruiser__Aft(x, y, deg, this);
         this.leftWing = new Cruiser__LeftWing(x, y, deg, this);
         this.rightWing = new Cruiser__RightWing(x, y, deg, this);
+        this.isCruiser = true;
     }
 }
 
@@ -22,6 +23,7 @@ class Cruiser__Bow extends Entity {
         this.y;
         this.size = 13;
         this.cruiser = cruiser;
+        this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates () {
@@ -34,7 +36,19 @@ class Cruiser__Bow extends Entity {
         mapCtx.closePath();
         mapCtx.stroke();
     }
-    collide () {
+    collide (collidingObject) {
+        if (collidingObject.isCruiser) {
+            if (this.cruiser.x > collidingObject.cruiser.x) {
+            this.cruiser.x++; 
+        } else {
+            this.cruiser.x--;
+        }
+            if (this.cruiser.y > collidingObject.cruiser.y) {
+                this.cruiser.y++; 
+            } else {
+                this.cruiser.y--;
+            }
+        }
         mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
         mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
@@ -50,6 +64,7 @@ class Cruiser__leftBow extends Entity {
         this.y;
         this.size = 10;
         this.cruiser = cruiser;
+        this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates () {
@@ -62,7 +77,19 @@ class Cruiser__leftBow extends Entity {
         mapCtx.closePath();
         mapCtx.stroke();
     }
-    collide () {
+    collide (collidingObject) {
+        if (collidingObject.isCruiser) {
+            if (this.cruiser.x > collidingObject.cruiser.x) {
+            this.cruiser.x++; 
+        } else {
+            this.cruiser.x--;
+        }
+            if (this.cruiser.y > collidingObject.cruiser.y) {
+                this.cruiser.y++; 
+            } else {
+                this.cruiser.y--;
+            }
+        }
         mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
         mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
@@ -78,6 +105,7 @@ class Cruiser__rightBow extends Entity {
         this.y;
         this.size = 10;
         this.cruiser = cruiser;
+        this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates () {
@@ -90,7 +118,19 @@ class Cruiser__rightBow extends Entity {
         mapCtx.closePath();
         mapCtx.stroke();
     }
-    collide () {
+    collide (collidingObject) {
+        if (collidingObject.isCruiser) {
+            if (this.cruiser.x > collidingObject.cruiser.x) {
+            this.cruiser.x++; 
+        } else {
+            this.cruiser.x--;
+        }
+            if (this.cruiser.y > collidingObject.cruiser.y) {
+                this.cruiser.y++; 
+            } else {
+                this.cruiser.y--;
+            }
+        }
         mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
         mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
@@ -108,6 +148,7 @@ class Cruiser__Deck extends Entity {
         this.y;
         this.size = 18;
         this.cruiser = cruiser;
+        this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates () {
@@ -120,7 +161,19 @@ class Cruiser__Deck extends Entity {
         mapCtx.closePath();
         mapCtx.stroke();
     }
-    collide () {
+    collide (collidingObject) {
+        if (collidingObject.isCruiser) {
+            if (this.cruiser.x > collidingObject.cruiser.x) {
+            this.cruiser.x++; 
+        } else {
+            this.cruiser.x--;
+        }
+            if (this.cruiser.y > collidingObject.cruiser.y) {
+                this.cruiser.y++; 
+            } else {
+                this.cruiser.y--;
+            }
+        }
         mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
         mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
@@ -137,6 +190,7 @@ class Cruiser__Aft extends Entity {
         this.y;
         this.size = 20;
         this.cruiser = cruiser;
+        this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates () {
@@ -149,7 +203,19 @@ class Cruiser__Aft extends Entity {
         mapCtx.closePath();
         mapCtx.stroke();
     }
-    collide () {
+    collide (collidingObject) {
+        if (collidingObject.isCruiser) {
+            if (this.cruiser.x > collidingObject.cruiser.x) {
+            this.cruiser.x++; 
+        } else {
+            this.cruiser.x--;
+        }
+            if (this.cruiser.y > collidingObject.cruiser.y) {
+                this.cruiser.y++; 
+            } else {
+                this.cruiser.y--;
+            }
+        }
         mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
         mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
@@ -165,6 +231,7 @@ class Cruiser__LeftWing extends Entity {
         this.y;
         this.size = 15;
         this.cruiser = cruiser;
+        this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates () {
@@ -177,7 +244,19 @@ class Cruiser__LeftWing extends Entity {
         mapCtx.closePath();
         mapCtx.stroke();
     }
-    collide () {
+    collide (collidingObject) {
+        if (collidingObject.isCruiser) {
+            if (this.cruiser.x > collidingObject.cruiser.x) {
+            this.cruiser.x++; 
+        } else {
+            this.cruiser.x--;
+        }
+            if (this.cruiser.y > collidingObject.cruiser.y) {
+                this.cruiser.y++; 
+            } else {
+                this.cruiser.y--;
+            }
+        }
         mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
         mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
@@ -193,6 +272,7 @@ class Cruiser__RightWing extends Entity {
         this.y;
         this.size = 15;
         this.cruiser = cruiser;
+        this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates () {
@@ -205,7 +285,19 @@ class Cruiser__RightWing extends Entity {
         mapCtx.closePath();
         mapCtx.stroke();
     }
-    collide () {
+    collide (collidingObject) {
+        if (collidingObject.isCruiser) {
+            if (this.cruiser.x > collidingObject.cruiser.x) {
+            this.cruiser.x++; 
+        } else {
+            this.cruiser.x--;
+        }
+            if (this.cruiser.y > collidingObject.cruiser.y) {
+                this.cruiser.y++; 
+            } else {
+                this.cruiser.y--;
+            }
+        }
         mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
         mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
