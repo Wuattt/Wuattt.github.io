@@ -39,7 +39,7 @@ class Cruiser__Bow extends Entity {
     collide (collidingObject) {
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
-            this.cruiser.x++; 
+                this.cruiser.x++; 
             } else {
                 this.cruiser.x--;
             }
@@ -80,7 +80,7 @@ class Cruiser__leftBow extends Entity {
     collide (collidingObject) {
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
-            this.cruiser.x++; 
+                this.cruiser.x++; 
             } else {
                 this.cruiser.x--;
             }
@@ -121,7 +121,7 @@ class Cruiser__rightBow extends Entity {
     collide (collidingObject) {
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
-            this.cruiser.x++; 
+                this.cruiser.x++; 
             } else {
                 this.cruiser.x--;
             }
@@ -164,7 +164,7 @@ class Cruiser__Deck extends Entity {
     collide (collidingObject) {
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
-            this.cruiser.x++; 
+                this.cruiser.x++; 
             } else {
                 this.cruiser.x--;
             }
@@ -206,7 +206,7 @@ class Cruiser__Aft extends Entity {
     collide (collidingObject) {
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
-            this.cruiser.x++; 
+                this.cruiser.x++; 
             } else {
                 this.cruiser.x--;
             }
@@ -247,7 +247,7 @@ class Cruiser__LeftWing extends Entity {
     collide (collidingObject) {
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
-            this.cruiser.x++; 
+                this.cruiser.x++; 
             } else {
                 this.cruiser.x--;
             }
@@ -288,7 +288,7 @@ class Cruiser__RightWing extends Entity {
     collide (collidingObject) {
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
-            this.cruiser.x++; 
+                this.cruiser.x++; 
             } else {
                 this.cruiser.x--;
             }
