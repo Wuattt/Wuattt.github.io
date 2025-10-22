@@ -11,6 +11,8 @@ class Entity {
         this.sprite = new Image();
         this.sprite.src = './Images/Sprites/missing-sprite.png';
         this.isCruiser = false;
+        this.maxHealth = 100;
+        this.health = 100;
     }
     updateCoordinates () {
         // this exists only for cruisers' parts updating coordinates
@@ -28,6 +30,14 @@ class Entity {
         mapCtx.arc(this.x, this.y, 3, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
+        if (this.health > this.maxHealth * 0.5) {
+            mapCtx.fillStyle = 'green';
+        } else if (this.health > this.maxHealth * 0.25) {
+            mapCtx.fillStyle = 'yellow';
+        } else {
+            mapCtx.fillStyle = 'red';
+        }
+        mapCtx.fillRect(this.x - 30, this.y + 15, 60 * (this.health / this.maxHealth), 10);
         mapCtx.strokeStyle = 'white';
     }
     strafeLeft () {

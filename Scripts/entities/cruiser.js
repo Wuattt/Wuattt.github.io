@@ -38,6 +38,7 @@ class Cruiser__Bow extends Entity {
     }
     collide (collidingObject) {
         if (collidingObject.isCruiser) {
+            this.cruiser.health--;
             if (this.cruiser.x > collidingObject.cruiser.x) {
                 this.cruiser.x++; 
             } else {
@@ -78,6 +79,7 @@ class Cruiser__leftBow extends Entity {
         mapCtx.stroke();
     }
     collide (collidingObject) {
+        this.cruiser.health--;
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
                 this.cruiser.x++; 
@@ -119,6 +121,7 @@ class Cruiser__rightBow extends Entity {
         mapCtx.stroke();
     }
     collide (collidingObject) {
+        this.cruiser.health--;
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
                 this.cruiser.x++; 
@@ -162,6 +165,7 @@ class Cruiser__Deck extends Entity {
         mapCtx.stroke();
     }
     collide (collidingObject) {
+        this.cruiser.health--;
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
                 this.cruiser.x++; 
@@ -204,6 +208,7 @@ class Cruiser__Aft extends Entity {
         mapCtx.stroke();
     }
     collide (collidingObject) {
+        this.cruiser.health--;
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
                 this.cruiser.x++; 
@@ -245,6 +250,7 @@ class Cruiser__LeftWing extends Entity {
         mapCtx.stroke();
     }
     collide (collidingObject) {
+        this.cruiser.health--;
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
                 this.cruiser.x++; 
@@ -286,6 +292,7 @@ class Cruiser__RightWing extends Entity {
         mapCtx.stroke();
     }
     collide (collidingObject) {
+        this.cruiser.health--;
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
                 this.cruiser.x++; 
