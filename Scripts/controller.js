@@ -127,7 +127,8 @@ $(document).on("keyup", function (event) {
             break;
     }
 });
-let test;
+
 $('canvas').on('click', (event) => {
-    test = new Laser(event.clientX, event.clientY, 0);
+    let degree = event.clientX + event.clientY; // TODO: shoot lasers at position of cursor
+    new Laser(controlledEntity.x, controlledEntity.y, degree);
 })
