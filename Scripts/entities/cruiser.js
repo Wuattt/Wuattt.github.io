@@ -40,9 +40,9 @@ class Cruiser__Bow extends Entity {
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
             this.cruiser.x++; 
-        } else {
-            this.cruiser.x--;
-        }
+            } else {
+                this.cruiser.x--;
+            }
             if (this.cruiser.y > collidingObject.cruiser.y) {
                 this.cruiser.y++; 
             } else {
@@ -81,9 +81,9 @@ class Cruiser__leftBow extends Entity {
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
             this.cruiser.x++; 
-        } else {
-            this.cruiser.x--;
-        }
+            } else {
+                this.cruiser.x--;
+            }
             if (this.cruiser.y > collidingObject.cruiser.y) {
                 this.cruiser.y++; 
             } else {
@@ -122,9 +122,9 @@ class Cruiser__rightBow extends Entity {
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
             this.cruiser.x++; 
-        } else {
-            this.cruiser.x--;
-        }
+            } else {
+                this.cruiser.x--;
+            }
             if (this.cruiser.y > collidingObject.cruiser.y) {
                 this.cruiser.y++; 
             } else {
@@ -165,9 +165,9 @@ class Cruiser__Deck extends Entity {
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
             this.cruiser.x++; 
-        } else {
-            this.cruiser.x--;
-        }
+            } else {
+                this.cruiser.x--;
+            }
             if (this.cruiser.y > collidingObject.cruiser.y) {
                 this.cruiser.y++; 
             } else {
@@ -207,9 +207,9 @@ class Cruiser__Aft extends Entity {
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
             this.cruiser.x++; 
-        } else {
-            this.cruiser.x--;
-        }
+            } else {
+                this.cruiser.x--;
+            }
             if (this.cruiser.y > collidingObject.cruiser.y) {
                 this.cruiser.y++; 
             } else {
@@ -248,9 +248,9 @@ class Cruiser__LeftWing extends Entity {
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
             this.cruiser.x++; 
-        } else {
-            this.cruiser.x--;
-        }
+            } else {
+                this.cruiser.x--;
+            }
             if (this.cruiser.y > collidingObject.cruiser.y) {
                 this.cruiser.y++; 
             } else {
@@ -289,9 +289,9 @@ class Cruiser__RightWing extends Entity {
         if (collidingObject.isCruiser) {
             if (this.cruiser.x > collidingObject.cruiser.x) {
             this.cruiser.x++; 
-        } else {
-            this.cruiser.x--;
-        }
+            } else {
+                this.cruiser.x--;
+            }
             if (this.cruiser.y > collidingObject.cruiser.y) {
                 this.cruiser.y++; 
             } else {
