@@ -15,6 +15,9 @@ const update = () => {
     timeCountOne();
     entitiesList.forEach((entity) => {
         entity.updateCoordinates();
+        if (!entity.isDead) {
+            entity.generateEnergy();
+        }
         entity.render();
     })
     checkAllCollisions();

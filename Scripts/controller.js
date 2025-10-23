@@ -128,11 +128,17 @@ $(document).on("keyup", function (event) {
     }
 });
 
-$('canvas').on('click', (event) => {
+function shootLaser (event) {
+    if (controlledEntity.energy <= 20) {
+        return;
+    }
+    controlledEntity.energy -= 20;
     let distance = (Math.sqrt(Math.pow(event.clientX - controlledEntity.x, 2) + Math.pow(event.clientY - controlledEntity.y, 2)));
     let degree = inDeg(Math.PI / 2 + Math.asin((event.clientY - controlledEntity.y) / distance));
     if (event.clientX - controlledEntity.x < 0) {
         degree = -degree;
     }
-    new Laser(controlledEntity.x, controlledEntity.y, degree, controlledEntity); 
-})
+    new Laser(controlledEntity.x, controlledEntity.y, degree, controlledEntity);
+}
+
+$('canvas').on('click', shootLaser)

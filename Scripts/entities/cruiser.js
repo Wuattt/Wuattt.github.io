@@ -15,6 +15,47 @@ class Battlecruiser extends Entity {
         this.rightWing = new Cruiser__RightWing(x, y, deg, this);
         this.isCruiser = true;
     }
+    generateEnergy () {
+        if (this.energy < this.maxEnergy) {
+            this.energy += 0.1;
+        }
+    }
+    kill () {
+        if (this.isDead) {
+            return;
+        }
+        this.isDead = true;
+        this.energy = 0;
+        setTimeout(() => {
+            this.sprite.src = './Images/Sprites/explosion-sprites/Explosions pack/explosion-1-g/Sprites/frame1.png';
+        }, 100);
+        setTimeout(() => {
+            this.sprite.src = './Images/Sprites/explosion-sprites/Explosions pack/explosion-1-g/Sprites/frame2.png';
+        }, 500);
+        setTimeout(() => {
+            this.sprite.src = './Images/Sprites/explosion-sprites/Explosions pack/explosion-1-g/Sprites/frame3.png';
+        }, 1000);
+        setTimeout(() => {
+            this.sprite.src = './Images/Sprites/explosion-sprites/Explosions pack/explosion-1-g/Sprites/frame4.png';
+        }, 1500);
+        setTimeout(() => {
+            this.sprite.src = './Images/Sprites/explosion-sprites/Explosions pack/explosion-1-g/Sprites/frame5.png';
+        }, 2000);
+        setTimeout(() => {
+            this.sprite.src = './Images/Sprites/explosion-sprites/Explosions pack/explosion-1-g/Sprites/frame6.png';
+        }, 2500);
+        setTimeout(() => {
+            this.sprite.src = './Images/Sprites/empty.png';
+            entitiesList.delete(this.bow);
+            entitiesList.delete(this.leftBow);
+            entitiesList.delete(this.rightBow);
+            entitiesList.delete(this.deck);
+            entitiesList.delete(this.aft);
+            entitiesList.delete(this.leftWing);
+            entitiesList.delete(this.rightWing);
+            entitiesList.delete(this);
+        }, 3000);
+    }
 }
 
 class Cruiser__Bow extends Entity {
@@ -34,13 +75,16 @@ class Cruiser__Bow extends Entity {
     }
     render () {
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
     }
     collide (collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
+            if (this.cruiser.health <= 0) {
+                this.cruiser.kill();
+            }
             if (this.cruiser.x > collidingObject.cruiser.x) {
                 this.cruiser.x++; 
             } else {
@@ -54,7 +98,7 @@ class Cruiser__Bow extends Entity {
         }
         mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
         mapCtx.strokeStyle = 'white';
@@ -77,13 +121,16 @@ class Cruiser__leftBow extends Entity {
     }
     render () {
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
     }
     collide (collidingObject) {
-        this.cruiser.health--;
         if (collidingObject.isCruiser) {
+            this.cruiser.health--;
+            if (this.cruiser.health <= 0) {
+                this.cruiser.kill();
+            }
             if (this.cruiser.x > collidingObject.cruiser.x) {
                 this.cruiser.x++; 
             } else {
@@ -97,7 +144,7 @@ class Cruiser__leftBow extends Entity {
         }
         mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
         mapCtx.strokeStyle = 'white';
@@ -120,13 +167,16 @@ class Cruiser__rightBow extends Entity {
     }
     render () {
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
     }
     collide (collidingObject) {
-        this.cruiser.health--;
         if (collidingObject.isCruiser) {
+            this.cruiser.health--;
+            if (this.cruiser.health <= 0) {
+                this.cruiser.kill();
+            }
             if (this.cruiser.x > collidingObject.cruiser.x) {
                 this.cruiser.x++; 
             } else {
@@ -140,7 +190,7 @@ class Cruiser__rightBow extends Entity {
         }
         mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
         mapCtx.strokeStyle = 'white';
@@ -165,13 +215,16 @@ class Cruiser__Deck extends Entity {
     }
     render () {
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
     }
     collide (collidingObject) {
-        this.cruiser.health--;
         if (collidingObject.isCruiser) {
+            this.cruiser.health--;
+            if (this.cruiser.health <= 0) {
+                this.cruiser.kill();
+            }
             if (this.cruiser.x > collidingObject.cruiser.x) {
                 this.cruiser.x++; 
             } else {
@@ -185,7 +238,7 @@ class Cruiser__Deck extends Entity {
         }
         mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
         mapCtx.strokeStyle = 'white';
@@ -209,13 +262,16 @@ class Cruiser__Aft extends Entity {
     }
     render () {
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
     }
     collide (collidingObject) {
-        this.cruiser.health--;
         if (collidingObject.isCruiser) {
+            this.cruiser.health--;
+            if (this.cruiser.health <= 0) {
+                this.cruiser.kill();
+            }
             if (this.cruiser.x > collidingObject.cruiser.x) {
                 this.cruiser.x++; 
             } else {
@@ -229,7 +285,7 @@ class Cruiser__Aft extends Entity {
         }
         mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
         mapCtx.strokeStyle = 'white';
@@ -252,13 +308,16 @@ class Cruiser__LeftWing extends Entity {
     }
     render () {
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
     }
     collide (collidingObject) {
-        this.cruiser.health--;
         if (collidingObject.isCruiser) {
+            this.cruiser.health--;
+            if (this.cruiser.health <= 0) {
+                this.cruiser.kill();
+            }
             if (this.cruiser.x > collidingObject.cruiser.x) {
                 this.cruiser.x++; 
             } else {
@@ -272,7 +331,7 @@ class Cruiser__LeftWing extends Entity {
         }
         mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
         mapCtx.strokeStyle = 'white';
@@ -295,13 +354,16 @@ class Cruiser__RightWing extends Entity {
     }
     render () {
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
     }
     collide (collidingObject) {
-        this.cruiser.health--;
         if (collidingObject.isCruiser) {
+            this.cruiser.health--;
+            if (this.cruiser.health <= 0) {
+                this.cruiser.kill();
+            }
             if (this.cruiser.x > collidingObject.cruiser.x) {
                 this.cruiser.x++; 
             } else {
@@ -315,7 +377,7 @@ class Cruiser__RightWing extends Entity {
         }
         mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
         mapCtx.strokeStyle = 'white';

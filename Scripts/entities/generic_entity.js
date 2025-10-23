@@ -14,12 +14,21 @@ class Entity {
         this.isCruiser = false;
         this.maxHealth = 100;
         this.health = 100;
+        this.maxEnergy = 100;
+        this.energy = 50;
+        this.isDead = false;
     }
     updateCoordinates () {
         // this exists only for cruisers' parts updating coordinates
     }
     collide () {
 
+    }
+    kill () {
+        
+    }
+    generateEnergy () {
+        
     }
     render () {
         mapCtx.save();
@@ -28,10 +37,12 @@ class Entity {
         // rotate() rotates canvas instead of sprite image, so need to account for that when drawing.
         mapCtx.restore();
         mapCtx.beginPath();
-        mapCtx.arc(this.x, this.y, 3, 0, 2 * Math.PI);
+        // mapCtx.arc(this.x, this.y, 3, 0, 2 * Math.PI); // exact coordinates for testing
         mapCtx.closePath();
         mapCtx.stroke();
-        if (this.health > this.maxHealth * 0.5) {
+        if (this.health <= 0) {
+            this.health = 0;
+        } else if (this.health > this.maxHealth * 0.5) {
             mapCtx.fillStyle = 'green';
         } else if (this.health > this.maxHealth * 0.25) {
             mapCtx.fillStyle = 'yellow';
@@ -39,6 +50,8 @@ class Entity {
             mapCtx.fillStyle = 'red';
         }
         mapCtx.fillRect(this.x - 30, this.y + 15, 60 * (this.health / this.maxHealth), 10);
+        mapCtx.fillStyle = 'blue';
+        mapCtx.fillRect(this.x - 30, this.y + 25, 60 * (this.energy / this.maxEnergy), 10);
         mapCtx.strokeStyle = 'white';
     }
     strafeLeft () {

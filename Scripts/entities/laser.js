@@ -8,6 +8,7 @@ class Laser extends Entity {
         this.sprite.src = './Images/Sprites/laser-sprites/33.png';
         this.life = 2000;
         this.health = 0;
+        this.energy = 0;
         this.size = 1;
         this.cruiser = cruiser;
         setInterval(() => {
@@ -18,7 +19,12 @@ class Laser extends Entity {
         }, this.life);
     };
     collide (collidingObject) {
-        collidingObject.cruiser.health -= 10;
+        if (collidingObject.isCruiser) {
+            collidingObject.cruiser.health -= 10;
+            if (collidingObject.cruiser.health <= 0) {
+                collidingObject.cruiser.kill();
+            }
+        }
         entitiesList.delete(this);
     }
 }
