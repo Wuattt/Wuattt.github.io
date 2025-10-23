@@ -2,6 +2,7 @@
 class Entity {
     constructor(x = 0, y = 0, deg = 0) {
         ++entityIdCounter;
+        this.name = 'Generic Entity';
         this.x = x;
         this.y = y;
         this.deg = deg;

@@ -2,6 +2,7 @@
 class Battlecruiser extends Entity {
     constructor(x = 0, y = 0, deg = 0) {
         super(x, y, deg);
+        this.name = 'Cruiser';
         this.width = 81;
         this.height = 118;
         this.sprite.src = './Images/Sprites/battlecruiser.png';
@@ -19,6 +20,7 @@ class Battlecruiser extends Entity {
 class Cruiser__Bow extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg);
+        this.name = 'Cruiser Bow';
         this.x;
         this.y;
         this.size = 13;
@@ -61,6 +63,7 @@ class Cruiser__Bow extends Entity {
 class Cruiser__leftBow extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg);
+        this.name = 'Cruiser Left Bow';
         this.x;
         this.y;
         this.size = 10;
@@ -103,6 +106,7 @@ class Cruiser__leftBow extends Entity {
 class Cruiser__rightBow extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg);
+        this.name = 'Cruiser Right Bow';
         this.x;
         this.y;
         this.size = 10;
@@ -147,6 +151,7 @@ class Cruiser__rightBow extends Entity {
 class Cruiser__Deck extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg);
+        this.name = 'Cruiser Deck';
         this.x;
         this.y;
         this.size = 18;
@@ -190,6 +195,7 @@ class Cruiser__Deck extends Entity {
 class Cruiser__Aft extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg);
+        this.name = 'Cruiser Aft';
         this.x;
         this.y;
         this.size = 20;
@@ -232,6 +238,7 @@ class Cruiser__Aft extends Entity {
 class Cruiser__LeftWing extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg);
+        this.name = 'Cruiser Left Wing';
         this.x;
         this.y;
         this.size = 15;
@@ -274,6 +281,7 @@ class Cruiser__LeftWing extends Entity {
 class Cruiser__RightWing extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg);
+        this.name = 'Cruiser Right Wing';
         this.x;
         this.y;
         this.size = 15;
