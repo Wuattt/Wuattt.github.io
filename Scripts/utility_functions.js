@@ -9,5 +9,7 @@ const sleep = (ms) => {
 const inRad = (degrees) => {
     return (degrees * Math.PI) / 180;
 }
-
+const inDeg = (rad) => {
+    return (rad / Math.PI) * 180;
+}
 
