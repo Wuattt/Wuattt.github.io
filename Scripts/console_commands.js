@@ -34,7 +34,7 @@ form.addEventListener('submit', (e) => {
             break;
         case '/help':
             let commandList = document.createElement('p');
-            commandList.innerHTML = '/exit /help';
+            commandList.innerHTML = '/exit /help /possess /reset';
             commandList.style.color = 'green';
             commandList.style.visibility = 'visible';
             setTimeout(() => {
@@ -50,6 +50,14 @@ form.addEventListener('submit', (e) => {
                 controlledEntity = dragon;
             }
             closeConsole();
+            break;
+        case '/reset':
+            entitiesList.forEach((entity) => {
+                entitiesList.delete(entity);
+            })
+            dragon = new Battlecruiser(450, 322, 90);
+            cyclops = new Battlecruiser(650, 322, 270);
+            controlledEntity = dragon;
             break;
         default:
             if (isFlashFirst) {
