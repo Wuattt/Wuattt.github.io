@@ -129,6 +129,10 @@ $(document).on("keyup", function (event) {
 });
 
 $('canvas').on('click', (event) => {
-    let degree = event.clientX + event.clientY; // TODO: shoot lasers at position of cursor
-    new Laser(controlledEntity.x, controlledEntity.y, degree);
+    let distance = (Math.sqrt(Math.pow(event.clientX - controlledEntity.x, 2) + Math.pow(event.clientY - controlledEntity.y, 2)));
+    let degree = inDeg(Math.PI / 2 + Math.asin((event.clientY - controlledEntity.y) / distance)); // TODO: shoot lasers at position of cursor
+    if (event.clientX - controlledEntity.x < 0) {
+        degree = -degree;
+    }
+    new Laser(controlledEntity.x, controlledEntity.y, degree); 
 })
