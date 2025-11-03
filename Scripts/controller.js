@@ -92,8 +92,6 @@ $(document).on("keydown", async function (event) {
                 shiftKeyPressed = true;
                 while(shiftKeyPressed) {
                     if (controlledEntity.energy != undefined && controlledEntity.energy > 0) {
-                        console.log(controlledEntity.speedBoost);
-                        console.log(controlledEntity.speed);
                         controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost;
                         controlledEntity.energy--;
                     } else {
@@ -110,6 +108,17 @@ $(document).on("keydown", async function (event) {
         case 84: // t key
             if (consoleIsOpen == false) {
                 openConsole();
+            }
+            break;
+        case 13: // enter key
+            if (consoleIsOpen == false) {
+                openConsole();
+            }
+            break;
+        case 191: // / key
+            if (consoleIsOpen == false) {
+                openConsole();
+                $('#console input')[0].value = '/';
             }
             break;
         case 27: // esc key
@@ -147,6 +156,16 @@ $(document).on("keyup", function (event) {
             controlledEntity.speed = controlledEntity.baseSpeed;
             break;
         case 84: // t key
+            if (consoleIsOpen == true) {
+                $('#console input').focus();
+            }
+            break;
+        case 13: // enter key
+            if (consoleIsOpen == true) {
+                $('#console input').focus();
+            }
+            break;
+        case 191: // / key
             if (consoleIsOpen == true) {
                 $('#console input').focus();
             }
