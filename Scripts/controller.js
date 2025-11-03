@@ -103,6 +103,10 @@ $(document).on("keydown", async function (event) {
                 }
             }
             break;
+        case 221: // ] key (cheats)
+            controlledEntity.energy = controlledEntity.maxEnergy;
+            controlledEntity.health = controlledEntity.maxHealth;
+            break;
         case 84: // t key
             if (consoleIsOpen == false) {
                 openConsole();
@@ -140,7 +144,7 @@ $(document).on("keyup", function (event) {
             break;
         case 16:
             shiftKeyPressed = false;
-            controlledEntity.afterburner = 1;
+            controlledEntity.speed = controlledEntity.baseSpeed;
             break;
         case 84: // t key
             if (consoleIsOpen == true) {
