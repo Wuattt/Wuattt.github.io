@@ -6,20 +6,21 @@ let aKeyPressed = false;
 let dKeyPressed = false;
 let qKeyPressed = false;
 let eKeyPressed = false;
+let shiftKeyPressed = false;
 let consoleIsOpen = false;
 
 let controlledEntity = dragon;
 
-/*
-const whichKeyPressed = (subject) => {
+
+/* const whichKeyPressed = (subject) => {
     console.log(subject);
-}
-*/
+} */
+
 
 $(document).on("keydown", async function (event) {
     // whichKeyPressed(event.which);
     switch(event.which) {
-        case 87:
+        case 87: // w key
             if (consoleIsOpen == false && wKeyPressed != true) {
                 wKeyPressed = true;
                 while(wKeyPressed) {
@@ -30,7 +31,7 @@ $(document).on("keydown", async function (event) {
                 }
             }
             break;
-        case 83:
+        case 83: // s key
             if (consoleIsOpen == false && sKeyPressed != true) {
                 sKeyPressed = true;
                 while(sKeyPressed) {
@@ -41,7 +42,7 @@ $(document).on("keydown", async function (event) {
                 }
             }
             break;
-        case 65:
+        case 65: // a key
             if (consoleIsOpen == false && aKeyPressed != true) {
                 aKeyPressed = true;
                 while(aKeyPressed) {
@@ -52,7 +53,7 @@ $(document).on("keydown", async function (event) {
                 }
             }
             break;
-        case 68:
+        case 68: // d key
             if (consoleIsOpen == false && dKeyPressed != true) {
                 dKeyPressed = true;
                 while(dKeyPressed) {
@@ -63,7 +64,7 @@ $(document).on("keydown", async function (event) {
                 }
             }
             break;
-        case 81:
+        case 81: // q key
             if (consoleIsOpen == false && qKeyPressed != true) {
                 qKeyPressed = true;
                 while(qKeyPressed) {
@@ -74,12 +75,29 @@ $(document).on("keydown", async function (event) {
                 }
             }
             break;
-        case 69:
+        case 69: // e key
             if (consoleIsOpen == false && eKeyPressed != true) {
                 eKeyPressed = true;
                 while(eKeyPressed) {
                     if (controlledEntity.strafeRight != undefined) {
                         controlledEntity.strafeRight();
+                    }
+                    await sleep(10);
+                }
+            }
+            break;
+        case 16: // shift key
+            if (consoleIsOpen == false && shiftKeyPressed != true) {
+                controlledEntity.speedBoost = 2;
+                shiftKeyPressed = true;
+                while(shiftKeyPressed) {
+                    if (controlledEntity.energy != undefined && controlledEntity.energy > 0) {
+                        console.log(controlledEntity.speedBoost);
+                        console.log(controlledEntity.speed);
+                        controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost;
+                        controlledEntity.energy--;
+                    } else {
+                        controlledEntity.speed = controlledEntity.baseSpeed;
                     }
                     await sleep(10);
                 }
@@ -119,6 +137,10 @@ $(document).on("keyup", function (event) {
             break;
         case 69:
             eKeyPressed = false;
+            break;
+        case 16:
+            shiftKeyPressed = false;
+            controlledEntity.afterburner = 1;
             break;
         case 84: // t key
             if (consoleIsOpen == true) {

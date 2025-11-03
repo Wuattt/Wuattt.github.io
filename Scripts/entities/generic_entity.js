@@ -6,7 +6,9 @@ class Entity {
         this.x = x;
         this.y = y;
         this.deg = deg;
-        this.speed = 1;
+        this.speedBoost = 1;
+        this.baseSpeed = 1;
+        this.speed = this.baseSpeed * this.speedBoost;
         this.id = entityIdCounter;
         entitiesList.add(this);
         this.sprite = new Image();
