@@ -34,7 +34,7 @@ form.addEventListener('submit', (e) => {
             break;
         case '/help':
             let commandList = document.createElement('p');
-            commandList.innerHTML = '/exit /help /possess /reset';
+            commandList.innerHTML = '/exit /help /possess /reset /heal';
             commandList.style.color = 'green';
             commandList.style.visibility = 'visible';
             setTimeout(() => {
@@ -58,6 +58,12 @@ form.addEventListener('submit', (e) => {
             dragon = new Battlecruiser(450, 322, 90);
             cyclops = new Battlecruiser(650, 322, 270);
             controlledEntity = dragon;
+            closeConsole();
+            break;
+        case '/heal':
+            controlledEntity.energy = controlledEntity.maxEnergy;
+            controlledEntity.health = controlledEntity.maxHealth;
+            closeConsole();
             break;
         default:
             if (isFlashFirst) {
