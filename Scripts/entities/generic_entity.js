@@ -26,6 +26,11 @@ class Entity {
     collide () {
 
     }
+    tryKill() {
+        if (this.health <= 0) {
+            this.kill();
+        }
+    }
     kill () {
         
     }

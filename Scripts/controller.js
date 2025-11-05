@@ -107,6 +107,7 @@ $(document).on("keydown", async function (event) {
             if (controlledEntity && isConsoleOpen == false) {
                 controlledEntity.energy = controlledEntity.maxEnergy;
                 controlledEntity.health = controlledEntity.maxHealth;
+                controlledEntity.shieldEnergyStored = controlledEntity.shieldCapacity;
             }
             break;
         case 32: // space key
@@ -210,14 +211,21 @@ $('#lasersUP10').on('click', () => {
 });
 $('#shieldUP').on('click', () => {
     if (controlledEntity) {
+        if (controlledEntity.shieldCapacity >= controlledEntity.shieldEnergyMax) {
+            return;
+        }
         controlledEntity.shieldEnergyAllocated += 5;
-        controlledEntity.shieldEnergyMax = controlledEntity.shieldEnergyAllocated * 1000;
+        controlledEntity.shieldCapacity = controlledEntity.shieldEnergyAllocated * 1000;
     }
 });
 $('#shieldUP10').on('click', () => {
     if (controlledEntity) {
         controlledEntity.shieldEnergyAllocated += 50;
-        controlledEntity.shieldEnergyMax = controlledEntity.shieldEnergyAllocated * 1000;
+        controlledEntity.shieldCapacity = controlledEntity.shieldEnergyAllocated * 1000;
+        if (controlledEntity.shieldCapacity >= controlledEntity.shieldEnergyMax) {
+            controlledEntity.shieldEnergyAllocated = controlledEntity.shieldEnergyMax / 1000;
+            controlledEntity.shieldCapacity = controlledEntity.shieldEnergyAllocated * 1000;
+        }
     }
 });
 $('#engineUP').on('click', () => {
@@ -225,8 +233,8 @@ $('#engineUP').on('click', () => {
         controlledEntity.engineEnergyAllocated += 5;
         controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
     }
-    if (controlledEntity.engineEnergyAllocated > 100) {
-        controlledEntity.engineEnergyAllocated = 100;
+    if (controlledEntity.engineEnergyAllocated > controlledEntity.engineEnergyMax) {
+        controlledEntity.engineEnergyAllocated = controlledEntity.engineEnergyMax;
         controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
     }
 });
@@ -235,8 +243,8 @@ $('#engineUP10').on('click', () => {
         controlledEntity.engineEnergyAllocated += 50;
         controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
     }
-    if (controlledEntity.engineEnergyAllocated > 100) {
-        controlledEntity.engineEnergyAllocated = 100;
+    if (controlledEntity.engineEnergyAllocated > controlledEntity.engineEnergyMax) {
+        controlledEntity.engineEnergyAllocated = controlledEntity.engineEnergyMax;
         controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
     }
 });
@@ -260,21 +268,21 @@ $('#lasersDOWN10').on('click', () => {
 $('#shieldDOWN').on('click', () => {
     if (controlledEntity) {
         controlledEntity.shieldEnergyAllocated -= 5;
-        controlledEntity.shieldEnergyMax = controlledEntity.shieldEnergyAllocated * 1000;
+        controlledEntity.shieldCapacity = controlledEntity.shieldEnergyAllocated * 1000;
     }
     if (controlledEntity.shieldEnergyAllocated < 0) {
         controlledEntity.shieldEnergyAllocated = 0;
-        controlledEntity.shieldEnergyMax = controlledEntity.shieldEnergyAllocated * 1000;
+        controlledEntity.shieldCapacity = controlledEntity.shieldEnergyAllocated * 1000;
     }
 });
 $('#shieldDOWN10').on('click', () => {
     if (controlledEntity) {
         controlledEntity.shieldEnergyAllocated -= 50;
-        controlledEntity.shieldEnergyMax = controlledEntity.shieldEnergyAllocated * 1000;
+        controlledEntity.shieldCapacity = controlledEntity.shieldEnergyAllocated * 1000;
     }
     if (controlledEntity.shieldEnergyAllocated < 0) {
         controlledEntity.shieldEnergyAllocated = 0;
-        controlledEntity.shieldEnergyMax = controlledEntity.shieldEnergyAllocated * 1000;
+        controlledEntity.shieldCapacity = controlledEntity.shieldEnergyAllocated * 1000;
     }
 });
 $('#engineDOWN').on('click', () => {

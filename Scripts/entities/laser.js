@@ -21,11 +21,12 @@ class Laser extends Entity {
         }, this.life);
     };
     collide (collidingObject) {
-        if (collidingObject.isCruiser) {
-            collidingObject.cruiser.health -= 10;
-            if (collidingObject.cruiser.health <= 0) {
-                collidingObject.cruiser.kill();
-            }
+        if (collidingObject instanceof Shield) {
+            collidingObject.cruiser.shieldEnergyStored -= 2000;
+            collidingObject.tryTurnOff();
+        } else if (collidingObject.isCruiser) {
+                collidingObject.cruiser.health -= 10;
+                collidingObject.cruiser.tryKill();
         }
         entitiesList.delete(this);
     }

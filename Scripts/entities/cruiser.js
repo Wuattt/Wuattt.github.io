@@ -14,22 +14,25 @@ class Battlecruiser extends Entity {
         this.aft = new Cruiser__Aft(x, y, deg, this);
         this.leftWing = new Cruiser__LeftWing(x, y, deg, this);
         this.rightWing = new Cruiser__RightWing(x, y, deg, this);
+        this.shield = new Shield(x, y, deg, this);
         this.isCruiser = true;
         this.isSpeedBoostOn = false;
         this.shieldEnergyStored = 0;
         this.shieldEnergyAllocated = 5;
         this.shieldEnergyDraw = 5;
-        this.shieldEnergyMax = this.shieldEnergyAllocated * 1000;
+        this.shieldCapacity = this.shieldEnergyAllocated * 1000;
+        this.shieldEnergyMax = 150000;
         this.lasersEnergyStored = 1000;
         this.lasersEnergyMax = 20000;
         this.lasersEnergyAllocated = 5;
         this.lasersEnergyDraw = 5;
         this.engineEnergyAllocated = 100;
+        this.engineEnergyMax = 100;
         this.engineEnergyDraw = 100;
         this.generatorStrength = 1000;
         this.speed = this.baseSpeed * (this.engineEnergyAllocated / 100);
     }
-    generateEnergy () {
+    generateEnergy() {
         let generatedEnergy = this.generatorStrength;
         if (this.lasersEnergyStored < this.lasersEnergyMax) {
             this.lasersEnergyDraw = this.lasersEnergyAllocated;
@@ -38,15 +41,19 @@ class Battlecruiser extends Entity {
             this.lasersEnergyStored = this.lasersEnergyMax;
             this.lasersEnergyDraw = 0;
         }
-        if (this.shieldEnergyStored < this.shieldEnergyMax) {
+        if (this.shieldEnergyStored < this.shieldCapacity) {
             this.shieldEnergyDraw = this.shieldEnergyAllocated;
             this.shieldEnergyStored += this.shieldEnergyDraw;
-        } else if (this.shieldEnergyStored > this.shieldEnergyMax) {
-            let shieldEnergySurplus = Math.ceil((this.shieldEnergyStored - this.shieldEnergyMax) / 100, 0);
+            this.shield.restore();
+            if (this.shieldEnergyStored > this.shieldCapacity) {
+                this.shieldEnergyStored = this.shieldCapacity;
+            }
+        } else if (this.shieldEnergyStored > this.shieldCapacity) {
+            let shieldEnergySurplus = Math.ceil((this.shieldEnergyStored - this.shieldCapacity) / 100, 0);
             this.shieldEnergyStored -= shieldEnergySurplus;
             this.shieldEnergyDraw = -shieldEnergySurplus * 0.75;
         } else {
-            this.shieldEnergyStored = this.shieldEnergyMax;
+            this.shieldEnergyStored = this.shieldCapacity;
             this.shieldEnergyDraw = this.shieldEnergyAllocated / 4;
             generatedEnergy += this.shieldEnergyDraw;
         }
@@ -64,7 +71,7 @@ class Battlecruiser extends Entity {
             this.shortCircuit();
         }
     }
-    shortCircuit () {
+    shortCircuit() {
         this.energy = 0;
         this.shieldEnergyAllocated = 0;
         this.lasersEnergyAllocated = 0;
@@ -99,7 +106,7 @@ class Battlecruiser extends Entity {
             degree = -degree;
         }
         new Laser(this.x, this.y, degree, this);
-}
+    }
     kill() {
         if (this.isDead) {
             return;
@@ -141,7 +148,69 @@ class Battlecruiser extends Entity {
         }
     }
 }
-
+class Shield extends Entity {
+    constructor(x = 0, y = 0, deg = 0, cruiser) {
+        super(cruiser.x, cruiser.y, cruiser.deg);
+        this.name = 'Cruiser Bow';
+        this.x;
+        this.y;
+        this.size = 70;
+        this.cruiser = cruiser;
+        this.isCruiser = true;
+    }
+    updateCoordinates() {
+        this.x = this.cruiser.x;
+        this.y = this.cruiser.y;
+    }
+    render() {
+        mapCtx.beginPath();
+        mapCtx.strokeStyle = 'blue';
+        if (this.size > 10) {
+            mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+            if (this.cruiser.shieldEnergyStored > 10000) {
+                mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+            }
+            if (this.cruiser.shieldEnergyStored > 20000) {
+                mapCtx.arc(this.x, this.y, this.size - 4, 0, 2 * Math.PI);
+            }
+        }
+        mapCtx.closePath();
+        mapCtx.stroke();
+    }
+    restore() {
+        if (this.cruiser.shieldEnergyStored > this.cruiser.shieldCapacity * 0.2) {
+            this.size = 70;
+        }
+    }
+    tryTurnOff() {
+        if (this.cruiser.shieldEnergyStored <= 0) {
+            this.cruiser.shieldEnergyStored = 0;
+            this.size = 4;
+        }
+    }
+    collide(collidingObject) {
+        if (collidingObject.isCruiser) {
+            this.cruiser.shieldEnergyStored -= 1000;
+            this.tryTurnOff();
+            if (this.cruiser.x > collidingObject.cruiser.x) {
+                this.cruiser.x++;
+            } else {
+                this.cruiser.x--;
+            }
+            if (this.cruiser.y > collidingObject.cruiser.y) {
+                this.cruiser.y++;
+            } else {
+                this.cruiser.y--;
+            }
+        }
+        mapCtx.strokeStyle = 'red';
+        mapCtx.beginPath();
+        mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
+        mapCtx.closePath();
+        mapCtx.stroke();
+        mapCtx.strokeStyle = 'white';
+    }
+}
 class Cruiser__Bow extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg);
@@ -188,6 +257,7 @@ class Cruiser__Bow extends Entity {
         mapCtx.strokeStyle = 'white';
     }
 }
+
 class Cruiser__leftBow extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg);
