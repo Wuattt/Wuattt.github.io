@@ -10,6 +10,24 @@ const setGameSpeed = (coefficient = gameSpeed) => {
     })(gameSpeed);
 }
 
+const updateStatus = () => {
+    if (controlledEntity) {
+        hull.innerHTML = `Hull: ${controlledEntity.health}`;
+        shield.innerHTML = `Shield: ${controlledEntity.shieldEnergyStored} GW`;
+        shield_setup.innerHTML = `Shield setup: ${controlledEntity.shieldEnergyAllocated} GW/s`;
+        shield_draw.innerHTML = `Shield draw: ${controlledEntity.shieldEnergyDraw} GW/s`;
+        lasers.innerHTML = `Lasers: ${controlledEntity.lasersEnergyStored} GW`;
+        lasers_setup.innerHTML = `Lasers setup: ${controlledEntity.lasersEnergyAllocated} GW/s`;
+        lasers_draw.innerHTML = `Lasers draw: ${controlledEntity.lasersEnergyDraw} GW/s`;
+        engine_speed.innerHTML = `Speed: ${controlledEntity.speed} km/s`;
+        engine_setup.innerHTML = `Engine setup: ${controlledEntity.engineEnergyAllocated} GW/s`;
+        engine_draw.innerHTML = `Engine draw: ${controlledEntity.engineEnergyDraw} GW/s`;
+        capacitor.innerHTML = `Capacitor: ${controlledEntity.energy} GW`;
+        generator.innerHTML = `Generator: ${controlledEntity.generatorStrength} GW/s`;
+        energy_generation.innerHTML = `Energy generation: ${controlledEntity.generatorStrength - controlledEntity.lasersEnergyDraw - controlledEntity.shieldEnergyDraw - controlledEntity.engineEnergyDraw} GW/s`;
+    }
+}
+
 const update = () => {
     mapCtx.clearRect(0, 0, map.width, map.height);
     timeCountOne();
@@ -21,6 +39,7 @@ const update = () => {
         entity.render();
     })
     checkAllCollisions();
+    updateStatus();
 }
 
 const init = () => {

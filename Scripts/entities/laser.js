@@ -6,6 +6,8 @@ class Laser extends Entity {
         this.width = 80;
         this.height = 80;
         this.sprite.src = './Images/Sprites/laser-sprites/33.png';
+        this.baseSpeed = 1;
+        this.speed = this.baseSpeed;
         this.life = 2000;
         this.health = 0;
         this.energy = 0;

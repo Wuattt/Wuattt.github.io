@@ -3,13 +3,13 @@ function openConsole () {
     if (!gameConsole.style.display || gameConsole.style.visibility == 'hidden') {
         gameConsole.style.display = 'grid';
         gameConsole.style.visibility = 'visible';
-        consoleIsOpen = true;
+        isConsoleOpen = true;
     }
 }
 function closeConsole () {
     if (gameConsole.style.visibility == 'visible') {
         gameConsole.style.visibility = 'hidden';
-        consoleIsOpen = false;
+        isConsoleOpen = false;
     }
 }
 

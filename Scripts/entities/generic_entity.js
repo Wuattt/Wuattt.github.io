@@ -16,8 +16,8 @@ class Entity {
         this.isCruiser = false;
         this.maxHealth = 100;
         this.health = 100;
-        this.maxEnergy = 100;
-        this.energy = 50;
+        this.maxEnergy = 300000;
+        this.energy = 5000;
         this.isDead = false;
     }
     updateCoordinates () {

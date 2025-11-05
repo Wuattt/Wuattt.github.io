@@ -7,7 +7,8 @@ let dKeyPressed = false;
 let qKeyPressed = false;
 let eKeyPressed = false;
 let shiftKeyPressed = false;
-let consoleIsOpen = false;
+let isConsoleOpen = false;
+let isControlPanelOpen = true;
 
 let controlledEntity = dragon;
 
@@ -19,11 +20,11 @@ let controlledEntity = dragon;
 
 $(document).on("keydown", async function (event) {
     // whichKeyPressed(event.which);
-    switch(event.which) {
+    switch (event.which) {
         case 87: // w key
-            if (consoleIsOpen == false && wKeyPressed != true) {
+            if (controlledEntity && isConsoleOpen == false && wKeyPressed != true) {
                 wKeyPressed = true;
-                while(wKeyPressed) {
+                while (controlledEntity && wKeyPressed) {
                     if (controlledEntity.moveForward != undefined) {
                         controlledEntity.moveForward();
                     }
@@ -32,9 +33,9 @@ $(document).on("keydown", async function (event) {
             }
             break;
         case 83: // s key
-            if (consoleIsOpen == false && sKeyPressed != true) {
+            if (controlledEntity && isConsoleOpen == false && sKeyPressed != true) {
                 sKeyPressed = true;
-                while(sKeyPressed) {
+                while (controlledEntity && sKeyPressed) {
                     if (controlledEntity.moveBackwards != undefined) {
                         controlledEntity.moveBackwards();
                     }
@@ -43,9 +44,9 @@ $(document).on("keydown", async function (event) {
             }
             break;
         case 65: // a key
-            if (consoleIsOpen == false && aKeyPressed != true) {
+            if (controlledEntity && isConsoleOpen == false && aKeyPressed != true) {
                 aKeyPressed = true;
-                while(aKeyPressed) {
+                while (controlledEntity && aKeyPressed) {
                     if (controlledEntity.rotateLeft != undefined) {
                         controlledEntity.rotateLeft();
                     }
@@ -54,9 +55,9 @@ $(document).on("keydown", async function (event) {
             }
             break;
         case 68: // d key
-            if (consoleIsOpen == false && dKeyPressed != true) {
+            if (controlledEntity && isConsoleOpen == false && dKeyPressed != true) {
                 dKeyPressed = true;
-                while(dKeyPressed) {
+                while (controlledEntity && dKeyPressed) {
                     if (controlledEntity.rotateRight != undefined) {
                         controlledEntity.rotateRight();
                     }
@@ -65,9 +66,9 @@ $(document).on("keydown", async function (event) {
             }
             break;
         case 81: // q key
-            if (consoleIsOpen == false && qKeyPressed != true) {
+            if (controlledEntity && isConsoleOpen == false && qKeyPressed != true) {
                 qKeyPressed = true;
-                while(qKeyPressed) {
+                while (controlledEntity && qKeyPressed) {
                     if (controlledEntity.strafeLeft != undefined) {
                         controlledEntity.strafeLeft();
                     }
@@ -76,9 +77,9 @@ $(document).on("keydown", async function (event) {
             }
             break;
         case 69: // e key
-            if (consoleIsOpen == false && eKeyPressed != true) {
+            if (controlledEntity && isConsoleOpen == false && eKeyPressed != true) {
                 eKeyPressed = true;
-                while(eKeyPressed) {
+                while (controlledEntity && eKeyPressed) {
                     if (controlledEntity.strafeRight != undefined) {
                         controlledEntity.strafeRight();
                     }
@@ -87,55 +88,64 @@ $(document).on("keydown", async function (event) {
             }
             break;
         case 16: // shift key
-            if (consoleIsOpen == false && shiftKeyPressed != true) {
+            if (controlledEntity && isConsoleOpen == false && shiftKeyPressed != true) {
                 controlledEntity.speedBoost = 2;
                 shiftKeyPressed = true;
                 controlledEntity.isSpeedBoostOn = true;
-                while(shiftKeyPressed) {
+                while (controlledEntity && shiftKeyPressed) {
                     controlledEntity.boostSpeed();
                     await sleep(10);
                 }
             }
             break;
         case 193: // ` key
-            if (consoleIsOpen == false) {
-                
+            if (isConsoleOpen == false) {
+                // TODO: change view from outside view to inside
             }
             break;
         case 221: // ] key (cheats)
-            if (consoleIsOpen == false){
+            if (controlledEntity && isConsoleOpen == false) {
                 controlledEntity.energy = controlledEntity.maxEnergy;
                 controlledEntity.health = controlledEntity.maxHealth;
             }
             break;
+        case 32: // space key
+            if (controlledEntity && isConsoleOpen == false && isControlPanelOpen) {
+                control_panel.style.display = 'none';
+                isControlPanelOpen = false;
+            } else {
+                control_panel.style.display = 'block';
+                isControlPanelOpen = true;
+            }
+            break;
         case 84: // t key
-            if (consoleIsOpen == false) {
+            if (isConsoleOpen == false) {
                 openConsole();
             }
             break;
         case 13: // enter key
-            if (consoleIsOpen == false) {
+            if (isConsoleOpen == false) {
                 openConsole();
             }
             break;
         case 191: // '/' key
-            if (consoleIsOpen == false) {
+            if (isConsoleOpen == false) {
                 openConsole();
                 $('#console input')[0].value = '/';
             }
             break;
         case 27: // esc key
-            if (consoleIsOpen == true) {
+            if (isConsoleOpen == true) {
                 closeConsole();
             }
             break;
     }
-    
+
 });
 
 
 $(document).on("keyup", function (event) {
-    switch(event.which) {
+    switch (event.which) {
         case 65:
             aKeyPressed = false;
             break;
@@ -144,7 +154,7 @@ $(document).on("keyup", function (event) {
             break;
         case 87:
             wKeyPressed = false;
-            break;  
+            break;
         case 83:
             sKeyPressed = false;
             break;
@@ -156,38 +166,134 @@ $(document).on("keyup", function (event) {
             break;
         case 16:
             shiftKeyPressed = false;
-            controlledEntity.isSpeedBoostOn = false;
-            controlledEntity.speed = controlledEntity.baseSpeed;
+            if (controlledEntity) {
+                controlledEntity.isSpeedBoostOn = false;
+                controlledEntity.speed = controlledEntity.baseSpeed * (controlledEntity.engineEnergyAllocated / 100);
+            }
             break;
         case 84: // t key
-            if (consoleIsOpen == true) {
+            if (isConsoleOpen == true) {
                 $('#console input').focus();
             }
             break;
         case 13: // enter key
-            if (consoleIsOpen == true) {
+            if (isConsoleOpen == true) {
                 $('#console input').focus();
             }
             break;
         case 191: // '/' key
-            if (consoleIsOpen == true) {
+            if (isConsoleOpen == true) {
                 $('#console input').focus();
             }
             break;
     }
 });
 
-function shootLaser (event) {
-    if (controlledEntity.energy <= 20) {
-        return;
+// shooting lasers
+$('canvas').on('click', (event) => {
+    if (controlledEntity) {
+        let clientX = event.clientX;
+        let clientY = event.clientY;
+        controlledEntity.shootLaser(clientX, clientY);
     }
-    controlledEntity.energy -= 20;
-    let distance = (Math.sqrt(Math.pow(event.clientX - controlledEntity.x, 2) + Math.pow(event.clientY - controlledEntity.y, 2)));
-    let degree = inDeg(Math.PI / 2 + Math.asin((event.clientY - controlledEntity.y) / distance));
-    if (event.clientX - controlledEntity.x < 0) {
-        degree = -degree;
+})
+// powering up
+$('#lasersUP').on('click', () => {
+    if (controlledEntity) {
+        controlledEntity.lasersEnergyAllocated += 5;
     }
-    new Laser(controlledEntity.x, controlledEntity.y, degree, controlledEntity);
-}
-
-$('canvas').on('click', shootLaser)
+});
+$('#lasersUP10').on('click', () => {
+    if (controlledEntity) {
+        controlledEntity.lasersEnergyAllocated += 50;
+    }
+});
+$('#shieldUP').on('click', () => {
+    if (controlledEntity) {
+        controlledEntity.shieldEnergyAllocated += 5;
+        controlledEntity.shieldEnergyMax = controlledEntity.shieldEnergyAllocated * 1000;
+    }
+});
+$('#shieldUP10').on('click', () => {
+    if (controlledEntity) {
+        controlledEntity.shieldEnergyAllocated += 50;
+        controlledEntity.shieldEnergyMax = controlledEntity.shieldEnergyAllocated * 1000;
+    }
+});
+$('#engineUP').on('click', () => {
+    if (controlledEntity) {
+        controlledEntity.engineEnergyAllocated += 5;
+        controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
+    }
+    if (controlledEntity.engineEnergyAllocated > 100) {
+        controlledEntity.engineEnergyAllocated = 100;
+        controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
+    }
+});
+$('#engineUP10').on('click', () => {
+    if (controlledEntity) {
+        controlledEntity.engineEnergyAllocated += 50;
+        controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
+    }
+    if (controlledEntity.engineEnergyAllocated > 100) {
+        controlledEntity.engineEnergyAllocated = 100;
+        controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
+    }
+});
+// powering down
+$('#lasersDOWN').on('click', () => {
+    if (controlledEntity) {
+        controlledEntity.lasersEnergyAllocated -= 5;
+    }
+    if (controlledEntity.lasersEnergyAllocated < 0) {
+        controlledEntity.lasersEnergyAllocated = 0;
+    }
+});
+$('#lasersDOWN10').on('click', () => {
+    if (controlledEntity) {
+        controlledEntity.lasersEnergyAllocated -= 50;
+    }
+    if (controlledEntity.lasersEnergyAllocated < 0) {
+        controlledEntity.lasersEnergyAllocated = 0;
+    }
+});
+$('#shieldDOWN').on('click', () => {
+    if (controlledEntity) {
+        controlledEntity.shieldEnergyAllocated -= 5;
+        controlledEntity.shieldEnergyMax = controlledEntity.shieldEnergyAllocated * 1000;
+    }
+    if (controlledEntity.shieldEnergyAllocated < 0) {
+        controlledEntity.shieldEnergyAllocated = 0;
+        controlledEntity.shieldEnergyMax = controlledEntity.shieldEnergyAllocated * 1000;
+    }
+});
+$('#shieldDOWN10').on('click', () => {
+    if (controlledEntity) {
+        controlledEntity.shieldEnergyAllocated -= 50;
+        controlledEntity.shieldEnergyMax = controlledEntity.shieldEnergyAllocated * 1000;
+    }
+    if (controlledEntity.shieldEnergyAllocated < 0) {
+        controlledEntity.shieldEnergyAllocated = 0;
+        controlledEntity.shieldEnergyMax = controlledEntity.shieldEnergyAllocated * 1000;
+    }
+});
+$('#engineDOWN').on('click', () => {
+    if (controlledEntity) {
+        controlledEntity.engineEnergyAllocated -= 5;
+        controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
+    }
+    if (controlledEntity.engineEnergyAllocated < 0) {
+        controlledEntity.engineEnergyAllocated = 0;
+        controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
+    }
+});
+$('#engineDOWN10').on('click', () => {
+    if (controlledEntity) {
+        controlledEntity.engineEnergyAllocated -= 50;
+        controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
+    }
+    if (controlledEntity.engineEnergyAllocated < 0) {
+        controlledEntity.engineEnergyAllocated = 0;
+        controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
+    }
+});

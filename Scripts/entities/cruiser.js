@@ -6,6 +6,7 @@ class Battlecruiser extends Entity {
         this.width = 81;
         this.height = 118;
         this.sprite.src = './Images/Sprites/battlecruiser.png';
+        this.baseSpeed = 1;
         this.bow = new Cruiser__Bow(x, y, deg, this);
         this.leftBow = new Cruiser__leftBow(x, y, deg, this);
         this.rightBow = new Cruiser__rightBow(x, y, deg, this);
@@ -15,21 +16,70 @@ class Battlecruiser extends Entity {
         this.rightWing = new Cruiser__RightWing(x, y, deg, this);
         this.isCruiser = true;
         this.isSpeedBoostOn = false;
+        this.shieldEnergyStored = 0;
+        this.shieldEnergyAllocated = 5;
+        this.shieldEnergyDraw = 5;
+        this.shieldEnergyMax = this.shieldEnergyAllocated * 1000;
+        this.lasersEnergyStored = 1000;
+        this.lasersEnergyMax = 20000;
+        this.lasersEnergyAllocated = 5;
+        this.lasersEnergyDraw = 5;
+        this.engineEnergyAllocated = 100;
+        this.engineEnergyDraw = 100;
+        this.generatorStrength = 1000;
+        this.speed = this.baseSpeed * (this.engineEnergyAllocated / 100);
     }
     generateEnergy () {
-        if (this.energy < this.maxEnergy) {
-            this.energy += 0.1;
+        let generatedEnergy = this.generatorStrength;
+        if (this.lasersEnergyStored < this.lasersEnergyMax) {
+            this.lasersEnergyDraw = this.lasersEnergyAllocated;
+            this.lasersEnergyStored += this.lasersEnergyDraw;
+        } else {
+            this.lasersEnergyStored = this.lasersEnergyMax;
+            this.lasersEnergyDraw = 0;
+        }
+        if (this.shieldEnergyStored < this.shieldEnergyMax) {
+            this.shieldEnergyDraw = this.shieldEnergyAllocated;
+            this.shieldEnergyStored += this.shieldEnergyDraw;
+        } else if (this.shieldEnergyStored > this.shieldEnergyMax) {
+            let shieldEnergySurplus = Math.ceil((this.shieldEnergyStored - this.shieldEnergyMax) / 100, 0);
+            this.shieldEnergyStored -= shieldEnergySurplus;
+            this.shieldEnergyDraw = -shieldEnergySurplus * 0.75;
+        } else {
+            this.shieldEnergyStored = this.shieldEnergyMax;
+            this.shieldEnergyDraw = this.shieldEnergyAllocated / 4;
+            generatedEnergy += this.shieldEnergyDraw;
+        }
+        if (this.engineEnergyAllocated > 0) {
+            this.engineEnergyDraw = this.engineEnergyAllocated;
+        } else {
+            this.engineEnergyDraw = 0;
+        }
+        generatedEnergy -= this.lasersEnergyDraw + this.shieldEnergyDraw + this.engineEnergyDraw;
+        this.energy += generatedEnergy;
+        if (this.energy > this.maxEnergy) {
+            this.energy = this.maxEnergy;
+        }
+        if (this.energy < 0) {
+            this.shortCircuit();
         }
     }
-    boostSpeed () {
+    shortCircuit () {
+        this.energy = 0;
+        this.shieldEnergyAllocated = 0;
+        this.lasersEnergyAllocated = 0;
+        this.engineEnergyAllocated = 0;
+        controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
+    }
+    boostSpeed() {
         if (controlledEntity.energy != undefined && controlledEntity.energy > 0) {
-            controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost;
+            controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
             controlledEntity.energy--;
         } else {
-            controlledEntity.speed = controlledEntity.baseSpeed;
+            controlledEntity.speed = controlledEntity.baseSpeed * (controlledEntity.engineEnergyAllocated / 100);
         }
     }
-    renderThrusters () {
+    renderThrusters() {
         if (this.isSpeedBoostOn) {
             mapCtx.save();
             mapCtx.rotate(inRad(this.deg));
@@ -38,10 +88,23 @@ class Battlecruiser extends Entity {
             mapCtx.restore();
         }
     }
-    kill () {
+    shootLaser(targetX, targetY) {
+        if (this.lasersEnergyStored < 200) {
+            return;
+        }
+        this.lasersEnergyStored -= 200;
+        let distance = (Math.sqrt(Math.pow(targetX - this.x, 2) + Math.pow(targetY - this.y, 2)));
+        let degree = inDeg(Math.PI / 2 + Math.asin((targetY - this.y) / distance));
+        if (targetX - this.x < 0) {
+            degree = -degree;
+        }
+        new Laser(this.x, this.y, degree, this);
+}
+    kill() {
         if (this.isDead) {
             return;
         }
+        this.isSpeedBoostOn = false;
         this.isDead = true;
         this.energy = 0;
         setTimeout(() => {
@@ -73,6 +136,9 @@ class Battlecruiser extends Entity {
             entitiesList.delete(this.rightWing);
             entitiesList.delete(this);
         }, 3000);
+        if (controlledEntity == this) {
+            controlledEntity = null;
+        }
     }
 }
 
@@ -87,29 +153,29 @@ class Cruiser__Bow extends Entity {
         this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
-    updateCoordinates () {
+    updateCoordinates() {
         this.x = this.cruiser.x - this.cruiser.height / 2.65 * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y - this.cruiser.height / 2.65 * (Math.round(((Math.sin(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
-    render () {
+    render() {
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
     }
-    collide (collidingObject) {
+    collide(collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
             if (this.cruiser.health <= 0) {
                 this.cruiser.kill();
             }
             if (this.cruiser.x > collidingObject.cruiser.x) {
-                this.cruiser.x++; 
+                this.cruiser.x++;
             } else {
                 this.cruiser.x--;
             }
             if (this.cruiser.y > collidingObject.cruiser.y) {
-                this.cruiser.y++; 
+                this.cruiser.y++;
             } else {
                 this.cruiser.y--;
             }
@@ -133,29 +199,29 @@ class Cruiser__leftBow extends Entity {
         this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
-    updateCoordinates () {
+    updateCoordinates() {
         this.x = this.cruiser.x - this.cruiser.height / 2.65 * (Math.round(((Math.cos(inRad(this.cruiser.deg - 30) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y - this.cruiser.height / 2.65 * (Math.round(((Math.sin(inRad(this.cruiser.deg - 30) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
-    render () {
+    render() {
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
     }
-    collide (collidingObject) {
+    collide(collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
             if (this.cruiser.health <= 0) {
                 this.cruiser.kill();
             }
             if (this.cruiser.x > collidingObject.cruiser.x) {
-                this.cruiser.x++; 
+                this.cruiser.x++;
             } else {
                 this.cruiser.x--;
             }
             if (this.cruiser.y > collidingObject.cruiser.y) {
-                this.cruiser.y++; 
+                this.cruiser.y++;
             } else {
                 this.cruiser.y--;
             }
@@ -179,29 +245,29 @@ class Cruiser__rightBow extends Entity {
         this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
-    updateCoordinates () {
+    updateCoordinates() {
         this.x = this.cruiser.x - this.cruiser.height / 2.65 * (Math.round(((Math.cos(inRad(this.cruiser.deg + 30) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y - this.cruiser.height / 2.65 * (Math.round(((Math.sin(inRad(this.cruiser.deg + 30) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
-    render () {
+    render() {
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
     }
-    collide (collidingObject) {
+    collide(collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
             if (this.cruiser.health <= 0) {
                 this.cruiser.kill();
             }
             if (this.cruiser.x > collidingObject.cruiser.x) {
-                this.cruiser.x++; 
+                this.cruiser.x++;
             } else {
                 this.cruiser.x--;
             }
             if (this.cruiser.y > collidingObject.cruiser.y) {
-                this.cruiser.y++; 
+                this.cruiser.y++;
             } else {
                 this.cruiser.y--;
             }
@@ -227,29 +293,29 @@ class Cruiser__Deck extends Entity {
         this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
-    updateCoordinates () {
+    updateCoordinates() {
         this.x = this.cruiser.x - this.cruiser.height / 10 * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y - this.cruiser.height / 10 * (Math.round(((Math.sin(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
-    render () {
+    render() {
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
     }
-    collide (collidingObject) {
+    collide(collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
             if (this.cruiser.health <= 0) {
                 this.cruiser.kill();
             }
             if (this.cruiser.x > collidingObject.cruiser.x) {
-                this.cruiser.x++; 
+                this.cruiser.x++;
             } else {
                 this.cruiser.x--;
             }
             if (this.cruiser.y > collidingObject.cruiser.y) {
-                this.cruiser.y++; 
+                this.cruiser.y++;
             } else {
                 this.cruiser.y--;
             }
@@ -274,29 +340,29 @@ class Cruiser__Aft extends Entity {
         this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
-    updateCoordinates () {
+    updateCoordinates() {
         this.x = this.cruiser.x + this.cruiser.height / 4 * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y + this.cruiser.height / 4 * (Math.round(((Math.sin(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
-    render () {
+    render() {
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
     }
-    collide (collidingObject) {
+    collide(collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
             if (this.cruiser.health <= 0) {
                 this.cruiser.kill();
             }
             if (this.cruiser.x > collidingObject.cruiser.x) {
-                this.cruiser.x++; 
+                this.cruiser.x++;
             } else {
                 this.cruiser.x--;
             }
             if (this.cruiser.y > collidingObject.cruiser.y) {
-                this.cruiser.y++; 
+                this.cruiser.y++;
             } else {
                 this.cruiser.y--;
             }
@@ -320,29 +386,29 @@ class Cruiser__LeftWing extends Entity {
         this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
-    updateCoordinates () {
+    updateCoordinates() {
         this.x = this.cruiser.x + this.cruiser.height / 3.15 * (Math.round(((Math.cos(inRad(this.cruiser.deg + 45) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y + this.cruiser.height / 3.15 * (Math.round(((Math.sin(inRad(this.cruiser.deg + 45) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
-    render () {
+    render() {
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
     }
-    collide (collidingObject) {
+    collide(collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
             if (this.cruiser.health <= 0) {
                 this.cruiser.kill();
             }
             if (this.cruiser.x > collidingObject.cruiser.x) {
-                this.cruiser.x++; 
+                this.cruiser.x++;
             } else {
                 this.cruiser.x--;
             }
             if (this.cruiser.y > collidingObject.cruiser.y) {
-                this.cruiser.y++; 
+                this.cruiser.y++;
             } else {
                 this.cruiser.y--;
             }
@@ -366,29 +432,29 @@ class Cruiser__RightWing extends Entity {
         this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
-    updateCoordinates () {
+    updateCoordinates() {
         this.x = this.cruiser.x + this.cruiser.height / 3.15 * (Math.round(((Math.cos(inRad(this.cruiser.deg - 45) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y + this.cruiser.height / 3.15 * (Math.round(((Math.sin(inRad(this.cruiser.deg - 45) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
-    render () {
+    render() {
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
     }
-    collide (collidingObject) {
+    collide(collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
             if (this.cruiser.health <= 0) {
                 this.cruiser.kill();
             }
             if (this.cruiser.x > collidingObject.cruiser.x) {
-                this.cruiser.x++; 
+                this.cruiser.x++;
             } else {
                 this.cruiser.x--;
             }
             if (this.cruiser.y > collidingObject.cruiser.y) {
-                this.cruiser.y++; 
+                this.cruiser.y++;
             } else {
                 this.cruiser.y--;
             }
