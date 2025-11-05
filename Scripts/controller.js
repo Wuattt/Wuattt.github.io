@@ -167,6 +167,7 @@ $(document).on("keyup", function (event) {
             break;
         case 16:
             shiftKeyPressed = false;
+            controlledEntity.speedBoost = 1;
             if (controlledEntity) {
                 controlledEntity.isSpeedBoostOn = false;
                 controlledEntity.speed = controlledEntity.baseSpeed * (controlledEntity.engineEnergyAllocated / 100);

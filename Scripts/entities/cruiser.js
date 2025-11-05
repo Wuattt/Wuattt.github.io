@@ -58,7 +58,7 @@ class Battlecruiser extends Entity {
             generatedEnergy += this.shieldEnergyDraw;
         }
         if (this.engineEnergyAllocated > 0) {
-            this.engineEnergyDraw = this.engineEnergyAllocated;
+            this.engineEnergyDraw = this.engineEnergyAllocated * this.speedBoost;
         } else {
             this.engineEnergyDraw = 0;
         }
@@ -203,12 +203,14 @@ class Shield extends Entity {
                 this.cruiser.y--;
             }
         }
-        mapCtx.strokeStyle = 'red';
+        mapCtx.strokeStyle = 'cyan';
         mapCtx.beginPath();
         mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
-        mapCtx.stroke();
+        mapCtx.globalAlpha = 0.25;
+        mapCtx.fill();
         mapCtx.strokeStyle = 'white';
+        mapCtx.globalAlpha = 1;
     }
 }
 class Cruiser__Bow extends Entity {
