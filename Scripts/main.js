@@ -19,7 +19,7 @@ const updateStatus = () => {
         lasers.innerHTML = `Lasers: ${controlledEntity.lasersEnergyStored} GW`;
         lasers_setup.innerHTML = `Lasers setup: ${controlledEntity.lasersEnergyAllocated} GW/s`;
         lasers_draw.innerHTML = `Lasers draw: ${controlledEntity.lasersEnergyDraw} GW/s`;
-        engine_speed.innerHTML = `Speed: ${controlledEntity.speed} km/s`;
+        engine_speed.innerHTML = `Speed: ${controlledEntity.speed * 100} km/s`;
         engine_setup.innerHTML = `Engine setup: ${controlledEntity.engineEnergyAllocated} GW/s`;
         engine_draw.innerHTML = `Engine draw: ${controlledEntity.engineEnergyDraw} GW/s`;
         capacitor.innerHTML = `Capacitor: ${controlledEntity.energy} GW`;
