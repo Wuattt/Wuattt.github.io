@@ -9,8 +9,13 @@ map.height = document.body.clientHeight;
 let mapWidth = map.width;
 let mapHeight = map.height;
 document.getElementById('game-zone').appendChild(map);
+
+
 let entitiesList = new Set;
 let entityIdCounter = 0;
+let cruiserThruster = new Image;
+cruiserThruster.src = './Images/Sprites/laser-sprites/01.png';
+
 
 let gameConsole = document.getElementById('console');
 let form = document.getElementById('console-form');

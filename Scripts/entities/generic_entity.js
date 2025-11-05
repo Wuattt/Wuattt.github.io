@@ -42,6 +42,14 @@ class Entity {
         // mapCtx.arc(this.x, this.y, 3, 0, 2 * Math.PI); // exact coordinates for testing
         mapCtx.closePath();
         mapCtx.stroke();
+        this.renderHealth();
+        this.renderEnergy();
+        mapCtx.strokeStyle = 'white';
+        if (this.renderThrusters) {
+            this.renderThrusters();
+            }
+        }
+    renderHealth () {
         if (this.health <= 0) {
             this.health = 0;
         } else if (this.health > this.maxHealth * 0.5) {
@@ -52,9 +60,10 @@ class Entity {
             mapCtx.fillStyle = 'red';
         }
         mapCtx.fillRect(this.x - 30, this.y + 15, 60 * (this.health / this.maxHealth), 10);
+    }
+    renderEnergy  () {
         mapCtx.fillStyle = 'blue';
         mapCtx.fillRect(this.x - 30, this.y + 25, 60 * (this.energy / this.maxEnergy), 10);
-        mapCtx.strokeStyle = 'white';
     }
     strafeLeft () {
         this.x += this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);

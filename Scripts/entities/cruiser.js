@@ -14,10 +14,28 @@ class Battlecruiser extends Entity {
         this.leftWing = new Cruiser__LeftWing(x, y, deg, this);
         this.rightWing = new Cruiser__RightWing(x, y, deg, this);
         this.isCruiser = true;
+        this.isSpeedBoostOn = false;
     }
     generateEnergy () {
         if (this.energy < this.maxEnergy) {
             this.energy += 0.1;
+        }
+    }
+    boostSpeed () {
+        if (controlledEntity.energy != undefined && controlledEntity.energy > 0) {
+            controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost;
+            controlledEntity.energy--;
+        } else {
+            controlledEntity.speed = controlledEntity.baseSpeed;
+        }
+    }
+    renderThrusters () {
+        if (this.isSpeedBoostOn) {
+            mapCtx.save();
+            mapCtx.rotate(inRad(this.deg));
+            mapCtx.drawImage(cruiserThruster, this.x * (Math.round(((Math.cos(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) + this.y * (Math.round(((Math.sin(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) - (this.width / 2), 75 + this.x * (Math.round(((Math.cos(inRad(this.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000) + this.y * (Math.round(((Math.cos(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) - this.height / 2, this.width, this.height);
+            // rotate() rotates canvas instead of sprite image, so need to account for that when drawing.
+            mapCtx.restore();
         }
     }
     kill () {

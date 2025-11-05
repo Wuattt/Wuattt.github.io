@@ -90,20 +90,23 @@ $(document).on("keydown", async function (event) {
             if (consoleIsOpen == false && shiftKeyPressed != true) {
                 controlledEntity.speedBoost = 2;
                 shiftKeyPressed = true;
+                controlledEntity.isSpeedBoostOn = true;
                 while(shiftKeyPressed) {
-                    if (controlledEntity.energy != undefined && controlledEntity.energy > 0) {
-                        controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost;
-                        controlledEntity.energy--;
-                    } else {
-                        controlledEntity.speed = controlledEntity.baseSpeed;
-                    }
+                    controlledEntity.boostSpeed();
                     await sleep(10);
                 }
             }
             break;
+        case 193: // ` key
+            if (consoleIsOpen == false) {
+                
+            }
+            break;
         case 221: // ] key (cheats)
-            controlledEntity.energy = controlledEntity.maxEnergy;
-            controlledEntity.health = controlledEntity.maxHealth;
+            if (consoleIsOpen == false){
+                controlledEntity.energy = controlledEntity.maxEnergy;
+                controlledEntity.health = controlledEntity.maxHealth;
+            }
             break;
         case 84: // t key
             if (consoleIsOpen == false) {
@@ -115,7 +118,7 @@ $(document).on("keydown", async function (event) {
                 openConsole();
             }
             break;
-        case 191: // / key
+        case 191: // '/' key
             if (consoleIsOpen == false) {
                 openConsole();
                 $('#console input')[0].value = '/';
@@ -153,6 +156,7 @@ $(document).on("keyup", function (event) {
             break;
         case 16:
             shiftKeyPressed = false;
+            controlledEntity.isSpeedBoostOn = false;
             controlledEntity.speed = controlledEntity.baseSpeed;
             break;
         case 84: // t key
@@ -165,7 +169,7 @@ $(document).on("keyup", function (event) {
                 $('#console input').focus();
             }
             break;
-        case 191: // / key
+        case 191: // '/' key
             if (consoleIsOpen == true) {
                 $('#console input').focus();
             }
