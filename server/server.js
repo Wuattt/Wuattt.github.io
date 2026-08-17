@@ -19,8 +19,17 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', (socket) => {
-    socket.on('move', (x, y, entityID) => {
-        io.emit('move', x, y, entityID);
+    socket.on('moveForward', (x, y, entityID) => {
+        io.emit('moveForward', x, y, entityID);
+    });
+    socket.on('moveForwardStop', (x, y, entityID) => {
+        io.emit('moveForwardStop', x, y, entityID);
+    });
+    socket.on('moveBackwards', (x, y, entityID) => {
+        io.emit('moveBackwards', x, y, entityID);
+    });
+    socket.on('moveBackwardsStop', (x, y, entityID) => {
+        io.emit('moveBackwardsStop', x, y, entityID);
     });
     socket.on('turn', (deg, entityID) => {
         io.emit('turn', deg, entityID);

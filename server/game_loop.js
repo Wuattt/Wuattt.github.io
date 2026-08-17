@@ -7,7 +7,7 @@ const setTICK_RATE = (coefficient = TICK_RATE) => {
     let timeLoop = (TICK_RATE) => {
         return setInterval(() => {
             update();
-        }, (1000 / TICK_RATE));
+        }, (TICK_RATE));
     };
     timeLoop((TICK_RATE));
 }

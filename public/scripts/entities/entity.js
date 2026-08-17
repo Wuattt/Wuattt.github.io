@@ -9,6 +9,7 @@ class Entity {
         this.speedBoost = 1;
         this.baseSpeed = 1;
         this.speed = this.baseSpeed;
+        this.momentum = this.baseSpeed * 0;
         this.id = entityIdCounter;
         entitiesList.add(this);
         this.sprite = new Image();
@@ -86,21 +87,26 @@ class Entity {
         let id = this.id;
         socket.emit('move', x, y, id)
     }
-    moveForward () {
-        this.x += this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-        this.y += this.speed * (Math.round(((Math.sin(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-        let x = this.x;
-        let y = this.y;
-        let id = this.id;
-        socket.emit('move', x, y, id)
+    async moveForward () {
+        while (true) {
+            if (this.momentum <= 0) {
+                break
+            }
+            this.x += this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
+            this.y += this.speed * (Math.round(((Math.sin(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
+            await sleep(10);
+        }
     }
-    moveBackwards () {
-        this.x -= this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-        this.y -= this.speed * (Math.round(((Math.sin(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-        let x = this.x;
-        let y = this.y;
-        let id = this.id;
-        socket.emit('move', x, y, id)
+    async moveBackwards () {
+        while (true) {
+            if (this.momentum >= 0) {
+                break
+            }
+            this.x -= this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
+            this.y -= this.speed * (Math.round(((Math.sin(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
+            await sleep(10);
+        }
+        
     }
     rotateLeft () {
         this.deg -= 1;

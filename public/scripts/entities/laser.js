@@ -8,14 +8,13 @@ class Laser extends Entity {
         this.sprite.src = './Images/Sprites/laser-sprites/33.png';
         this.baseSpeed = 1;
         this.speed = this.baseSpeed;
+        this.momentum = this.baseSpeed *  this.speed;
         this.life = 2000;
         this.health = 0;
         this.energy = 0;
         this.size = 1;
         this.cruiser = cruiser;
-        this.fly = setInterval(() => {
-            this.moveForward();
-        }, 1);
+        this.moveForward();
         setTimeout(() => {
             this.kill();
         }, this.life);

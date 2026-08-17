@@ -11,7 +11,9 @@ let isConsoleOpen = false;
 let isControlPanelOpen = true;
 
 let controlledEntity = dragon;
-
+let x = controlledEntity.x;
+let y = controlledEntity.y;
+let id = controlledEntity.id;
 
 /* const whichKeyPressed = (subject) => {
     console.log(subject);
@@ -24,23 +26,19 @@ $(document).on("keydown", async function (event) {
         case 87: // w key
             if (controlledEntity && isConsoleOpen == false && wKeyPressed != true) {
                 wKeyPressed = true;
-                while (controlledEntity && wKeyPressed) {
-                    if (controlledEntity.moveForward != undefined) {
-                        controlledEntity.moveForward();
-                    }
-                    await sleep(10);
-                }
+                x = controlledEntity.x;
+                y = controlledEntity.y;
+                id = controlledEntity.id;
+                socket.emit('moveForward', x, y, id);
             }
             break;
         case 83: // s key
             if (controlledEntity && isConsoleOpen == false && sKeyPressed != true) {
                 sKeyPressed = true;
-                while (controlledEntity && sKeyPressed) {
-                    if (controlledEntity.moveBackwards != undefined) {
-                        controlledEntity.moveBackwards();
-                    }
-                    await sleep(10);
-                }
+                x = controlledEntity.x;
+                y = controlledEntity.y;
+                id = controlledEntity.id;
+                socket.emit('moveBackwards', x, y, id);
             }
             break;
         case 65: // a key
@@ -155,9 +153,17 @@ $(document).on("keyup", function (event) {
             break;
         case 87:
             wKeyPressed = false;
+            x = controlledEntity.x;
+            y = controlledEntity.y;
+            id = controlledEntity.id;
+            socket.emit('moveForwardStop', x, y, id);
             break;
         case 83:
             sKeyPressed = false;
+            x = controlledEntity.x;
+            y = controlledEntity.y;
+            id = controlledEntity.id;
+            socket.emit('moveBackwardsStop', x, y, id);
             break;
         case 81:
             qKeyPressed = false;

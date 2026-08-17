@@ -1,11 +1,38 @@
 'use strict'
 
 const socket = io();
-socket.on('move', (x, y, entityID) => {
+socket.on('moveForward', (x, y, entityID) => {
     let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    entity.x = x;
+    entity.y = y;
     if (entity) {
-        entity.x = x;
-        entity.y = y;
+        entity.momentum = entity.speed;
+        entity.moveForward();
+    }
+});
+socket.on('moveForwardStop', (x, y, entityID) => {
+    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    entity.x = x;
+    entity.y = y;
+    if (entity) {
+        entity.momentum = 0;
+    }
+});
+socket.on('moveBackwards', (x, y, entityID) => {
+    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    entity.x = x;
+    entity.y = y;
+    if (entity) {
+        entity.momentum = -entity.speed;
+        entity.moveBackwards();
+    }
+});
+socket.on('moveBackwardsStop', (x, y, entityID) => {
+    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    entity.x = x;
+    entity.y = y;
+    if (entity) {
+        entity.momentum = 0;
     }
 });
 socket.on('turn', (deg, entityID) => {
