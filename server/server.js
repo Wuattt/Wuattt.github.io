@@ -31,6 +31,19 @@ io.on('connection', (socket) => {
     socket.on('moveBackwardsStop', (x, y, entityID) => {
         io.emit('moveBackwardsStop', x, y, entityID);
     });
+    socket.on('strafeLeft', (x, y, entityID) => {
+        io.emit('strafeLeft', x, y, entityID);
+    });
+    socket.on('strafeLeftStop', (x, y, entityID) => {
+        io.emit('strafeLeftStop', x, y, entityID);
+    });
+
+    socket.on('strafeRight', (x, y, entityID) => {
+        io.emit('strafeRight', x, y, entityID);
+    });
+    socket.on('strafeRightStop', (x, y, entityID) => {
+        io.emit('strafeRightStop', x, y, entityID);
+    });
     socket.on('rotateLeft', (x, y, entityID) => {
         io.emit('rotateLeft', x, y, entityID);
     });

@@ -74,21 +74,25 @@ class Entity {
         mapCtx.fillStyle = 'blue';
         mapCtx.fillRect(this.x - 30, this.y + 25, 60 * (this.energy / this.maxEnergy), 10);
     }
-    strafeLeft () {
-        this.x += this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
-        this.y += this.speed * (Math.round(((Math.sin(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
-        let x = this.x;
-        let y = this.y;
-        let id = this.id;
-        socket.emit('move', x, y, id)
+    async strafeLeft () {
+        while (true) {
+           if (this.momentumAcross >= 0) {
+                break
+            } 
+            this.x += this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
+            this.y += this.speed * (Math.round(((Math.sin(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
+            await sleep (10);
+        };
     }
-    strafeRight () {
-        this.x -= this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
-        this.y -= this.speed * (Math.round(((Math.sin(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
-        let x = this.x;
-        let y = this.y;
-        let id = this.id;
-        socket.emit('move', x, y, id)
+    async strafeRight () {
+        while (true) {
+           if (this.momentumAcross <= 0) {
+                break
+            } 
+            this.x -= this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
+            this.y -= this.speed * (Math.round(((Math.sin(inRad(this.deg) - Math.PI + Number.EPSILON) * 1000))) / 1000);
+            await sleep (10);
+        };
     }
     async moveForward () {
         while (true) {

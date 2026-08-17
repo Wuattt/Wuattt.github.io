@@ -35,6 +35,40 @@ socket.on('moveBackwardsStop', (x, y, entityID) => {
         entity.momentumAlong = 0;
     }
 });
+socket.on('strafeLeft', (x, y, entityID) => {
+    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    entity.x = x;
+    entity.y = y;
+    if (entity) {
+        entity.momentumAcross = -entity.speed;
+        entity.strafeLeft();
+    }
+});
+socket.on('strafeLeftStop', (x, y, entityID) => {
+    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    entity.x = x;
+    entity.y = y;
+    if (entity) {
+        entity.momentumAcross = 0;
+    }
+});
+socket.on('strafeRight', (x, y, entityID) => {
+    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    entity.x = x;
+    entity.y = y;
+    if (entity) {
+        entity.momentumAcross = entity.speed;
+        entity.strafeRight();
+    }
+});
+socket.on('strafeRightStop', (x, y, entityID) => {
+    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    entity.x = x;
+    entity.y = y;
+    if (entity) {
+        entity.momentumAcross = 0;
+    }
+});
 socket.on('rotateLeft', (deg, entityID) => {
     let entity = Array.from(entitiesList).find(e => e.id === entityID);
     entity.deg = deg;

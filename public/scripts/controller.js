@@ -61,17 +61,19 @@ $(document).on("keydown", async function (event) {
         case 81: // q key
             if (controlledEntity && isConsoleOpen == false && qKeyPressed != true) {
                 qKeyPressed = true;
-                deg = controlledEntity.deg;
+                x = controlledEntity.x;
+                y = controlledEntity.y;
                 id = controlledEntity.id;
-                socket.emit('rotateLeft', deg, id)
+                socket.emit('strafeLeft', x, y, id);
             }
             break;
         case 69: // e key
             if (controlledEntity && isConsoleOpen == false && eKeyPressed != true) {
                 eKeyPressed = true;
-                deg = controlledEntity.deg;
+                x = controlledEntity.x;
+                y = controlledEntity.y;
                 id = controlledEntity.id;
-                socket.emit('rotateRight', deg, id)
+                socket.emit('strafeRight', x, y, id)
             }
             break;
         case 16: // shift key
@@ -162,9 +164,17 @@ $(document).on("keyup", function (event) {
             break;
         case 81:
             qKeyPressed = false;
+            x = controlledEntity.x;
+            y = controlledEntity.y;
+            id = controlledEntity.id;
+            socket.emit('strafeLeftStop', x, y, id);
             break;
         case 69:
             eKeyPressed = false;
+            x = controlledEntity.x;
+            y = controlledEntity.y;
+            id = controlledEntity.id;
+            socket.emit('strafeRightStop', x, y, id);
             break;
         case 16:
             shiftKeyPressed = false;
