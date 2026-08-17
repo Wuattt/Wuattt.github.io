@@ -13,7 +13,7 @@ class Laser extends Entity {
         this.energy = 0;
         this.size = 1;
         this.cruiser = cruiser;
-        this.interval = setInterval(() => {
+        this.fly = setInterval(() => {
             this.moveForward();
         }, 1);
         setTimeout(() => {
@@ -31,7 +31,8 @@ class Laser extends Entity {
         this.kill();
     }
     kill () {
-        clearInterval(this.interval);
+        clearInterval(this.fly);
+        socket.emit('kill', this.id);
         entitiesList.delete(this);
     }
 }

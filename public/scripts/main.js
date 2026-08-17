@@ -1,14 +1,5 @@
 'use strict'
 
-const setGameSpeed = (coefficient = gameSpeed) => {
-    gameSpeed = coefficient;
-    clearInterval(timeLoop);
-    timeLoop = ((gameSpeed) => {
-        return setInterval(() => {
-            update();
-        }, (1000 / gameSpeed));
-    })(gameSpeed);
-}
 
 const updateStatus = () => {
     if (controlledEntity) {
@@ -29,21 +20,17 @@ const updateStatus = () => {
 }
 
 const update = () => {
-    mapCtx.clearRect(0, 0, map.width, map.height);
-    timeCountOne();
     entitiesList.forEach((entity) => {
-        entity.updateCoordinates();
         if (!entity.isDead) {
             entity.generateEnergy();
         }
-        entity.render();
     })
-    checkAllCollisions();
-    updateStatus();
+    // checkAllCollisions(); // move to game_loop.js
 }
 
 const init = () => {
-    setGameSpeed();
+    startRendering();
+    startRoundTimer();
 }
 
 init();

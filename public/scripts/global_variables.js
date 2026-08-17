@@ -1,6 +1,5 @@
 'use strict'
 
-let timeLoop;
 
 let map = document.createElement('canvas');
 let mapCtx = map.getContext('2d');
@@ -37,4 +36,3 @@ let input = document.getElementById('console-input');
 
 let timerElem = document.getElementById('round-time');
 let roundTime = 0;
-let gameSpeed = 60; // updates (ticks) per second. basic is 60
