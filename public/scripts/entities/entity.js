@@ -9,7 +9,10 @@ class Entity {
         this.speedBoost = 1;
         this.baseSpeed = 1;
         this.speed = this.baseSpeed;
-        this.momentum = this.baseSpeed * 0;
+        this.rotationSpeed = 1;
+        this.momentumAlong = this.baseSpeed * 0;
+        this.momentumAcross = this.baseSpeed * 0;
+        this.momentumRotation = this.rotationSpeed * 0;
         this.id = entityIdCounter;
         entitiesList.add(this);
         this.sprite = new Image();
@@ -89,7 +92,7 @@ class Entity {
     }
     async moveForward () {
         while (true) {
-            if (this.momentum <= 0) {
+            if (this.momentumAlong <= 0) {
                 break
             }
             this.x += this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
@@ -99,7 +102,7 @@ class Entity {
     }
     async moveBackwards () {
         while (true) {
-            if (this.momentum >= 0) {
+            if (this.momentumAlong >= 0) {
                 break
             }
             this.x -= this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
@@ -108,16 +111,22 @@ class Entity {
         }
         
     }
-    rotateLeft () {
-        this.deg -= 1;
-        let deg = this.deg;
-        let id = this.id;
-        socket.emit('turn', deg, id)
+    async rotateLeft () {
+        while (true) {
+            if (this.momentumRotation >= 0) {
+                break
+            }
+            this.deg -= this.rotationSpeed;
+            await sleep (10);
+        }
     }
-    rotateRight () {
-        this.deg +=1;
-        let deg = this.deg;
-        let id = this.id;
-        socket.emit('turn', deg, id)
+    async rotateRight () {
+        while (true) {
+            if (this.momentumRotation <= 0) {
+                break
+            }
+            this.deg += this.rotationSpeed;
+            await sleep (10);
+        }
     }
 }

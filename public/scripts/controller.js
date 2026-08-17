@@ -13,6 +13,7 @@ let isControlPanelOpen = true;
 let controlledEntity = dragon;
 let x = controlledEntity.x;
 let y = controlledEntity.y;
+let deg = this.deg;
 let id = controlledEntity.id;
 
 /* const whichKeyPressed = (subject) => {
@@ -44,45 +45,33 @@ $(document).on("keydown", async function (event) {
         case 65: // a key
             if (controlledEntity && isConsoleOpen == false && aKeyPressed != true) {
                 aKeyPressed = true;
-                while (controlledEntity && aKeyPressed) {
-                    if (controlledEntity.rotateLeft != undefined) {
-                        controlledEntity.rotateLeft();
-                    }
-                    await sleep(10);
-                }
+                deg = controlledEntity.deg;
+                id = controlledEntity.id;
+                socket.emit('rotateLeft', deg, id)
             }
             break;
         case 68: // d key
             if (controlledEntity && isConsoleOpen == false && dKeyPressed != true) {
                 dKeyPressed = true;
-                while (controlledEntity && dKeyPressed) {
-                    if (controlledEntity.rotateRight != undefined) {
-                        controlledEntity.rotateRight();
-                    }
-                    await sleep(10);
-                }
+                deg = controlledEntity.deg;
+                id = controlledEntity.id;
+                socket.emit('rotateRight', deg, id)
             }
             break;
         case 81: // q key
             if (controlledEntity && isConsoleOpen == false && qKeyPressed != true) {
                 qKeyPressed = true;
-                while (controlledEntity && qKeyPressed) {
-                    if (controlledEntity.strafeLeft != undefined) {
-                        controlledEntity.strafeLeft();
-                    }
-                    await sleep(10);
-                }
+                deg = controlledEntity.deg;
+                id = controlledEntity.id;
+                socket.emit('rotateLeft', deg, id)
             }
             break;
         case 69: // e key
             if (controlledEntity && isConsoleOpen == false && eKeyPressed != true) {
                 eKeyPressed = true;
-                while (controlledEntity && eKeyPressed) {
-                    if (controlledEntity.strafeRight != undefined) {
-                        controlledEntity.strafeRight();
-                    }
-                    await sleep(10);
-                }
+                deg = controlledEntity.deg;
+                id = controlledEntity.id;
+                socket.emit('rotateRight', deg, id)
             }
             break;
         case 16: // shift key
@@ -147,9 +136,15 @@ $(document).on("keyup", function (event) {
     switch (event.which) {
         case 65:
             aKeyPressed = false;
+            deg = controlledEntity.deg;
+            id = controlledEntity.id;
+            socket.emit('rotateLeftStop', deg, id);
             break;
         case 68:
             dKeyPressed = false;
+            deg = controlledEntity.deg;
+            id = controlledEntity.id;
+            socket.emit('rotateRightStop', deg, id);
             break;
         case 87:
             wKeyPressed = false;

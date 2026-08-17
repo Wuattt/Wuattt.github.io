@@ -8,7 +8,7 @@ class Laser extends Entity {
         this.sprite.src = './Images/Sprites/laser-sprites/33.png';
         this.baseSpeed = 1;
         this.speed = this.baseSpeed;
-        this.momentum = this.baseSpeed *  this.speed;
+        this.momentumAlong = this.baseSpeed *  this.speed;
         this.life = 2000;
         this.health = 0;
         this.energy = 0;

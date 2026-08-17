@@ -31,8 +31,17 @@ io.on('connection', (socket) => {
     socket.on('moveBackwardsStop', (x, y, entityID) => {
         io.emit('moveBackwardsStop', x, y, entityID);
     });
-    socket.on('turn', (deg, entityID) => {
-        io.emit('turn', deg, entityID);
+    socket.on('rotateLeft', (x, y, entityID) => {
+        io.emit('rotateLeft', x, y, entityID);
+    });
+    socket.on('rotateLeftStop', (x, y, entityID) => {
+        io.emit('rotateLeftStop', x, y, entityID);
+    });
+    socket.on('rotateRight', (x, y, entityID) => {
+        io.emit('rotateRight', x, y, entityID);
+    });
+    socket.on('rotateRightStop', (x, y, entityID) => {
+        io.emit('rotateRightStop', x, y, entityID);
     });
     socket.on('shoot laser', (deg, shootingEntity) => {
         io.emit('shoot laser', deg, shootingEntity)
