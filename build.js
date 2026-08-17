@@ -1,1 +1,1 @@
-console.log('place holder text');
+console.log('place holder text'); // doesn't build anything, it's just a placeholder for Render hosting to run
