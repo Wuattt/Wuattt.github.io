@@ -19,6 +19,12 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', (socket) => {
+    socket.on('engineBoostOn', (x, y, entityID) => {
+        io.emit('engineBoostOn', x, y, entityID);
+    });
+    socket.on('engineBoostOff', (x, y, entityID) => {
+        io.emit('engineBoostOff', x, y, entityID);
+    });
     socket.on('moveForward', (x, y, entityID) => {
         io.emit('moveForward', x, y, entityID);
     });

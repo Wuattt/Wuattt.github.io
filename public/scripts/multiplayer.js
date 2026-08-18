@@ -1,6 +1,17 @@
 'use strict'
 
 const socket = io();
+
+socket.on('engineBoostOn', (entityID) => {
+    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    entity.isSpeedBoostOn = 1;
+    entity.updateSpeed();
+});
+socket.on('engineBoostOff', (entityID) => {
+    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    entity.isSpeedBoostOn = 0;
+    entity.updateSpeed();
+});
 socket.on('moveForward', (x, y, entityID) => {
     let entity = Array.from(entitiesList).find(e => e.id === entityID);
     entity.x = x;
@@ -11,7 +22,7 @@ socket.on('moveForward', (x, y, entityID) => {
             } else {
                 entity.acceleration = 1;
             }
-        controlledEntity.updateSpeed();
+        entity.updateSpeed();
     }
 });
 socket.on('moveForwardStop', (entityID) => {

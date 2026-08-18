@@ -87,6 +87,7 @@ $(document).on("keydown", async function (event) {
                 shiftKeyPressed = true;
                 controlledEntity.isSpeedBoostOn = 1;
                 controlledEntity.updateSpeed();
+                socket.emit('engineBoostOn', deg, id)
             }
             break;
         case 193: // ` key
@@ -183,6 +184,7 @@ $(document).on("keyup", function (event) {
             if (controlledEntity) {
                 controlledEntity.isSpeedBoostOn = 0;
                 controlledEntity.updateSpeed();
+                socket.emit('engineBoostOff', deg, id)
             }
             break;
         case 84: // t key
