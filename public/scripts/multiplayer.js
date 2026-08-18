@@ -10,7 +10,7 @@ socket.on('moveForward', (x, y, entityID) => {
         entity.moveForward();
     }
 });
-socket.on('moveForwardStop', (x, y, entityID) => {
+socket.on('moveForwardStop', (entityID) => {
     let entity = Array.from(entitiesList).find(e => e.id === entityID);
     if (entity) {
         entity.momentumAlong = 0;
@@ -25,10 +25,8 @@ socket.on('moveBackwards', (x, y, entityID) => {
         entity.moveBackwards();
     }
 });
-socket.on('moveBackwardsStop', (x, y, entityID) => {
+socket.on('moveBackwardsStop', (entityID) => {
     let entity = Array.from(entitiesList).find(e => e.id === entityID);
-    entity.x = x;
-    entity.y = y;
     if (entity) {
         entity.momentumAlong = 0;
     }
@@ -42,10 +40,8 @@ socket.on('strafeLeft', (x, y, entityID) => {
         entity.strafeLeft();
     }
 });
-socket.on('strafeLeftStop', (x, y, entityID) => {
+socket.on('strafeLeftStop', (entityID) => {
     let entity = Array.from(entitiesList).find(e => e.id === entityID);
-    entity.x = x;
-    entity.y = y;
     if (entity) {
         entity.momentumAcross = 0;
     }
@@ -59,10 +55,8 @@ socket.on('strafeRight', (x, y, entityID) => {
         entity.strafeRight();
     }
 });
-socket.on('strafeRightStop', (x, y, entityID) => {
+socket.on('strafeRightStop', (entityID) => {
     let entity = Array.from(entitiesList).find(e => e.id === entityID);
-    entity.x = x;
-    entity.y = y;
     if (entity) {
         entity.momentumAcross = 0;
     }
@@ -75,9 +69,8 @@ socket.on('rotateLeft', (deg, entityID) => {
         entity.rotateLeft();
     }
 });
-socket.on('rotateLeftStop', (deg, entityID) => {
+socket.on('rotateLeftStop', (entityID) => {
     let entity = Array.from(entitiesList).find(e => e.id === entityID);
-    entity.deg = deg;
     if (entity) {
         entity.momentumRotation = 0;
     }
@@ -90,9 +83,8 @@ socket.on('rotateRight', (deg, entityID) => {
         entity.rotateRight();
     }
 });
-socket.on('rotateRightStop', (deg, entityID) => {
+socket.on('rotateRightStop', (entityID) => {
     let entity = Array.from(entitiesList).find(e => e.id === entityID);
-    entity.deg = deg;
     if (entity) {
         entity.momentumRotation = 0;
     }

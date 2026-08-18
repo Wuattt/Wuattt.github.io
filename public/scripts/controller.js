@@ -140,41 +140,41 @@ $(document).on("keyup", function (event) {
             aKeyPressed = false;
             deg = controlledEntity.deg;
             id = controlledEntity.id;
-            socket.emit('rotateLeftStop', deg, id);
+            socket.emit('rotateLeftStop', id);
             break;
         case 68:
             dKeyPressed = false;
             deg = controlledEntity.deg;
             id = controlledEntity.id;
-            socket.emit('rotateRightStop', deg, id);
+            socket.emit('rotateRightStop', id);
             break;
         case 87:
             wKeyPressed = false;
             x = controlledEntity.x;
             y = controlledEntity.y;
             id = controlledEntity.id;
-            socket.emit('moveForwardStop', x, y, id);
+            socket.emit('moveForwardStop', id);
             break;
         case 83:
             sKeyPressed = false;
             x = controlledEntity.x;
             y = controlledEntity.y;
             id = controlledEntity.id;
-            socket.emit('moveBackwardsStop', x, y, id);
+            socket.emit('moveBackwardsStop', id);
             break;
         case 81:
             qKeyPressed = false;
             x = controlledEntity.x;
             y = controlledEntity.y;
             id = controlledEntity.id;
-            socket.emit('strafeLeftStop', x, y, id);
+            socket.emit('strafeLeftStop', id);
             break;
         case 69:
             eKeyPressed = false;
             x = controlledEntity.x;
             y = controlledEntity.y;
             id = controlledEntity.id;
-            socket.emit('strafeRightStop', x, y, id);
+            socket.emit('strafeRightStop', id);
             break;
         case 16:
             shiftKeyPressed = false;

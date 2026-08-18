@@ -22,39 +22,39 @@ io.on('connection', (socket) => {
     socket.on('moveForward', (x, y, entityID) => {
         io.emit('moveForward', x, y, entityID);
     });
-    socket.on('moveForwardStop', (x, y, entityID) => {
-        io.emit('moveForwardStop', x, y, entityID);
+    socket.on('moveForwardStop', (entityID) => {
+        io.emit('moveForwardStop', entityID);
     });
     socket.on('moveBackwards', (x, y, entityID) => {
         io.emit('moveBackwards', x, y, entityID);
     });
-    socket.on('moveBackwardsStop', (x, y, entityID) => {
-        io.emit('moveBackwardsStop', x, y, entityID);
+    socket.on('moveBackwardsStop', (entityID) => {
+        io.emit('moveBackwardsStop', entityID);
     });
     socket.on('strafeLeft', (x, y, entityID) => {
         io.emit('strafeLeft', x, y, entityID);
     });
-    socket.on('strafeLeftStop', (x, y, entityID) => {
-        io.emit('strafeLeftStop', x, y, entityID);
+    socket.on('strafeLeftStop', (entityID) => {
+        io.emit('strafeLeftStop', entityID);
     });
 
     socket.on('strafeRight', (x, y, entityID) => {
         io.emit('strafeRight', x, y, entityID);
     });
-    socket.on('strafeRightStop', (x, y, entityID) => {
-        io.emit('strafeRightStop', x, y, entityID);
+    socket.on('strafeRightStop', (entityID) => {
+        io.emit('strafeRightStop', entityID);
     });
     socket.on('rotateLeft', (x, y, entityID) => {
         io.emit('rotateLeft', x, y, entityID);
     });
-    socket.on('rotateLeftStop', (x, y, entityID) => {
-        io.emit('rotateLeftStop', x, y, entityID);
+    socket.on('rotateLeftStop', (entityID) => {
+        io.emit('rotateLeftStop', entityID);
     });
     socket.on('rotateRight', (x, y, entityID) => {
         io.emit('rotateRight', x, y, entityID);
     });
-    socket.on('rotateRightStop', (x, y, entityID) => {
-        io.emit('rotateRightStop', x, y, entityID);
+    socket.on('rotateRightStop', (entityID) => {
+        io.emit('rotateRightStop', entityID);
     });
     socket.on('shoot laser', (deg, shootingEntity) => {
         io.emit('shoot laser', deg, shootingEntity)
