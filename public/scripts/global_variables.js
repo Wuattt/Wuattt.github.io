@@ -1,13 +1,13 @@
 'use strict'
 
 
-let map = document.createElement('canvas');
-let mapCtx = map.getContext('2d');
+const map = document.createElement('canvas');
+const mapCtx = map.getContext('2d');
 map.width = document.body.clientWidth;
 map.height = document.body.clientHeight;
-let mapWidth = map.width;
-let mapHeight = map.height;
-let gameZone = document.getElementById('game-zone');
+const mapWidth = map.width;
+const mapHeight = map.height;
+const gameZone = document.getElementById('game-zone');
 gameZone.appendChild(map);
 
 let status = document.getElementById('status');

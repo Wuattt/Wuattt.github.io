@@ -12,18 +12,18 @@ const io = new Server(server);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-app.use(express.static('public'))
-
+app.use(express.static('public'));
+app.use('/shared', express.static(join(__dirname, '..', 'shared')));
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, 'public', 'index.html'))
 })
 
 io.on('connection', (socket) => {
-    socket.on('engineBoostOn', (x, y, entityID) => {
-        io.emit('engineBoostOn', x, y, entityID);
+    socket.on('engineBoostOn', (entityID) => {
+        io.emit('engineBoostOn', entityID);
     });
-    socket.on('engineBoostOff', (x, y, entityID) => {
-        io.emit('engineBoostOff', x, y, entityID);
+    socket.on('engineBoostOff', (entityID) => {
+        io.emit('engineBoostOff', entityID);
     });
     socket.on('moveForward', (x, y, entityID) => {
         io.emit('moveForward', x, y, entityID);

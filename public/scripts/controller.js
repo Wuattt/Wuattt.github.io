@@ -1,4 +1,5 @@
 'use strict'
+import { dragon, cyclops} from '/scripts/init.js'
 
 let wKeyPressed = false;
 let sKeyPressed = false;
@@ -10,7 +11,7 @@ let shiftKeyPressed = false;
 let isConsoleOpen = false;
 let isControlPanelOpen = true;
 
-let controlledEntity = dragon;
+export let controlledEntity = dragon;
 let x = controlledEntity.x;
 let y = controlledEntity.y;
 let deg = controlledEntity.deg;
@@ -35,12 +36,6 @@ $(document).on("keydown", async function (event) {
             break;
         case 83: // s key
             if (controlledEntity && isConsoleOpen == false && sKeyPressed != true) {
-                if (controlledEntity.acceleration > 0) {
-                    controlledEntity.acceleration -= 0.1;
-                } else {
-                    controlledEntity.acceleration = 0;
-                }
-                controlledEntity.updateSpeed();
                 sKeyPressed = true;
                 x = controlledEntity.x;
                 y = controlledEntity.y;
@@ -85,9 +80,7 @@ $(document).on("keydown", async function (event) {
         case 16: // shift key
             if (controlledEntity && isConsoleOpen == false && shiftKeyPressed != true) {
                 shiftKeyPressed = true;
-                controlledEntity.isSpeedBoostOn = 1;
-                controlledEntity.updateSpeed();
-                socket.emit('engineBoostOn', deg, id)
+                socket.emit('engineBoostOn', id);
             }
             break;
         case 193: // ` key
@@ -182,9 +175,8 @@ $(document).on("keyup", function (event) {
         case 16:
             shiftKeyPressed = false;
             if (controlledEntity) {
-                controlledEntity.isSpeedBoostOn = 0;
-                controlledEntity.updateSpeed();
-                socket.emit('engineBoostOff', deg, id)
+                id = controlledEntity.id;
+                socket.emit('engineBoostOff', id)
             }
             break;
         case 84: // t key

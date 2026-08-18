@@ -6,6 +6,8 @@ class Battlecruiser extends Entity {
         this.width = 81;
         this.height = 118;
         this.sprite.src = './Images/Sprites/battlecruiser.png';
+        this.thrusterSprite = new Image;
+        this.thrusterSprite.src = './Images/Sprites/laser-sprites/01.png';
         this.bow = new Cruiser__Bow(x, y, deg, this);
         this.leftBow = new Cruiser__leftBow(x, y, deg, this);
         this.rightBow = new Cruiser__rightBow(x, y, deg, this);
@@ -96,7 +98,7 @@ class Battlecruiser extends Entity {
         if (this.isSpeedBoostOn) {
             mapCtx.save();
             mapCtx.rotate(inRad(this.deg));
-            mapCtx.drawImage(cruiserThruster, this.x * (Math.round(((Math.cos(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) + this.y * (Math.round(((Math.sin(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) - (this.width / 2), 75 + this.x * (Math.round(((Math.cos(inRad(this.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000) + this.y * (Math.round(((Math.cos(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) - this.height / 2, this.width, this.height);
+            mapCtx.drawImage(this.thrusterSprite, this.x * (Math.round(((Math.cos(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) + this.y * (Math.round(((Math.sin(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) - (this.width / 2), 75 + this.x * (Math.round(((Math.cos(inRad(this.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000) + this.y * (Math.round(((Math.cos(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) - this.height / 2, this.width, this.height);
             // rotate() rotates canvas instead of sprite image, so need to account for that when drawing.
             mapCtx.restore();
         }

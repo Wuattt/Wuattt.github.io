@@ -1,13 +1,13 @@
 //work in progress
-const { TICK_RATE } = require("../shared/constants.js");
+import { TICK_INTERVAL } from "../shared/constants.js";
 
-const setTICK_RATE = (coefficient = TICK_RATE) => {
-    TICK_RATE = coefficient;
+const setTICK_INTERVAL = (coefficient = TICK_INTERVAL) => {
+    TICK_INTERVAL = coefficient;
     clearInterval(timeLoop);
-    let timeLoop = (TICK_RATE) => {
+    const timeLoop = (TICK_INTERVAL) => {
         return setInterval(() => {
             update();
-        }, (TICK_RATE));
+        }, (TICK_INTERVAL));
     };
-    timeLoop((TICK_RATE));
+    timeLoop((TICK_INTERVAL));
 }

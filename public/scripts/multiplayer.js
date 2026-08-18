@@ -18,7 +18,7 @@ socket.on('moveForward', (x, y, entityID) => {
     entity.y = y;
     if (entity) {
         if (entity.acceleration < 1) {
-                entity.acceleration += 0.1;
+                entity.acceleration = Math.round((entity.acceleration + 0.1 + Number.EPSILON) * 100) / 100;
             } else {
                 entity.acceleration = 1;
             }
@@ -32,16 +32,15 @@ socket.on('moveBackwards', (x, y, entityID) => {
     let entity = Array.from(entitiesList).find(e => e.id === entityID);
     entity.x = x;
     entity.y = y;
-    if (entity) {
-        entity.momentumAlong = -entity.speed;
-        entity.moveBackwards();
-    }
+    if (entity.acceleration > 0) {
+                    entity.acceleration = Math.round((entity.acceleration - 0.1 + Number.EPSILON) * 100) / 100;
+                } else {
+                    entity.acceleration = 0;
+                }
+                entity.updateSpeed();
 });
 socket.on('moveBackwardsStop', (entityID) => {
-    let entity = Array.from(entitiesList).find(e => e.id === entityID);
-    if (entity) {
-        entity.momentumAlong = 0;
-    }
+
 });
 socket.on('strafeLeft', (x, y, entityID) => {
     let entity = Array.from(entitiesList).find(e => e.id === entityID);
