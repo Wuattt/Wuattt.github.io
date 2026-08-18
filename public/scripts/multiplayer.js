@@ -12,8 +12,6 @@ socket.on('moveForward', (x, y, entityID) => {
 });
 socket.on('moveForwardStop', (x, y, entityID) => {
     let entity = Array.from(entitiesList).find(e => e.id === entityID);
-    entity.x = x;
-    entity.y = y;
     if (entity) {
         entity.momentumAlong = 0;
     }
