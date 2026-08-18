@@ -89,9 +89,9 @@ socket.on('rotateRightStop', (entityID) => {
         entity.momentumRotation = 0;
     }
 });
-socket.on('shoot laser', (deg, entityID) => {
+socket.on('shoot laser', (targetX, targetY, entityID) => {
     let shootingEntity = Array.from(entitiesList).find(e => e.id === entityID);
-    new Laser(shootingEntity.x, shootingEntity.y, deg, shootingEntity);
+    shootingEntity.shootLaser(targetX, targetY);
 })
 socket.on('kill', (entityID) => {
     let entity = Array.from(entitiesList).find(e => e.id === entityID);

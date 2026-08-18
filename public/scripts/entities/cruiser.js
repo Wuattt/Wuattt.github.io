@@ -105,9 +105,7 @@ class Battlecruiser extends Entity {
         if (targetX - this.x < 0) {
             degree = -degree;
         }
-        let deg = degree;
-        let id = this.id;
-        socket.emit('shoot laser', deg, id);
+        new Laser(this.x, this.y, degree, this);
     }
     kill() {
         if (this.isDead) {

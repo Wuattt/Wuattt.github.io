@@ -56,8 +56,8 @@ io.on('connection', (socket) => {
     socket.on('rotateRightStop', (entityID) => {
         io.emit('rotateRightStop', entityID);
     });
-    socket.on('shoot laser', (deg, shootingEntity) => {
-        io.emit('shoot laser', deg, shootingEntity)
+    socket.on('shoot laser', (targetX, targetY, shootingEntity) => {
+        io.emit('shoot laser', targetX, targetY, shootingEntity)
     })
 });
 

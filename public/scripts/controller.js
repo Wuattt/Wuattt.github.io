@@ -207,7 +207,8 @@ $('canvas').on('click', (event) => {
     if (controlledEntity) {
         let clientX = event.clientX;
         let clientY = event.clientY;
-        controlledEntity.shootLaser(clientX, clientY);
+        let id = controlledEntity.id;
+        socket.emit('shoot laser', clientX, clientY, id);
     }
 })
 // powering up
