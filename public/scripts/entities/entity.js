@@ -6,9 +6,9 @@ class Entity {
         this.x = x;
         this.y = y;
         this.deg = deg;
-        this.speedBoost = 1;
         this.baseSpeed = 1;
         this.speed = this.baseSpeed;
+        this.acceleration = 0;
         this.rotationSpeed = 1;
         this.momentumAlong = this.baseSpeed * 0;
         this.momentumAcross = this.baseSpeed * 0;
@@ -21,8 +21,9 @@ class Entity {
         this.maxHealth = 100;
         this.health = 100;
         this.maxEnergy = 300000;
-        this.energy = 5000;
+        this.energy = 10000;
         this.isDead = false;
+        this.moveForward();
     }
     updateCoordinates () {
         // this exists only for cruisers' parts updating coordinates
@@ -96,9 +97,6 @@ class Entity {
     }
     async moveForward () {
         while (true) {
-            if (this.momentumAlong <= 0) {
-                break
-            }
             this.x += this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
             this.y += this.speed * (Math.round(((Math.sin(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
             await sleep(10);

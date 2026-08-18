@@ -6,7 +6,6 @@ class Battlecruiser extends Entity {
         this.width = 81;
         this.height = 118;
         this.sprite.src = './Images/Sprites/battlecruiser.png';
-        this.baseSpeed = 1;
         this.bow = new Cruiser__Bow(x, y, deg, this);
         this.leftBow = new Cruiser__leftBow(x, y, deg, this);
         this.rightBow = new Cruiser__rightBow(x, y, deg, this);
@@ -16,7 +15,6 @@ class Battlecruiser extends Entity {
         this.rightWing = new Cruiser__RightWing(x, y, deg, this);
         this.shield = new Shield(x, y, deg, this);
         this.isCruiser = true;
-        this.isSpeedBoostOn = false;
         this.shieldEnergyStored = 0;
         this.shieldEnergyAllocated = 5;
         this.shieldEnergyDraw = 5;
@@ -26,11 +24,20 @@ class Battlecruiser extends Entity {
         this.lasersEnergyMax = 20000;
         this.lasersEnergyAllocated = 5;
         this.lasersEnergyDraw = 5;
-        this.engineEnergyAllocated = 100;
+        this.engineEnergyAllocated = 5;
         this.engineEnergyMax = 100;
-        this.engineEnergyDraw = 100;
-        this.generatorStrength = 1000;
-        this.speed = this.baseSpeed * (this.engineEnergyAllocated / 100);
+        this.engineEnergyDraw = 5;
+        this.generatorStrength = 300;
+        this.isSpeedBoostOn = 0;
+        this.speedTechLimit = 100;
+        this.speedBoost = (this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax));
+        this.speed = this.acceleration * ((this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax)) + (this.isSpeedBoostOn * this.speedBoost));
+        this.maxSpeed = this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax);
+    }
+    updateSpeed() {
+        this.maxSpeed = this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax);
+        this.speedBoost = this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax);
+        this.speed = this.acceleration * ((this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax)) + (this.isSpeedBoostOn * this.speedBoost));
     }
     generateEnergy() {
         let generatedEnergy = this.generatorStrength;
@@ -58,7 +65,7 @@ class Battlecruiser extends Entity {
             generatedEnergy += this.shieldEnergyDraw;
         }
         if (this.engineEnergyAllocated > 0) {
-            this.engineEnergyDraw = this.engineEnergyAllocated * this.speedBoost;
+            this.engineEnergyDraw = this.engineEnergyAllocated * this.acceleration + (this.speedBoost * this.isSpeedBoostOn);
         } else {
             this.engineEnergyDraw = 0;
         }
@@ -76,14 +83,13 @@ class Battlecruiser extends Entity {
         this.shieldEnergyAllocated = 0;
         this.lasersEnergyAllocated = 0;
         this.engineEnergyAllocated = 0;
-        controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
+        this.speed = this.baseSpeed * this.speedBoost * (this.engineEnergyAllocated / 100);
     }
     boostSpeed() {
-        if (controlledEntity.energy != undefined && controlledEntity.energy > 0) {
-            controlledEntity.speed = controlledEntity.baseSpeed * controlledEntity.speedBoost * (controlledEntity.engineEnergyAllocated / 100);
-            controlledEntity.energy--;
+        if (this.energy != undefined && this.energy > 0) {
+            this.speed = this.acceleration * ((this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax)) + (this.isSpeedBoostOn * (this.speedBoost)))
         } else {
-            controlledEntity.speed = controlledEntity.baseSpeed * (controlledEntity.engineEnergyAllocated / 100);
+            return;
         }
     }
     renderThrusters() {
@@ -111,7 +117,7 @@ class Battlecruiser extends Entity {
         if (this.isDead) {
             return;
         }
-        this.isSpeedBoostOn = false;
+        this.isSpeedBoostOn = 0;
         this.isDead = true;
         this.energy = 0;
         setTimeout(() => {
