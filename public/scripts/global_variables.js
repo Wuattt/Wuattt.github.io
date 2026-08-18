@@ -25,13 +25,10 @@ let control_panel = document.getElementById('control-panel');
 
 let entitiesList = new Set;
 let entityIdCounter = 0;
-let cruiserThruster = new Image;
-cruiserThruster.src = './Images/Sprites/laser-sprites/01.png';
 
 
-let gameConsole = document.getElementById('console');
-let form = document.getElementById('console-form');
-let input = document.getElementById('console-input');
+
+
 
 
 let timerElem = document.getElementById('round-time');

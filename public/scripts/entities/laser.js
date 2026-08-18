@@ -1,5 +1,8 @@
 'use strict'
-class Laser extends Entity {
+import { socket } from '/scripts/multiplayer.js';
+
+
+export class Laser extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(x, y, deg);
         this.name = 'Laser Projectile';

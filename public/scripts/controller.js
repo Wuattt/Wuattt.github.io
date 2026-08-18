@@ -1,5 +1,8 @@
 'use strict'
 import { dragon, cyclops} from '/scripts/init.js'
+import { openConsole, closeConsole, isConsoleOpen, isControlPanelOpen } from '/scripts/console_commands.js'
+import { socket } from '/scripts/multiplayer.js';
+
 
 let wKeyPressed = false;
 let sKeyPressed = false;
@@ -8,8 +11,7 @@ let dKeyPressed = false;
 let qKeyPressed = false;
 let eKeyPressed = false;
 let shiftKeyPressed = false;
-let isConsoleOpen = false;
-let isControlPanelOpen = true;
+
 
 export let controlledEntity = dragon;
 let x = controlledEntity.x;

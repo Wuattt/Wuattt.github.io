@@ -1,12 +1,20 @@
 'use strict'
-function openConsole () {
+import { gameConsole, form, input } from '/shared/constants.js';
+import { dragon, cyclops} from '/scripts/init.js'
+import { socket } from '/scripts/multiplayer.js';
+
+
+export let isConsoleOpen = false;
+export let isControlPanelOpen = true;
+
+export function openConsole () {
     if (!gameConsole.style.display || gameConsole.style.visibility == 'hidden') {
         gameConsole.style.display = 'grid';
         gameConsole.style.visibility = 'visible';
         isConsoleOpen = true;
     }
 }
-function closeConsole () {
+export function closeConsole () {
     if (gameConsole.style.visibility == 'visible') {
         gameConsole.style.visibility = 'hidden';
         isConsoleOpen = false;
@@ -17,10 +25,11 @@ function closeConsole () {
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    let isFlashFirst = /^\//g.test(input.value);
+    socket.emit('chatmessage', input.value);
+    let isSlashFirst = /^\//g.test(input.value);
     let usedCommand = document.createElement('p');
     usedCommand.innerHTML = input.value;
-    if (isFlashFirst) {
+    if (isSlashFirst) {
         usedCommand.style.color = 'gray';
     }
     usedCommand.style.visibility = 'visible';
@@ -52,12 +61,12 @@ form.addEventListener('submit', (e) => {
             closeConsole();
             break;
         case '/reset':
-            entitiesList.forEach((entity) => {
-                entitiesList.delete(entity);
-            })
-            dragon = new Battlecruiser(450, 322, 90);
-            cyclops = new Battlecruiser(650, 322, 270);
-            controlledEntity = dragon;
+            dragon.x = 450;
+            dragon.y = 322;
+            dragon.deg = 90;
+            cyclops.x = 650;
+            cyclops.y = 322;
+            cyclops.deg = 270;
             closeConsole();
             break;
         case '/heal':
@@ -66,7 +75,7 @@ form.addEventListener('submit', (e) => {
             closeConsole();
             break;
         default:
-            if (isFlashFirst) {
+            if (isSlashFirst) {
                 let unknownCommandException = document.createElement('p');
                 unknownCommandException.innerHTML = 'Unknown command. Use "/help" to see the list of existing commands.';
                 unknownCommandException.style.color = 'red';

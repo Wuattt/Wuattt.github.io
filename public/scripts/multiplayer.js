@@ -1,7 +1,20 @@
 'use strict'
+import { gameConsole, form, input } from '/shared/constants.js';
+export const socket = io();
 
-const socket = io();
-
+socket.on('chatmessage', (text) => {
+    let isSlashFirst = /^\//g.test(text);
+    let usedCommand = document.createElement('p');
+    usedCommand.innerHTML = text;
+    if (isSlashFirst) {
+        usedCommand.style.color = 'gray';
+    }
+    usedCommand.style.visibility = 'visible';
+    setTimeout(() => {
+        usedCommand.style.visibility = 'inherit';
+    }, 2000);
+    input.before(usedCommand);
+});
 socket.on('engineBoostOn', (entityID) => {
     let entity = Array.from(entitiesList).find(e => e.id === entityID);
     entity.isSpeedBoostOn = 1;
