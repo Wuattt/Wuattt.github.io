@@ -2,6 +2,7 @@
 import { Laser } from '/scripts/entities/laser.js'
 import { Entity } from '/scripts/entities/entity.js'
 import { mapCtx } from '/scripts/global_variables.js'
+import { inDeg, inRad, sleep } from '../../shared/constants.js';
 
 
 export class Battlecruiser extends Entity {

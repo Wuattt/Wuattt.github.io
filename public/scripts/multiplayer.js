@@ -2,8 +2,8 @@
 import { gameConsole, form, input, entitiesListGet } from './global_variables.js';
 export const socket = io();
 
-socket.on('ping', () => {
-    console.log('pinged')
+socket.on('updateState', () => {
+    console.log('pinged');
 });
 socket.on('chatmessage', (text) => {
     let isSlashFirst = /^\//g.test(text);

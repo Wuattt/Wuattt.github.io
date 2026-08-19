@@ -8,7 +8,7 @@ export const setBROADCAST_INTERVAL = () => {
     timeloop ? clearInterval(timeloop) : 0;
     io.on('connection', (socket) => {
         timeloop = setInterval(() => {
-            socket.emit('ping');
+            socket.emit('updateState');
         }, (BROADCAST_INTERVAL + 1000));
     });
 }

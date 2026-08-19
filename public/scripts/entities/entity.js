@@ -1,6 +1,6 @@
 'use strict'
-import { entityIdCounterGet, entityIdCounterAdd, entitiesListAdd } from '/scripts/global_variables.js'
-import { mapCtx } from '/scripts/global_variables.js'
+import { entityIdCounterGet, entityIdCounterAdd, entitiesListAdd, mapCtx } from '/scripts/global_variables.js'
+import { inDeg, inRad, sleep } from '../../shared/constants.js';
 
 
 export class Entity {
