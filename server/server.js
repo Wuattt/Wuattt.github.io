@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
     socket.on('chatmessage', (input) => {
-        socket.emit('chatmessage', input);
+        socket.broadcast.emit('chatmessage', input);
     });
     socket.on('engineBoostOn', (entityID) => {
         io.emit('engineBoostOn', entityID);

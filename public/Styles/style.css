@@ -20,9 +20,10 @@ body {
 
 #console {
     position: fixed;
+    display: grid;
+    visibility: hidden;
     width: 100%;
     height: 50%;
-    display: none;
     align-content: end;
     background-color: rgba(30, 30, 30, 0.3);
 }

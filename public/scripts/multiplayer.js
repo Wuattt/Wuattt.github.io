@@ -6,6 +6,7 @@ socket.on('chatmessage', (text) => {
     let isSlashFirst = /^\//g.test(text);
     let usedCommand = document.createElement('p');
     usedCommand.innerHTML = text;
+    console.log(usedCommand);
     if (isSlashFirst) {
         usedCommand.style.color = 'gray';
     }

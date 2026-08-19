@@ -1,6 +1,6 @@
 'use strict'
 import { Laser } from '/scripts/entities/laser.js'
-class Battlecruiser extends Entity {
+export class Battlecruiser extends Entity {
     constructor(x = 0, y = 0, deg = 0) {
         super(x, y, deg);
         this.name = 'Cruiser';
