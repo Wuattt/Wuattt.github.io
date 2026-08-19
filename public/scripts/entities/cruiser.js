@@ -1,5 +1,9 @@
 'use strict'
 import { Laser } from '/scripts/entities/laser.js'
+import { Entity } from '/scripts/entities/entity.js'
+import { mapCtx } from '/scripts/global_variables.js'
+
+
 export class Battlecruiser extends Entity {
     constructor(x = 0, y = 0, deg = 0) {
         super(x, y, deg);

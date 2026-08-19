@@ -6,6 +6,5 @@ export class testRender {
         this.y = y;
     }
     updateCoordinates () {
-        this.x = x;
     }
 }

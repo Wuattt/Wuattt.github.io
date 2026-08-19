@@ -1,6 +1,7 @@
 'use strict'
 import { socket } from '/scripts/multiplayer.js';
-
+import { Entity } from '/scripts/entities/entity.js'
+import { entitiesListGet, entitiesListDelete } from '../global_variables.js';
 
 export class Laser extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
@@ -35,6 +36,6 @@ export class Laser extends Entity {
     kill () {
         clearInterval(this.fly);
         socket.emit('kill', this.id);
-        entitiesList.delete(this);
+        entitiesListDelete(this);
     }
 }

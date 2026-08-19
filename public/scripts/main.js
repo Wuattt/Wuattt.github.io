@@ -1,10 +1,11 @@
 'use strict'
-import { startRendering } from '/scripts/renderer.js'
-
+import { startRendering } from '/scripts/renderer.js';
+import { entitiesListGet } from '/scripts/global_variables.js'
+import { startRoundTimer } from '/scripts/clock.js'
 
 
 const update = () => {
-    entitiesList.forEach((entity) => {
+    entitiesListGet().forEach((entity) => {
         if (!entity.isDead) {
             entity.generateEnergy();
         }

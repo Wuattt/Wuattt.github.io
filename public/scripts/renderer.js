@@ -1,6 +1,8 @@
 //work in progress
 import { TICK_INTERVAL } from '../shared/constants.js';
+import { mapCtx, map, entitiesListGet } from '/scripts/global_variables.js'
 import { controlledEntity } from '/scripts/controller.js';
+
 
 function clearMap () {
     mapCtx.clearRect(0, 0, map.width, map.height);
@@ -26,7 +28,7 @@ const updateStatus = () => {
 
 export const startRendering = () => setInterval(() => {
     clearMap();
-    entitiesList.forEach((entity) => {
+    entitiesListGet().forEach((entity) => {
         entity.updateCoordinates();
         entity.render();
         updateStatus();

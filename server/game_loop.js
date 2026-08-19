@@ -1,13 +1,11 @@
 //work in progress
 import { TICK_INTERVAL } from "../shared/constants.js";
 
-const setTICK_INTERVAL = (coefficient = TICK_INTERVAL) => {
-    TICK_INTERVAL = coefficient;
-    clearInterval(timeLoop);
-    const timeLoop = (TICK_INTERVAL) => {
-        return setInterval(() => {
+let timeLoop = null;
+
+const setTICK_INTERVAL = () => {
+    timeloop ? clearInterval(timeloop) : 0;
+    timeloop = setInterval(() => {
             update();
         }, (TICK_INTERVAL));
-    };
-    timeLoop((TICK_INTERVAL));
 }

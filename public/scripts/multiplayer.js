@@ -1,7 +1,10 @@
 'use strict'
-import { gameConsole, form, input } from '/shared/constants.js';
+import { gameConsole, form, input, entitiesListGet } from './global_variables.js';
 export const socket = io();
 
+socket.on('ping', () => {
+    console.log('pinged')
+});
 socket.on('chatmessage', (text) => {
     let isSlashFirst = /^\//g.test(text);
     let usedCommand = document.createElement('p');
@@ -17,17 +20,17 @@ socket.on('chatmessage', (text) => {
     input.before(usedCommand);
 });
 socket.on('engineBoostOn', (entityID) => {
-    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     entity.isSpeedBoostOn = 1;
     entity.updateSpeed();
 });
 socket.on('engineBoostOff', (entityID) => {
-    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     entity.isSpeedBoostOn = 0;
     entity.updateSpeed();
 });
 socket.on('moveForward', (x, y, entityID) => {
-    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     entity.x = x;
     entity.y = y;
     if (entity) {
@@ -43,7 +46,7 @@ socket.on('moveForwardStop', (entityID) => {
 
 });
 socket.on('moveBackwards', (x, y, entityID) => {
-    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     entity.x = x;
     entity.y = y;
     if (entity.acceleration > 0) {
@@ -57,7 +60,7 @@ socket.on('moveBackwardsStop', (entityID) => {
 
 });
 socket.on('strafeLeft', (x, y, entityID) => {
-    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     entity.x = x;
     entity.y = y;
     if (entity) {
@@ -66,13 +69,13 @@ socket.on('strafeLeft', (x, y, entityID) => {
     }
 });
 socket.on('strafeLeftStop', (entityID) => {
-    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     if (entity) {
         entity.momentumAcross = 0;
     }
 });
 socket.on('strafeRight', (x, y, entityID) => {
-    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     entity.x = x;
     entity.y = y;
     if (entity) {
@@ -81,13 +84,13 @@ socket.on('strafeRight', (x, y, entityID) => {
     }
 });
 socket.on('strafeRightStop', (entityID) => {
-    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     if (entity) {
         entity.momentumAcross = 0;
     }
 });
 socket.on('rotateLeft', (deg, entityID) => {
-    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     entity.deg = deg;
     if (entity) {
         entity.momentumRotation = -entity.rotationSpeed;
@@ -95,13 +98,13 @@ socket.on('rotateLeft', (deg, entityID) => {
     }
 });
 socket.on('rotateLeftStop', (entityID) => {
-    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     if (entity) {
         entity.momentumRotation = 0;
     }
 });
 socket.on('rotateRight', (deg, entityID) => {
-    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     entity.deg = deg;
     if (entity) {
         entity.momentumRotation = entity.rotationSpeed;
@@ -109,17 +112,17 @@ socket.on('rotateRight', (deg, entityID) => {
     }
 });
 socket.on('rotateRightStop', (entityID) => {
-    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     if (entity) {
         entity.momentumRotation = 0;
     }
 });
 socket.on('shoot laser', (targetX, targetY, entityID) => {
-    let shootingEntity = Array.from(entitiesList).find(e => e.id === entityID);
+    let shootingEntity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     shootingEntity.shootLaser(targetX, targetY);
 })
 socket.on('kill', (entityID) => {
-    let entity = Array.from(entitiesList).find(e => e.id === entityID);
+    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     if (entity) {
         entity.kill();
     }

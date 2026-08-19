@@ -5,10 +5,11 @@ import {createServer} from 'node:http';
 import {fileURLToPath} from 'node:url';
 import {dirname, join} from 'node:path';
 import {Server} from 'socket.io';
+import { setBROADCAST_INTERVAL } from './state_broadcast.js';
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+export const io = new Server(server);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -70,7 +71,7 @@ io.on('connection', (socket) => {
     })
 });
 
-
+setBROADCAST_INTERVAL();
 
 server.listen(3000, () => {
     console.log('server running at http://localhost:3000');

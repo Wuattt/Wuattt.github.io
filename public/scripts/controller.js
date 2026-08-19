@@ -2,6 +2,7 @@
 import { dragon, cyclops} from '/scripts/init.js'
 import { openConsole, closeConsole, isConsoleOpen, isControlPanelOpen } from '/scripts/console_commands.js'
 import { socket } from '/scripts/multiplayer.js';
+import { entitiesListGet } from './global_variables.js';
 
 
 let wKeyPressed = false;

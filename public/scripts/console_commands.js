@@ -1,5 +1,5 @@
 'use strict'
-import { gameConsole, form, input } from '/shared/constants.js';
+import { gameConsole, form, input, entitiesListGet } from './global_variables.js';
 import { dragon, cyclops} from '/scripts/init.js'
 import { socket } from '/scripts/multiplayer.js';
 
@@ -67,7 +67,7 @@ form.addEventListener('submit', (e) => {
                 cyclops.deg = 270;
                 break;
             case '/heal':
-                entitiesList.forEach((entity) => {
+                entitiesListGet().forEach((entity) => {
                     if (!entity.isDead) {
                         entity.energy = entity.maxEnergy;
                         entity.health = entity.maxHealth;

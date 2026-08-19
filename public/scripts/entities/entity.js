@@ -1,7 +1,11 @@
 'use strict'
-class Entity {
+import { entityIdCounterGet, entityIdCounterAdd, entitiesListAdd } from '/scripts/global_variables.js'
+import { mapCtx } from '/scripts/global_variables.js'
+
+
+export class Entity {
     constructor(x = 0, y = 0, deg = 0) {
-        ++entityIdCounter;
+        entityIdCounterAdd();
         this.name = 'Generic Entity';
         this.x = x;
         this.y = y;
@@ -13,8 +17,8 @@ class Entity {
         this.momentumAlong = this.baseSpeed * 0;
         this.momentumAcross = this.baseSpeed * 0;
         this.momentumRotation = this.rotationSpeed * 0;
-        this.id = entityIdCounter;
-        entitiesList.add(this);
+        this.id = entityIdCounterGet();
+        entitiesListAdd(this);
         this.sprite = new Image();
         this.sprite.src = './Images/Sprites/missing-sprite.png';
         this.isCruiser = false;
