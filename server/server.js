@@ -6,7 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {dirname, join} from 'node:path';
 import {Server} from 'socket.io';
 import { setBROADCAST_INTERVAL } from './state_broadcast.js';
-import { testRender } from './test.js';
+import { setTICK_INTERVAL } from './game_loop.js'
 
 const app = express();
 const server = createServer(app);
@@ -73,7 +73,7 @@ io.on('connection', (socket) => {
 });
 
 setBROADCAST_INTERVAL();
-let tested = new testRender;
+setTICK_INTERVAL();
 
 server.listen(3000, () => {
     console.log('server running at http://localhost:3000');
