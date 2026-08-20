@@ -1,6 +1,7 @@
 'use strict'
 
 import express from 'express';
+import relp from 'repl';
 import {createServer} from 'node:http';
 import {fileURLToPath} from 'node:url';
 import {dirname, join} from 'node:path';
@@ -86,4 +87,6 @@ init();
 
 server.listen(3000, () => {
     console.log('server running at http://localhost:3000');
+    const myConsole = relp.start({ prompt: 'node-server>' });
+    myConsole.context.dragon = dragon;
 });
