@@ -2,6 +2,8 @@
 import { Laser } from './laser.js'
 import { Entity } from './entity.js'
 import { inDeg, inRad, sleep } from '../../shared/constants.js';
+import { cruiserPartsListGet, cruiserPartsListAdd, cruiserPartsListDelete } from '../global_variables.js';
+import { Cruiser__Part } from './cruiser__part.js'
 
 
 export class Battlecruiser extends Entity {
@@ -13,15 +15,17 @@ export class Battlecruiser extends Entity {
         // this.sprite.src = './Images/Sprites/battlecruiser.png';
         // this.thrusterSprite = new Image;
         // this.thrusterSprite.src = './Images/Sprites/laser-sprites/01.png';
-        this.bow = new Cruiser__Bow(x, y, deg, this);
-        this.leftBow = new Cruiser__leftBow(x, y, deg, this);
-        this.rightBow = new Cruiser__rightBow(x, y, deg, this);
-        this.deck = new Cruiser__Deck(x, y, deg, this);
-        this.aft = new Cruiser__Aft(x, y, deg, this);
-        this.leftWing = new Cruiser__LeftWing(x, y, deg, this);
-        this.rightWing = new Cruiser__RightWing(x, y, deg, this);
-        this.shield = new Shield(x, y, deg, this);
+        this.bow = new Cruiser__Bow(x, y, deg, this, 'bow');
+        this.leftBow = new Cruiser__leftBow(x, y, deg, this, 'leftBow');
+        this.rightBow = new Cruiser__rightBow(x, y, deg, this, 'rightBow');
+        this.deck = new Cruiser__Deck(x, y, deg, this, 'deck');
+        this.aft = new Cruiser__Aft(x, y, deg, this, 'aft');
+        this.leftWing = new Cruiser__LeftWing(x, y, deg, this, 'leftWing');
+        this.rightWing = new Cruiser__RightWing(x, y, deg, this, 'rightWing');
+        this.shield = new Shield(x, y, deg, this, 'shield');
         this.isCruiser = true;
+        this.maxEnergy = 300000;
+        this.energy = 10000;
         this.shieldEnergyStored = 0;
         this.shieldEnergyAllocated = 5;
         this.shieldEnergyDraw = 5;
@@ -35,11 +39,13 @@ export class Battlecruiser extends Entity {
         this.engineEnergyMax = 100;
         this.engineEnergyDraw = 5;
         this.generatorStrength = 300;
+        this.baseSpeed = 1;
         this.isSpeedBoostOn = 0;
         this.speedTechLimit = 100;
         this.speedBoost = (this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax));
         this.speed = this.acceleration * ((this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax)) + (this.isSpeedBoostOn * this.speedBoost));
         this.maxSpeed = this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax);
+        this.moveForward();
     }
     updateSpeed() {
         this.maxSpeed = this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax);
@@ -161,15 +167,10 @@ export class Battlecruiser extends Entity {
         }
     }
 }
-class Shield extends Entity {
+class Shield extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
-        super(cruiser.x, cruiser.y, cruiser.deg);
-        this.name = 'Cruiser Bow';
-        this.x;
-        this.y;
-        this.size = 70;
-        this.cruiser = cruiser;
-        this.isCruiser = true;
+        super(cruiser.x, cruiser.y, cruiser.deg, 70, cruiser, 'shield');
+        this.name = 'Shield';
     }
     updateCoordinates() {
         this.x = this.cruiser.x;
@@ -226,15 +227,10 @@ class Shield extends Entity {
         mapCtx.globalAlpha = 1; */
     }
 }
-class Cruiser__Bow extends Entity {
+class Cruiser__Bow extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
-        super(cruiser.x, cruiser.y, cruiser.deg);
+        super(cruiser.x, cruiser.y, cruiser.deg, 13, cruiser, 'bow');
         this.name = 'Cruiser Bow';
-        this.x;
-        this.y;
-        this.size = 13;
-        this.cruiser = cruiser;
-        this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates() {
@@ -273,15 +269,10 @@ class Cruiser__Bow extends Entity {
     }
 }
 
-class Cruiser__leftBow extends Entity {
+class Cruiser__leftBow extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
-        super(cruiser.x, cruiser.y, cruiser.deg);
+        super(cruiser.x, cruiser.y, cruiser.deg, 10, cruiser, 'leftBow');
         this.name = 'Cruiser Left Bow';
-        this.x;
-        this.y;
-        this.size = 10;
-        this.cruiser = cruiser;
-        this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates() {
@@ -319,15 +310,10 @@ class Cruiser__leftBow extends Entity {
         mapCtx.strokeStyle = 'white'; */
     }
 }
-class Cruiser__rightBow extends Entity {
+class Cruiser__rightBow extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
-        super(cruiser.x, cruiser.y, cruiser.deg);
+        super(cruiser.x, cruiser.y, cruiser.deg, 10, cruiser, 'rightBow');
         this.name = 'Cruiser Right Bow';
-        this.x;
-        this.y;
-        this.size = 10;
-        this.cruiser = cruiser;
-        this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates() {
@@ -367,15 +353,10 @@ class Cruiser__rightBow extends Entity {
 }
 
 
-class Cruiser__Deck extends Entity {
+class Cruiser__Deck extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
-        super(cruiser.x, cruiser.y, cruiser.deg);
+        super(cruiser.x, cruiser.y, cruiser.deg, 18, cruiser, 'deck');
         this.name = 'Cruiser Deck';
-        this.x;
-        this.y;
-        this.size = 18;
-        this.cruiser = cruiser;
-        this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates() {
@@ -414,15 +395,10 @@ class Cruiser__Deck extends Entity {
     }
 }
 
-class Cruiser__Aft extends Entity {
+class Cruiser__Aft extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
-        super(cruiser.x, cruiser.y, cruiser.deg);
+        super(cruiser.x, cruiser.y, cruiser.deg, 20, cruiser, 'aft');
         this.name = 'Cruiser Aft';
-        this.x;
-        this.y;
-        this.size = 20;
-        this.cruiser = cruiser;
-        this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates() {
@@ -460,15 +436,10 @@ class Cruiser__Aft extends Entity {
         mapCtx.strokeStyle = 'white'; */
     }
 }
-class Cruiser__LeftWing extends Entity {
+class Cruiser__LeftWing extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
-        super(cruiser.x, cruiser.y, cruiser.deg);
+        super(cruiser.x, cruiser.y, cruiser.deg, 15, cruiser, 'leftWing');
         this.name = 'Cruiser Left Wing';
-        this.x;
-        this.y;
-        this.size = 15;
-        this.cruiser = cruiser;
-        this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates() {
@@ -506,15 +477,10 @@ class Cruiser__LeftWing extends Entity {
         mapCtx.strokeStyle = 'white'; */
     }
 }
-class Cruiser__RightWing extends Entity {
+class Cruiser__RightWing extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
-        super(cruiser.x, cruiser.y, cruiser.deg);
+        super(cruiser.x, cruiser.y, cruiser.deg, 15, cruiser, 'rightWing');
         this.name = 'Cruiser Right Wing';
-        this.x;
-        this.y;
-        this.size = 15;
-        this.cruiser = cruiser;
-        this.isCruiser = true;
     }
     // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates() {

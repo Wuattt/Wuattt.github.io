@@ -1,7 +1,7 @@
 /* //work in progress
-import { TICK_INTERVAL } from '../shared/constants.js';
-import { mapCtx, map } from '/scripts/DOM_variables.js'
-import { controlledEntity } from '/scripts/controller.js';
+import { TICK_INTERVAL } from '../../../shared/constants.js';
+import { mapCtx, map } from '../DOM_variables.js'
+import { controlledEntity } from '../controller.js';
 
 
 function clearMap () {

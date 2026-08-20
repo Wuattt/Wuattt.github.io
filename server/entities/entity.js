@@ -10,7 +10,7 @@ export class Entity {
         this.x = x;
         this.y = y;
         this.deg = deg;
-        this.baseSpeed = 1;
+        this.baseSpeed = 0;
         this.speed = this.baseSpeed;
         this.acceleration = 0;
         this.rotationSpeed = 1;
@@ -24,10 +24,7 @@ export class Entity {
         this.isCruiser = false;
         this.maxHealth = 100;
         this.health = 100;
-        this.maxEnergy = 300000;
-        this.energy = 10000;
         this.isDead = false;
-        this.moveForward();
     }
     updateCoordinates () {
         // this exists only for cruisers' parts updating coordinates
