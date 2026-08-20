@@ -1,6 +1,5 @@
 'use strict'
 
-
 export const map = document.createElement('canvas');
 export const mapCtx = map.getContext('2d');
 map.width = document.body.clientWidth;
@@ -27,29 +26,4 @@ export let gameConsole = document.getElementById('console');
 export let form = document.getElementById('console-form');
 export let input = document.getElementById('console-input');
 
-let entitiesList = new Set;
-export function entitiesListAdd (entity) {
-    entitiesList.add(entity);
-}
-export function entitiesListDelete (entity) {
-    entitiesList.delete(entity);
-}
-export function entitiesListGet () {
-    return entitiesList;
-}
-let entityIdCounter = 0;
-export function entityIdCounterAdd () {
-    ++entityIdCounter;
-}
-export function entityIdCounterGet () {
-    return entityIdCounter;
-}
-
 export const timerElem = document.getElementById('round-time');
-let roundTime = 0;
-export function roundTimeAdd () {
-    roundTime++;
-}
-export function roundTimeGet () {
-    return roundTime;
-}

@@ -1,8 +1,6 @@
-'use strict'
-import { dragon, cyclops} from '/scripts/init.js'
-import { openConsole, closeConsole, isConsoleOpen, isControlPanelOpen } from '/scripts/console_commands.js'
+/* 'use strict'
+//import { openConsole, closeConsole, isConsoleOpen, isControlPanelOpen } from '/scripts/console_commands.js'
 import { socket } from '/scripts/multiplayer.js';
-import { entitiesListGet } from './global_variables.js';
 
 
 let wKeyPressed = false;
@@ -14,15 +12,15 @@ let eKeyPressed = false;
 let shiftKeyPressed = false;
 
 
-export let controlledEntity = dragon;
-let x = controlledEntity.x;
+export let controlledEntity = null; // null until multiplayer part is done. Should be set to dragon
+/* let x = controlledEntity.x;
 let y = controlledEntity.y;
 let deg = controlledEntity.deg;
-let id = controlledEntity.id;
+let id = controlledEntity.id; */
 
 /* const whichKeyPressed = (subject) => {
     console.log(subject);
-} */
+}
 
 
 $(document).on("keydown", async function (event) {
@@ -315,4 +313,4 @@ $('#engineDOWN10').on('click', () => {
         controlledEntity.engineEnergyAllocated = 0;
         controlledEntity.updateSpeed();
     }
-});
+}); */

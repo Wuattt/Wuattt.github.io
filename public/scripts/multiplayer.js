@@ -1,5 +1,5 @@
 'use strict'
-import { gameConsole, form, input, entitiesListGet } from './global_variables.js';
+import { input } from './DOM_variables.js';
 export const socket = io();
 
 socket.on('updateState', () => {

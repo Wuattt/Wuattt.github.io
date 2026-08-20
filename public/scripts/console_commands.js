@@ -1,4 +1,4 @@
-'use strict'
+/* 'use strict'
 import { gameConsole, form, input, entitiesListGet } from './global_variables.js';
 import { dragon, cyclops} from '/scripts/init.js'
 import { socket } from '/scripts/multiplayer.js';
@@ -88,4 +88,4 @@ form.addEventListener('submit', (e) => {
     }}
     closeConsole()
     input.value = '';
-});
+}); */

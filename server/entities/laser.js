@@ -1,6 +1,5 @@
 'use strict'
-import { socket } from '/scripts/multiplayer.js';
-import { Entity } from '/scripts/entities/entity.js'
+import { Entity } from './entity.js'
 import { entitiesListGet, entitiesListDelete } from '../global_variables.js';
 
 export class Laser extends Entity {
@@ -9,7 +8,7 @@ export class Laser extends Entity {
         this.name = 'Laser Projectile';
         this.width = 80;
         this.height = 80;
-        this.sprite.src = './Images/Sprites/laser-sprites/33.png';
+        // this.sprite.src = './Images/Sprites/laser-sprites/33.png';
         this.baseSpeed = 2;
         this.speed = this.baseSpeed;
         this.momentumAlong = this.baseSpeed *  this.speed;
@@ -35,7 +34,6 @@ export class Laser extends Entity {
     }
     kill () {
         clearInterval(this.fly);
-        socket.emit('kill', this.id);
         entitiesListDelete(this);
     }
 }

@@ -1,5 +1,5 @@
 'use strict'
-import { timerElem, roundTimeAdd, roundTimeGet } from '/scripts/global_variables.js';
+/* import { timerElem, roundTimeAdd, roundTimeGet } from '/scripts/global_variables.js';
 let roundTime = roundTimeGet();
 
 export const startRoundTimer = () => setInterval(() => {
@@ -9,4 +9,4 @@ export const startRoundTimer = () => setInterval(() => {
     let timeSeconds = () => (roundTime % 60) < 10 ? `0${roundTime % 60}` : roundTime % 60;
     timerElem.innerHTML = `${timeHours()}:${timeMinutes()}:${timeSeconds()}`
     roundTimeAdd();
-}, 1000)
+}, 1000) */

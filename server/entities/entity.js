@@ -1,5 +1,5 @@
 'use strict'
-import { entityIdCounterGet, entityIdCounterAdd, entitiesListAdd, mapCtx } from '/scripts/global_variables.js'
+import { entityIdCounterGet, entityIdCounterAdd, entitiesListAdd } from '../global_variables.js'
 import { inDeg, inRad, sleep } from '../../shared/constants.js';
 
 
@@ -19,8 +19,8 @@ export class Entity {
         this.momentumRotation = this.rotationSpeed * 0;
         this.id = entityIdCounterGet();
         entitiesListAdd(this);
-        this.sprite = new Image();
-        this.sprite.src = './Images/Sprites/missing-sprite.png';
+        // this.sprite = new Image();
+        // this.sprite.src = './Images/Sprites/missing-sprite.png';
         this.isCruiser = false;
         this.maxHealth = 100;
         this.health = 100;
@@ -46,7 +46,7 @@ export class Entity {
     generateEnergy () {
         
     }
-    render () {
+    /* render () {
         mapCtx.save();
         mapCtx.rotate(inRad(this.deg));
         mapCtx.drawImage(this.sprite, this.x * (Math.round(((Math.cos(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) + this.y * (Math.round(((Math.sin(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) - (this.width / 2), this.x * (Math.round(((Math.cos(inRad(this.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000) + this.y * (Math.round(((Math.cos(inRad(this.deg) + Number.EPSILON) * 1000))) / 1000) - this.height / 2, this.width, this.height);
@@ -62,8 +62,8 @@ export class Entity {
         if (this.renderThrusters) {
             this.renderThrusters();
             }
-        }
-    renderHealth () {
+        } */
+    /* renderHealth () {
         if (this.health <= 0) {
             this.health = 0;
         } else if (this.health > this.maxHealth * 0.5) {
@@ -74,11 +74,11 @@ export class Entity {
             mapCtx.fillStyle = 'red';
         }
         mapCtx.fillRect(this.x - 30, this.y + 15, 60 * (this.health / this.maxHealth), 10);
-    }
-    renderEnergy  () {
+    } */
+    /* renderEnergy  () {
         mapCtx.fillStyle = 'blue';
         mapCtx.fillRect(this.x - 30, this.y + 25, 60 * (this.energy / this.maxEnergy), 10);
-    }
+    } */
     async strafeLeft () {
         while (true) {
            if (this.momentumAcross >= 0) {

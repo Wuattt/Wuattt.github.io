@@ -1,6 +1,6 @@
-//work in progress
+/* //work in progress
 import { TICK_INTERVAL } from '../shared/constants.js';
-import { mapCtx, map, entitiesListGet } from '/scripts/global_variables.js'
+import { mapCtx, map } from '/scripts/DOM_variables.js'
 import { controlledEntity } from '/scripts/controller.js';
 
 
@@ -35,3 +35,4 @@ export const startRendering = () => setInterval(() => {
         entity.generateEnergy();
     })
 }, TICK_INTERVAL);
+ */

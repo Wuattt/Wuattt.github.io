@@ -7,6 +7,7 @@ import {dirname, join} from 'node:path';
 import {Server} from 'socket.io';
 import { setBROADCAST_INTERVAL } from './state_broadcast.js';
 import { setTICK_INTERVAL } from './game_loop.js'
+import { Battlecruiser } from './entities/cruiser.js'
 
 const app = express();
 const server = createServer(app);
@@ -72,8 +73,16 @@ io.on('connection', (socket) => {
     })
 });
 
-setBROADCAST_INTERVAL();
-setTICK_INTERVAL();
+let dragon = null;
+let cyclops = null;
+
+const init = () => {
+    setBROADCAST_INTERVAL();
+    setTICK_INTERVAL();
+    dragon = new Battlecruiser(450, 322, 90);
+    cyclops = new Battlecruiser(650, 322, 270);
+}
+init();
 
 server.listen(3000, () => {
     console.log('server running at http://localhost:3000');

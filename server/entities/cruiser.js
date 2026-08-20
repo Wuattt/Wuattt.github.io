@@ -1,7 +1,6 @@
 'use strict'
-import { Laser } from '/scripts/entities/laser.js'
-import { Entity } from '/scripts/entities/entity.js'
-import { mapCtx } from '/scripts/global_variables.js'
+import { Laser } from './laser.js'
+import { Entity } from './entity.js'
 import { inDeg, inRad, sleep } from '../../shared/constants.js';
 
 
@@ -11,9 +10,9 @@ export class Battlecruiser extends Entity {
         this.name = 'Cruiser';
         this.width = 81;
         this.height = 118;
-        this.sprite.src = './Images/Sprites/battlecruiser.png';
-        this.thrusterSprite = new Image;
-        this.thrusterSprite.src = './Images/Sprites/laser-sprites/01.png';
+        // this.sprite.src = './Images/Sprites/battlecruiser.png';
+        // this.thrusterSprite = new Image;
+        // this.thrusterSprite.src = './Images/Sprites/laser-sprites/01.png';
         this.bow = new Cruiser__Bow(x, y, deg, this);
         this.leftBow = new Cruiser__leftBow(x, y, deg, this);
         this.rightBow = new Cruiser__rightBow(x, y, deg, this);
@@ -100,7 +99,7 @@ export class Battlecruiser extends Entity {
             return;
         }
     }
-    renderThrusters() {
+    /* renderThrusters() {
         if (this.isSpeedBoostOn) {
             mapCtx.save();
             mapCtx.rotate(inRad(this.deg));
@@ -108,7 +107,7 @@ export class Battlecruiser extends Entity {
             // rotate() rotates canvas instead of sprite image, so need to account for that when drawing.
             mapCtx.restore();
         }
-    }
+    } */
     shootLaser(targetX, targetY) {
         if (this.lasersEnergyStored < 200) {
             return;
@@ -119,7 +118,7 @@ export class Battlecruiser extends Entity {
         if (targetX - this.x < 0) {
             degree = -degree;
         }
-        new Laser(this.x, this.y, degree, this);
+        // new Laser(this.x, this.y, degree, this);
     }
     kill() {
         if (this.isDead) {
@@ -128,7 +127,7 @@ export class Battlecruiser extends Entity {
         this.isSpeedBoostOn = 0;
         this.isDead = true;
         this.energy = 0;
-        setTimeout(() => {
+        /* setTimeout(() => {
             this.sprite.src = './Images/Sprites/explosion-sprites/Explosions pack/explosion-1-g/Sprites/frame1.png';
         }, 100);
         setTimeout(() => {
@@ -145,9 +144,9 @@ export class Battlecruiser extends Entity {
         }, 2000);
         setTimeout(() => {
             this.sprite.src = './Images/Sprites/explosion-sprites/Explosions pack/explosion-1-g/Sprites/frame6.png';
-        }, 2500);
+        }, 2500); */
         setTimeout(() => {
-            this.sprite.src = './Images/Sprites/empty.png';
+            // this.sprite.src = './Images/Sprites/empty.png';
             entitiesList.delete(this.bow);
             entitiesList.delete(this.leftBow);
             entitiesList.delete(this.rightBow);
@@ -176,7 +175,7 @@ class Shield extends Entity {
         this.x = this.cruiser.x;
         this.y = this.cruiser.y;
     }
-    render() {
+    /* render() {
         mapCtx.beginPath();
         mapCtx.strokeStyle = 'blue';
         if (this.size > 10) {
@@ -190,7 +189,7 @@ class Shield extends Entity {
         }
         mapCtx.closePath();
         mapCtx.stroke();
-    }
+    } */
     restore() {
         if (this.cruiser.shieldEnergyStored > this.cruiser.shieldCapacity * 0.2) {
             this.size = 70;
@@ -217,14 +216,14 @@ class Shield extends Entity {
                 this.cruiser.y--;
             }
         }
-        mapCtx.strokeStyle = 'cyan';
+        /* mapCtx.strokeStyle = 'cyan';
         mapCtx.beginPath();
         mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.globalAlpha = 0.25;
         mapCtx.fill();
         mapCtx.strokeStyle = 'white';
-        mapCtx.globalAlpha = 1;
+        mapCtx.globalAlpha = 1; */
     }
 }
 class Cruiser__Bow extends Entity {
@@ -242,12 +241,12 @@ class Cruiser__Bow extends Entity {
         this.x = this.cruiser.x - this.cruiser.height / 2.65 * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y - this.cruiser.height / 2.65 * (Math.round(((Math.sin(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
-    render() {
+    /* render() {
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-    }
+    } */
     collide(collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
@@ -265,12 +264,12 @@ class Cruiser__Bow extends Entity {
                 this.cruiser.y--;
             }
         }
-        mapCtx.strokeStyle = 'red';
+        /* mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-        mapCtx.strokeStyle = 'white';
+        mapCtx.strokeStyle = 'white'; */
     }
 }
 
@@ -289,12 +288,12 @@ class Cruiser__leftBow extends Entity {
         this.x = this.cruiser.x - this.cruiser.height / 2.65 * (Math.round(((Math.cos(inRad(this.cruiser.deg - 30) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y - this.cruiser.height / 2.65 * (Math.round(((Math.sin(inRad(this.cruiser.deg - 30) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
-    render() {
+    /* render() {
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-    }
+    } */
     collide(collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
@@ -312,12 +311,12 @@ class Cruiser__leftBow extends Entity {
                 this.cruiser.y--;
             }
         }
-        mapCtx.strokeStyle = 'red';
+        /* mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-        mapCtx.strokeStyle = 'white';
+        mapCtx.strokeStyle = 'white'; */
     }
 }
 class Cruiser__rightBow extends Entity {
@@ -335,12 +334,12 @@ class Cruiser__rightBow extends Entity {
         this.x = this.cruiser.x - this.cruiser.height / 2.65 * (Math.round(((Math.cos(inRad(this.cruiser.deg + 30) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y - this.cruiser.height / 2.65 * (Math.round(((Math.sin(inRad(this.cruiser.deg + 30) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
-    render() {
+    /* render() {
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-    }
+    } */
     collide(collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
@@ -358,12 +357,12 @@ class Cruiser__rightBow extends Entity {
                 this.cruiser.y--;
             }
         }
-        mapCtx.strokeStyle = 'red';
+        /* mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-        mapCtx.strokeStyle = 'white';
+        mapCtx.strokeStyle = 'white'; */
     }
 }
 
@@ -383,12 +382,12 @@ class Cruiser__Deck extends Entity {
         this.x = this.cruiser.x - this.cruiser.height / 10 * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y - this.cruiser.height / 10 * (Math.round(((Math.sin(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
-    render() {
+    /* render() {
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-    }
+    } */
     collide(collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
@@ -406,12 +405,12 @@ class Cruiser__Deck extends Entity {
                 this.cruiser.y--;
             }
         }
-        mapCtx.strokeStyle = 'red';
+        /* mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-        mapCtx.strokeStyle = 'white';
+        mapCtx.strokeStyle = 'white'; */
     }
 }
 
@@ -430,12 +429,12 @@ class Cruiser__Aft extends Entity {
         this.x = this.cruiser.x + this.cruiser.height / 4 * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y + this.cruiser.height / 4 * (Math.round(((Math.sin(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
-    render() {
+    /* render() {
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-    }
+    } */
     collide(collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
@@ -453,12 +452,12 @@ class Cruiser__Aft extends Entity {
                 this.cruiser.y--;
             }
         }
-        mapCtx.strokeStyle = 'red';
+        /* mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-        mapCtx.strokeStyle = 'white';
+        mapCtx.strokeStyle = 'white'; */
     }
 }
 class Cruiser__LeftWing extends Entity {
@@ -476,12 +475,12 @@ class Cruiser__LeftWing extends Entity {
         this.x = this.cruiser.x + this.cruiser.height / 3.15 * (Math.round(((Math.cos(inRad(this.cruiser.deg + 45) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y + this.cruiser.height / 3.15 * (Math.round(((Math.sin(inRad(this.cruiser.deg + 45) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
-    render() {
+    /* render() {
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-    }
+    } */
     collide(collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
@@ -499,12 +498,12 @@ class Cruiser__LeftWing extends Entity {
                 this.cruiser.y--;
             }
         }
-        mapCtx.strokeStyle = 'red';
+        /* mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-        mapCtx.strokeStyle = 'white';
+        mapCtx.strokeStyle = 'white'; */
     }
 }
 class Cruiser__RightWing extends Entity {
@@ -522,12 +521,12 @@ class Cruiser__RightWing extends Entity {
         this.x = this.cruiser.x + this.cruiser.height / 3.15 * (Math.round(((Math.cos(inRad(this.cruiser.deg - 45) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y + this.cruiser.height / 3.15 * (Math.round(((Math.sin(inRad(this.cruiser.deg - 45) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
     }
-    render() {
+    /* render() {
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-    }
+    } */
     collide(collidingObject) {
         if (collidingObject.isCruiser) {
             this.cruiser.health--;
@@ -545,11 +544,11 @@ class Cruiser__RightWing extends Entity {
                 this.cruiser.y--;
             }
         }
-        mapCtx.strokeStyle = 'red';
+        /* mapCtx.strokeStyle = 'red';
         mapCtx.beginPath();
         // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
         mapCtx.closePath();
         mapCtx.stroke();
-        mapCtx.strokeStyle = 'white';
+        mapCtx.strokeStyle = 'white'; */
     }
 }
