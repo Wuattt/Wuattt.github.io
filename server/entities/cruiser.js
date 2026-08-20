@@ -232,40 +232,9 @@ class Cruiser__Bow extends Cruiser__Part {
         super(cruiser.x, cruiser.y, cruiser.deg, 13, cruiser, 'bow');
         this.name = 'Cruiser Bow';
     }
-    // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates() {
         this.x = this.cruiser.x - this.cruiser.height / 2.65 * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y - this.cruiser.height / 2.65 * (Math.round(((Math.sin(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-    }
-    /* render() {
-        mapCtx.beginPath();
-        // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
-    } */
-    collide(collidingObject) {
-        if (collidingObject.isCruiser) {
-            this.cruiser.health--;
-            if (this.cruiser.health <= 0) {
-                this.cruiser.kill();
-            }
-            if (this.cruiser.x > collidingObject.cruiser.x) {
-                this.cruiser.x++;
-            } else {
-                this.cruiser.x--;
-            }
-            if (this.cruiser.y > collidingObject.cruiser.y) {
-                this.cruiser.y++;
-            } else {
-                this.cruiser.y--;
-            }
-        }
-        /* mapCtx.strokeStyle = 'red';
-        mapCtx.beginPath();
-        // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
-        mapCtx.strokeStyle = 'white'; */
     }
 }
 
@@ -274,40 +243,9 @@ class Cruiser__leftBow extends Cruiser__Part {
         super(cruiser.x, cruiser.y, cruiser.deg, 10, cruiser, 'leftBow');
         this.name = 'Cruiser Left Bow';
     }
-    // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates() {
         this.x = this.cruiser.x - this.cruiser.height / 2.65 * (Math.round(((Math.cos(inRad(this.cruiser.deg - 30) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y - this.cruiser.height / 2.65 * (Math.round(((Math.sin(inRad(this.cruiser.deg - 30) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-    }
-    /* render() {
-        mapCtx.beginPath();
-        // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
-    } */
-    collide(collidingObject) {
-        if (collidingObject.isCruiser) {
-            this.cruiser.health--;
-            if (this.cruiser.health <= 0) {
-                this.cruiser.kill();
-            }
-            if (this.cruiser.x > collidingObject.cruiser.x) {
-                this.cruiser.x++;
-            } else {
-                this.cruiser.x--;
-            }
-            if (this.cruiser.y > collidingObject.cruiser.y) {
-                this.cruiser.y++;
-            } else {
-                this.cruiser.y--;
-            }
-        }
-        /* mapCtx.strokeStyle = 'red';
-        mapCtx.beginPath();
-        // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
-        mapCtx.strokeStyle = 'white'; */
     }
 }
 class Cruiser__rightBow extends Cruiser__Part {
@@ -315,40 +253,9 @@ class Cruiser__rightBow extends Cruiser__Part {
         super(cruiser.x, cruiser.y, cruiser.deg, 10, cruiser, 'rightBow');
         this.name = 'Cruiser Right Bow';
     }
-    // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates() {
         this.x = this.cruiser.x - this.cruiser.height / 2.65 * (Math.round(((Math.cos(inRad(this.cruiser.deg + 30) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y - this.cruiser.height / 2.65 * (Math.round(((Math.sin(inRad(this.cruiser.deg + 30) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-    }
-    /* render() {
-        mapCtx.beginPath();
-        // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
-    } */
-    collide(collidingObject) {
-        if (collidingObject.isCruiser) {
-            this.cruiser.health--;
-            if (this.cruiser.health <= 0) {
-                this.cruiser.kill();
-            }
-            if (this.cruiser.x > collidingObject.cruiser.x) {
-                this.cruiser.x++;
-            } else {
-                this.cruiser.x--;
-            }
-            if (this.cruiser.y > collidingObject.cruiser.y) {
-                this.cruiser.y++;
-            } else {
-                this.cruiser.y--;
-            }
-        }
-        /* mapCtx.strokeStyle = 'red';
-        mapCtx.beginPath();
-        // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
-        mapCtx.strokeStyle = 'white'; */
     }
 }
 
@@ -358,40 +265,9 @@ class Cruiser__Deck extends Cruiser__Part {
         super(cruiser.x, cruiser.y, cruiser.deg, 18, cruiser, 'deck');
         this.name = 'Cruiser Deck';
     }
-    // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates() {
         this.x = this.cruiser.x - this.cruiser.height / 10 * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y - this.cruiser.height / 10 * (Math.round(((Math.sin(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-    }
-    /* render() {
-        mapCtx.beginPath();
-        // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
-    } */
-    collide(collidingObject) {
-        if (collidingObject.isCruiser) {
-            this.cruiser.health--;
-            if (this.cruiser.health <= 0) {
-                this.cruiser.kill();
-            }
-            if (this.cruiser.x > collidingObject.cruiser.x) {
-                this.cruiser.x++;
-            } else {
-                this.cruiser.x--;
-            }
-            if (this.cruiser.y > collidingObject.cruiser.y) {
-                this.cruiser.y++;
-            } else {
-                this.cruiser.y--;
-            }
-        }
-        /* mapCtx.strokeStyle = 'red';
-        mapCtx.beginPath();
-        // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
-        mapCtx.strokeStyle = 'white'; */
     }
 }
 
@@ -400,40 +276,9 @@ class Cruiser__Aft extends Cruiser__Part {
         super(cruiser.x, cruiser.y, cruiser.deg, 20, cruiser, 'aft');
         this.name = 'Cruiser Aft';
     }
-    // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates() {
         this.x = this.cruiser.x + this.cruiser.height / 4 * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y + this.cruiser.height / 4 * (Math.round(((Math.sin(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-    }
-    /* render() {
-        mapCtx.beginPath();
-        // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
-    } */
-    collide(collidingObject) {
-        if (collidingObject.isCruiser) {
-            this.cruiser.health--;
-            if (this.cruiser.health <= 0) {
-                this.cruiser.kill();
-            }
-            if (this.cruiser.x > collidingObject.cruiser.x) {
-                this.cruiser.x++;
-            } else {
-                this.cruiser.x--;
-            }
-            if (this.cruiser.y > collidingObject.cruiser.y) {
-                this.cruiser.y++;
-            } else {
-                this.cruiser.y--;
-            }
-        }
-        /* mapCtx.strokeStyle = 'red';
-        mapCtx.beginPath();
-        // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
-        mapCtx.strokeStyle = 'white'; */
     }
 }
 class Cruiser__LeftWing extends Cruiser__Part {
@@ -441,40 +286,9 @@ class Cruiser__LeftWing extends Cruiser__Part {
         super(cruiser.x, cruiser.y, cruiser.deg, 15, cruiser, 'leftWing');
         this.name = 'Cruiser Left Wing';
     }
-    // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates() {
         this.x = this.cruiser.x + this.cruiser.height / 3.15 * (Math.round(((Math.cos(inRad(this.cruiser.deg + 45) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y + this.cruiser.height / 3.15 * (Math.round(((Math.sin(inRad(this.cruiser.deg + 45) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-    }
-    /* render() {
-        mapCtx.beginPath();
-        // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
-    } */
-    collide(collidingObject) {
-        if (collidingObject.isCruiser) {
-            this.cruiser.health--;
-            if (this.cruiser.health <= 0) {
-                this.cruiser.kill();
-            }
-            if (this.cruiser.x > collidingObject.cruiser.x) {
-                this.cruiser.x++;
-            } else {
-                this.cruiser.x--;
-            }
-            if (this.cruiser.y > collidingObject.cruiser.y) {
-                this.cruiser.y++;
-            } else {
-                this.cruiser.y--;
-            }
-        }
-        /* mapCtx.strokeStyle = 'red';
-        mapCtx.beginPath();
-        // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
-        mapCtx.strokeStyle = 'white'; */
     }
 }
 class Cruiser__RightWing extends Cruiser__Part {
@@ -482,39 +296,8 @@ class Cruiser__RightWing extends Cruiser__Part {
         super(cruiser.x, cruiser.y, cruiser.deg, 15, cruiser, 'rightWing');
         this.name = 'Cruiser Right Wing';
     }
-    // TODO: rendering of specific cruiser parts, for testing, to implement collision
     updateCoordinates() {
         this.x = this.cruiser.x + this.cruiser.height / 3.15 * (Math.round(((Math.cos(inRad(this.cruiser.deg - 45) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
         this.y = this.cruiser.y + this.cruiser.height / 3.15 * (Math.round(((Math.sin(inRad(this.cruiser.deg - 45) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
-    }
-    /* render() {
-        mapCtx.beginPath();
-        // mapCtx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
-    } */
-    collide(collidingObject) {
-        if (collidingObject.isCruiser) {
-            this.cruiser.health--;
-            if (this.cruiser.health <= 0) {
-                this.cruiser.kill();
-            }
-            if (this.cruiser.x > collidingObject.cruiser.x) {
-                this.cruiser.x++;
-            } else {
-                this.cruiser.x--;
-            }
-            if (this.cruiser.y > collidingObject.cruiser.y) {
-                this.cruiser.y++;
-            } else {
-                this.cruiser.y--;
-            }
-        }
-        /* mapCtx.strokeStyle = 'red';
-        mapCtx.beginPath();
-        // mapCtx.arc(this.x, this.y, this.size - 2, 0, 2 * Math.PI);
-        mapCtx.closePath();
-        mapCtx.stroke();
-        mapCtx.strokeStyle = 'white'; */
     }
 }
