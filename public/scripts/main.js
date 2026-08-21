@@ -1,5 +1,5 @@
-/* 'use strict'
-import { startRendering } from '/scripts/renderer.js';
+'use strict'
+import { startRendering } from '/scripts/rendering/renderer.js';
 //import { startRoundTimer } from '/scripts/clock.js'
 
 
@@ -12,10 +12,10 @@ import { startRendering } from '/scripts/renderer.js';
     // checkAllCollisions(); // move to game_loop.js
 } */
 
-/* const init = () => {
+const init = () => {
     startRendering();
     //startRoundTimer();
 }
 
-init(); */
+init();
 

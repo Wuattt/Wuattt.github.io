@@ -1,8 +1,9 @@
 export const ENTITY_TYPE = {
-    CRUISER:0,
-    ASTEROID:1,
-    LASER:2,
-    ROCKET:3
+    CRUISER: 0,
+    CRUISER_PART: 1,
+    LASER: 2,
+    ASTEROID: 3,
+    ROCKET: 4
 }
 
 export const BYTES_PER_ENTITY =

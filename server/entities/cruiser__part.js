@@ -5,7 +5,7 @@ export class Cruiser__Part extends Entity {
     constructor(x = 0, y = 0, deg = 0, size = 1, cruiser, cruiserPart) {
         super(cruiser.x, cruiser.y, cruiser.deg);
         this.size = size;
-        this.type = 'CRUISER_PART';
+        this.type = 'cruiser_part';
         cruiserPartsListAdd(this);
         this.cruiserPart = cruiserPart;
         this.cruiser = cruiser;

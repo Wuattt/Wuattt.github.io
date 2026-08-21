@@ -1,13 +1,14 @@
-/* //work in progress
+//work in progress
 import { TICK_INTERVAL } from '../../../shared/constants.js';
 import { mapCtx, map } from '../DOM_variables.js'
-import { controlledEntity } from '../controller.js';
+//import { controlledEntity } from '../controller.js';
+import { entitiesGet } from '../gamestate_variables.js'
 
 
 function clearMap () {
     mapCtx.clearRect(0, 0, map.width, map.height);
 }
-
+/* 
 const updateStatus = () => {
     if (controlledEntity) {
         hull.innerHTML = `Hull: ${controlledEntity.health}`;
@@ -24,15 +25,21 @@ const updateStatus = () => {
         generator.innerHTML = `Generator: ${controlledEntity.generatorStrength} GW/s`;
         energy_generation.innerHTML = `Energy generation: ${controlledEntity.generatorStrength - controlledEntity.lasersEnergyDraw - controlledEntity.shieldEnergyDraw - controlledEntity.engineEnergyDraw} GW/s`;
     }
+} */
+
+const render = (entity) => {
+    switch(entity.type) {
+        case 'cruiser':
+            console.log(entity);
+            break;
+        default:
+            
+    }
 }
 
 export const startRendering = () => setInterval(() => {
     clearMap();
-    entitiesListGet().forEach((entity) => {
-        entity.updateCoordinates();
-        entity.render();
-        updateStatus();
-        entity.generateEnergy();
+    entitiesGet().forEach((entity) => {
+        render(entity);
     })
 }, TICK_INTERVAL);
- */
