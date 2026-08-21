@@ -1,6 +1,6 @@
 export const SPRITES = {
     cruiser: loadSprite('/Images/Sprites/battlecruiser.png'),
-    cruiser: loadSprite('/Images/Sprites/laser-sprites/33.png'),
+    laser: loadSprite('/Images/Sprites/laser-sprites/33.png'),
 }
 export const ENTITY_VISUALS = {
     cruiser: {width: 81, height: 118},
