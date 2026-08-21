@@ -1,9 +1,9 @@
 //work in progress
-import { TICK_INTERVAL } from '../../../shared/constants.js';
+import { TICK_INTERVAL, inRad } from '../../../shared/constants.js';
 import { mapCtx, map } from '../DOM_variables.js'
 //import { controlledEntity } from '../controller.js';
 import { entitiesGet } from '../gamestate_variables.js'
-
+import { SPRITES, ENTITY_VISUALS } from './sprites.js'
 
 function clearMap () {
     mapCtx.clearRect(0, 0, map.width, map.height);
@@ -28,13 +28,15 @@ const updateStatus = () => {
 } */
 
 const render = (entity) => {
-    switch(entity.type) {
-        case 'cruiser':
-            console.log(entity);
-            break;
-        default:
-            
-    }
+    const sprite = SPRITES[entity.type];
+    const visual = ENTITY_VISUALS[entity.type];
+    if (!sprite || !visual) return;
+
+    mapCtx.save();
+    mapCtx.translate(entity.x, entity.y);
+    mapCtx.rotate(inRad(entity.deg));
+    mapCtx.drawImage(sprite, -visual.width / 2, -visual.height / 2, visual.width, visual.height);
+    mapCtx.restore();
 }
 
 export const startRendering = () => setInterval(() => {

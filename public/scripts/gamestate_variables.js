@@ -8,5 +8,5 @@ export function entitiesDelete (entity) {
     entities.delete(entity.id);
 }
 export function entitiesGet () {
-    return entities;
+    return entities.values();
 }
