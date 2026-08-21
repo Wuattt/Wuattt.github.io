@@ -1,6 +1,6 @@
 'use strict'
 import { entityIdCounterGet, entityIdCounterAdd, entitiesListAdd } from '../global_variables.js'
-import { inDeg, inRad, sleep } from '../../shared/constants.js';
+import { inDeg, inRad, sleep, normalizeDeg } from '../../shared/constants.js';
 
 
 export class Entity {
@@ -119,7 +119,7 @@ export class Entity {
             if (this.momentumRotation >= 0) {
                 break
             }
-            this.deg -= this.rotationSpeed;
+            this.deg = normalizeDeg(this.deg - this.rotationSpeed);
             await sleep (10);
         }
     }
@@ -128,7 +128,7 @@ export class Entity {
             if (this.momentumRotation <= 0) {
                 break
             }
-            this.deg += this.rotationSpeed;
+            this.deg = normalizeDeg(this.deg + this.rotationSpeed)
             await sleep (10);
         }
     }

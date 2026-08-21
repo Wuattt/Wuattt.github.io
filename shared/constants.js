@@ -15,3 +15,6 @@ export const inRad = (degrees) => {
 export const inDeg = (rad) => {
     return (rad / Math.PI) * 180;
 }
+export const normalizeDeg = (deg) => {
+    return ((deg % 360) + 360) % 360;
+}

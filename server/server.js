@@ -10,6 +10,7 @@ import { setBROADCAST_INTERVAL } from './state_broadcast.js';
 import { setTICK_INTERVAL } from './game_loop.js'
 import { Battlecruiser } from './entities/cruiser.js'
 import { entitiesListGet, cruiserPartsListGet } from './global_variables.js'
+import { normalizeDeg } from '../shared/constants.js'
 
 const app = express();
 const server = createServer(app);
@@ -93,4 +94,5 @@ server.listen(3000, () => {
     Console.dragon = dragon;
     Console.entitiesList = entitiesListGet();
     Console.cruiserPartsList = cruiserPartsListGet();
+    Console.normalizeDeg = normalizeDeg;
 });

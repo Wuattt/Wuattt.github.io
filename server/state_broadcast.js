@@ -11,7 +11,7 @@ export const setBROADCAST_INTERVAL = () => {
     io.on('connection', (socket) => {
         timeloop = setInterval(() => {
             socket.emit('updateState', packState(Array.from(entitiesListGet())));
-        }, (BROADCAST_INTERVAL + 1000));
+        }, (BROADCAST_INTERVAL));
     });
 }
 

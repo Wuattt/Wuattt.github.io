@@ -7,5 +7,5 @@ export const setTICK_INTERVAL = () => {
     timeloop ? clearInterval(timeloop) : 0;
     timeloop = setInterval(() => {
             
-        }, (TICK_INTERVAL + 1000));
+        }, (TICK_INTERVAL));
 }
