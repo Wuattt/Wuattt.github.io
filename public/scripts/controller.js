@@ -23,12 +23,12 @@ let id = controlledEntity.id; */
 /* const whichKeyPressed = (subject) => {
     console.log(subject);
 }
-
+*/
 
 $(document).on("keydown", async function (event) {
     // whichKeyPressed(event.which);
     switch (event.which) {
-        case 87: // w key
+        /*case 87: // w key
             if (controlledEntity && isConsoleOpen == false && wKeyPressed != true) {
                 wKeyPressed = true;
                 x = controlledEntity.x;
@@ -106,7 +106,7 @@ $(document).on("keydown", async function (event) {
                 control_panel.style.display = 'block';
                 isControlPanelOpen = true;
             }
-            break;
+            break; */
         case 84: // t key
             if (isConsoleOpen == false) {
                 openConsole();
@@ -135,7 +135,7 @@ $(document).on("keydown", async function (event) {
 
 $(document).on("keyup", function (event) {
     switch (event.which) {
-        case 65:
+        /* case 65:
             aKeyPressed = false;
             deg = controlledEntity.deg;
             id = controlledEntity.id;
@@ -181,7 +181,7 @@ $(document).on("keyup", function (event) {
                 id = controlledEntity.id;
                 socket.emit('engineBoostOff', id)
             }
-            break;
+            break; */
         case 84: // t key
             if (isConsoleOpen == true) {
                 $('#console input').focus();
@@ -199,7 +199,7 @@ $(document).on("keyup", function (event) {
             break;
     }
 });
-
+/*
 // shooting lasers
 $('canvas').on('click', (event) => {
     if (controlledEntity) {

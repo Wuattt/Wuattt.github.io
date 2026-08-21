@@ -7,20 +7,19 @@ import { socket } from './multiplayer.js';
  export let isControlPanelOpen = true;
 
  export function openConsole () {
-     if (!gameConsole.style.display || gameConsole.style.visibility == 'hidden') {
+     if (!gameConsole.style.display || gameConsole.style.visibility === 'hidden') {
          gameConsole.style.visibility = 'visible';
          isConsoleOpen = true;
      }
  }
  export function closeConsole () {
-     if (gameConsole.style.visibility == 'visible') {
+     if (gameConsole.style.visibility === 'visible') {
          gameConsole.style.visibility = 'hidden';
          isConsoleOpen = false;
      }
  }
 
 
- /*
   form.addEventListener('submit', (e) => {
       e.preventDefault();
       if (input.value !== '') {
@@ -49,7 +48,7 @@ import { socket } from './multiplayer.js';
                       commandList.style.visibility = 'inherit';
                   }, 2000);
                   input.before(commandList);
-                  break;
+                  break;/*
               case '/possess':
                   if (controlledEntity == dragon) {
                       controlledEntity = cyclops;
@@ -72,7 +71,7 @@ import { socket } from './multiplayer.js';
                           entity.health = entity.maxHealth;
                       }
                   })
-                  break;
+                  break;*/
               default:
                   if (isSlashFirst) {
                       let unknownCommandException = document.createElement('p');
@@ -87,4 +86,4 @@ import { socket } from './multiplayer.js';
       }}
       closeConsole()
       input.value = '';
-  }); */
+  });
