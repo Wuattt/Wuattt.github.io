@@ -1,7 +1,7 @@
 'use strict'
 
 import express from 'express';
-import relp from 'repl';
+import repl from 'repl';
 import {createServer} from 'node:http';
 import {fileURLToPath} from 'node:url';
 import {dirname, join} from 'node:path';
@@ -9,7 +9,7 @@ import {Server} from 'socket.io';
 import { setBROADCAST_INTERVAL } from './state_broadcast.js';
 import { setTICK_INTERVAL } from './game_loop.js'
 import { Battlecruiser } from './entities/cruiser.js'
-import { entitiesListGet, cruiserPartsListGet } from './global_variables.js'
+import { entitiesListGet, cruiserPartsListGet, playersAdd, playersDelete, playersGet, playersObjectGet } from './global_variables.js'
 import { normalizeDeg } from '../shared/constants.js'
 
 const app = express();
@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', (socket) => {
+    const playerId = playersAdd(socket.id);
     io.emit('connected', socket.id);
     const entities = Array.from(entitiesListGet());
     let freeCruisers = entities.filter((entity) => (entity.type === 'cruiser' && entity.player == null));
@@ -34,8 +35,9 @@ io.on('connection', (socket) => {
         occupiedCruiser = freeCruisers[0];
     }
     socket.on('disconnect', (reason) => {
-        io.emit('disconnected', socket.id, reason);
+        playersDelete(playerId);
         occupiedCruiser.player = null;
+        io.emit('disconnected', socket.id, reason);
     })
     socket.on('chatmessage', (input) => {
         socket.broadcast.emit('chatmessage', input);
@@ -103,11 +105,12 @@ init();
 
 server.listen(3000, () => {
     console.log('server running at http://localhost:3000');
-    const myConsole = relp.start({ prompt: 'node-server>' });
+    const myConsole = repl.start({ prompt: 'node-server>' });
     const Console = myConsole.context;
     Console.dragon = dragon;
     Console.cyclops = cyclops;
     Console.entitiesList = entitiesListGet();
     Console.cruiserPartsList = cruiserPartsListGet();
     Console.normalizeDeg = normalizeDeg;
+    Console.players = playersObjectGet();
 });

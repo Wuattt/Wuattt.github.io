@@ -1,5 +1,27 @@
 'use strict'
+let playersIdCounter = 0;
+export function playersIdCounterAdd () {
+    return playersIdCounter++;
+}
+export function playersIdCounterGet () {
+    return playersIdCounter;
+}
 
+let players = new Map;
+export function playersAdd (playerSocket) {
+    let newPlayerId = playersIdCounterGet();
+    players.set(newPlayerId, playerSocket);
+    return playersIdCounterAdd();
+}
+export function playersDelete (playerId) {
+    players.set(playerId, null);
+}
+export function playersGet () {
+    return players.values();
+}
+export function playersObjectGet () {
+    return players;
+}
 
 let entitiesList = new Set;
 export function entitiesListAdd (entity) {
