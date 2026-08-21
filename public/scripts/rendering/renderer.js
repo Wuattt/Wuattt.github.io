@@ -33,15 +33,15 @@ const render = (entity) => {
     if (!sprite || !visual) return;
 
     mapCtx.save();
+    mapCtx.translate(entity.x, entity.y);
     mapCtx.rotate(inRad(entity.deg));
-    mapCtx.drawImage(sprite, entity.x * (Math.round(((Math.cos(inRad(entity.deg) + Number.EPSILON) * 1000))) / 1000) + entity.y * (Math.round(((Math.sin(inRad(entity.deg) + Number.EPSILON) * 1000))) / 1000) - (visual.width / 2), entity.x * (Math.round(((Math.cos(inRad(entity.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000) + entity.y * (Math.round(((Math.cos(inRad(entity.deg) + Number.EPSILON) * 1000))) / 1000) - visual.height / 2, visual.width, visual.height);
-    // rotate() rotates canvas instead of sprite image, so need to account for that when drawing.
+    mapCtx.drawImage(sprite, -visual.width / 2, -visual.height / 2, visual.width, visual.height);
     mapCtx.restore();
-    mapCtx.beginPath();
+    /* mapCtx.beginPath();
     mapCtx.arc(entity.x, entity.y, 3, 0, 2 * Math.PI); // exact coordinates for testing
     mapCtx.closePath();
     mapCtx.stroke();
-    mapCtx.strokeStyle = 'white';
+    mapCtx.strokeStyle = 'white'; */
 }
 
 export const startRendering = () => setInterval(() => {
