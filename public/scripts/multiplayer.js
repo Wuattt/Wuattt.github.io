@@ -2,6 +2,10 @@
 import { input } from './DOM_variables.js';
 export const socket = io();
 
+let playerId = null;
+const setPlayerId = (passedPlayerId) => playerId = passedPlayerId;
+export const getPlayerId = () => playerId;
+
 socket.on('connected', (socket) => {
     let message = document.createElement('p');
     message.innerHTML = socket + ' connected!';
@@ -11,6 +15,9 @@ socket.on('connected', (socket) => {
     }, 2000);
     input.before(message);
 })
+socket.on('setPlayerId', (passedPlayerId) => {
+    setPlayerId(passedPlayerId);
+});
 socket.on('disconnected', (socket, reason) => {
     let message = document.createElement('p');
     message.innerHTML = socket + ' disconnected. Reason: ' + reason;

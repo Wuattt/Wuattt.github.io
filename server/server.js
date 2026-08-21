@@ -27,6 +27,7 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
     const playerId = playersAdd(socket.id);
     io.emit('connected', socket.id);
+    socket.emit('setPlayerId', playerId);
     const entities = Array.from(entitiesListGet());
     let freeCruisers = entities.filter((entity) => (entity.type === 'cruiser' && entity.player == null));
     let occupiedCruiser = null;

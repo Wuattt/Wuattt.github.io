@@ -1,7 +1,9 @@
-/* 'use strict'
-//import { openConsole, closeConsole, isConsoleOpen, isControlPanelOpen } from '/scripts/console_commands.js'
-import { socket } from '/scripts/multiplayer.js';
+'use strict'
+import { openConsole, closeConsole, isConsoleOpen, isControlPanelOpen } from './console_commands.js'
+import { socket } from './multiplayer.js';
+import { getPlayerId } from './multiplayer.js';
 
+const player = getPlayerId();
 
 let wKeyPressed = false;
 let sKeyPressed = false;
@@ -12,7 +14,7 @@ let eKeyPressed = false;
 let shiftKeyPressed = false;
 
 
-export let controlledEntity = null; // null until multiplayer part is done. Should be set to dragon
+//export let controlledEntity = null; // null until multiplayer part is done. Should be set to dragon
 /* let x = controlledEntity.x;
 let y = controlledEntity.y;
 let deg = controlledEntity.deg;
