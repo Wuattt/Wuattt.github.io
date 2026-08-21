@@ -96,14 +96,14 @@ export class Entity {
             await sleep (10);
         };
     }
-    async moveForward () {
+    async accelerate () {
         while (true) {
             this.x += this.speed * (Math.round(((Math.cos(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
             this.y += this.speed * (Math.round(((Math.sin(inRad(this.deg) - Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
             await sleep(10);
         }
     }
-    async moveBackwards () {
+    async decelerate () {
         while (true) {
             if (this.momentumAlong >= 0) {
                 break

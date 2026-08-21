@@ -2,12 +2,30 @@
 import { input } from './DOM_variables.js';
 export const socket = io();
 
-
+socket.on('connected', (socket) => {
+    let message = document.createElement('p');
+    message.innerHTML = socket + ' connected!';
+    message.style.visibility = 'visible';
+    console.log(message.innerHTML);
+    setTimeout(() => {
+        message.style.visibility = 'inherit';
+    }, 2000);
+    input.before(message);
+})
+socket.on('disconnected', (socket, reason) => {
+    let message = document.createElement('p');
+    message.innerHTML = socket + ' disconnected. Reason: ' + reason;
+    message.style.visibility = 'visible';
+    console.log(message.innerHTML);
+    setTimeout(() => {
+        message.style.visibility = 'inherit';
+    }, 2000);
+    input.before(message);
+})
 socket.on('chatmessage', (text) => {
     let isSlashFirst = /^\//g.test(text);
     let usedCommand = document.createElement('p');
     usedCommand.innerHTML = text;
-    console.log(usedCommand);
     if (isSlashFirst) {
         usedCommand.style.color = 'gray';
     }
@@ -27,7 +45,7 @@ socket.on('engineBoostOff', (entityID) => {
     entity.isSpeedBoostOn = 0;
     entity.updateSpeed();
 });
-socket.on('moveForward', (x, y, entityID) => {
+socket.on('accelerate', (x, y, entityID) => {
     let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     entity.x = x;
     entity.y = y;
@@ -40,10 +58,10 @@ socket.on('moveForward', (x, y, entityID) => {
         entity.updateSpeed();
     }
 });
-socket.on('moveForwardStop', (entityID) => {
+socket.on('accelerateStop', (entityID) => {
 
 });
-socket.on('moveBackwards', (x, y, entityID) => {
+socket.on('decelerate', (x, y, entityID) => {
     let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     entity.x = x;
     entity.y = y;
@@ -54,7 +72,7 @@ socket.on('moveBackwards', (x, y, entityID) => {
                 }
                 entity.updateSpeed();
 });
-socket.on('moveBackwardsStop', (entityID) => {
+socket.on('decelerateStop', (entityID) => {
 
 });
 socket.on('strafeLeft', (x, y, entityID) => {

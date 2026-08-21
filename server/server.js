@@ -25,55 +25,69 @@ app.get('/', (req, res) => {
 })
 
 io.on('connection', (socket) => {
+    io.emit('connected', socket.id);
+    const entities = Array.from(entitiesListGet());
+    let freeCruisers = entities.filter((entity) => (entity.type === 'cruiser' && entity.player == null));
+    let occupiedCruiser = null;
+    if (freeCruisers.length > 0) {
+        freeCruisers[0].player = socket.id;
+        occupiedCruiser = freeCruisers[0];
+    }
+    socket.on('disconnect', (reason) => {
+        io.emit('disconnected', socket.id, reason);
+        occupiedCruiser.player = null;
+    })
     socket.on('chatmessage', (input) => {
         socket.broadcast.emit('chatmessage', input);
     });
-    socket.on('engineBoostOn', (entityID) => {
-        io.emit('engineBoostOn', entityID);
-    });
-    socket.on('engineBoostOff', (entityID) => {
-        io.emit('engineBoostOff', entityID);
-    });
-    socket.on('moveForward', (x, y, entityID) => {
-        io.emit('moveForward', x, y, entityID);
-    });
-    socket.on('moveForwardStop', (entityID) => {
-        io.emit('moveForwardStop', entityID);
-    });
-    socket.on('moveBackwards', (x, y, entityID) => {
-        io.emit('moveBackwards', x, y, entityID);
-    });
-    socket.on('moveBackwardsStop', (entityID) => {
-        io.emit('moveBackwardsStop', entityID);
-    });
-    socket.on('strafeLeft', (x, y, entityID) => {
-        io.emit('strafeLeft', x, y, entityID);
-    });
-    socket.on('strafeLeftStop', (entityID) => {
-        io.emit('strafeLeftStop', entityID);
-    });
+    if (occupiedCruiser != null) {
+        socket.on('engineBoostOn', (entityID) => {
+            io.emit('engineBoostOn', entityID);
+        });
+        socket.on('engineBoostOff', (entityID) => {
+            io.emit('engineBoostOff', entityID);
+        });
+        socket.on('accelerate', (x, y, entityID) => {
+            io.emit('accelerate', x, y, entityID);
+        });
+        socket.on('accelerateStop', (entityID) => {
+            io.emit('accelerate`top', entityID);
+        });
+        socket.on('decelerate', (x, y, entityID) => {
+            io.emit('decelerate', x, y, entityID);
+        });
+        socket.on('decelerateStop', (entityID) => {
+            io.emit('decelerateStop', entityID);
+        });
+        socket.on('strafeLeft', (x, y, entityID) => {
+            io.emit('strafeLeft', x, y, entityID);
+        });
+        socket.on('strafeLeftStop', (entityID) => {
+            io.emit('strafeLeftStop', entityID);
+        });
 
-    socket.on('strafeRight', (x, y, entityID) => {
-        io.emit('strafeRight', x, y, entityID);
-    });
-    socket.on('strafeRightStop', (entityID) => {
-        io.emit('strafeRightStop', entityID);
-    });
-    socket.on('rotateLeft', (x, y, entityID) => {
-        io.emit('rotateLeft', x, y, entityID);
-    });
-    socket.on('rotateLeftStop', (entityID) => {
-        io.emit('rotateLeftStop', entityID);
-    });
-    socket.on('rotateRight', (x, y, entityID) => {
-        io.emit('rotateRight', x, y, entityID);
-    });
-    socket.on('rotateRightStop', (entityID) => {
-        io.emit('rotateRightStop', entityID);
-    });
-    socket.on('shoot laser', (targetX, targetY, shootingEntity) => {
-        io.emit('shoot laser', targetX, targetY, shootingEntity)
-    })
+        socket.on('strafeRight', (x, y, entityID) => {
+            io.emit('strafeRight', x, y, entityID);
+        });
+        socket.on('strafeRightStop', (entityID) => {
+            io.emit('strafeRightStop', entityID);
+        });
+        socket.on('rotateLeft', (x, y, entityID) => {
+            io.emit('rotateLeft', x, y, entityID);
+        });
+        socket.on('rotateLeftStop', (entityID) => {
+            io.emit('rotateLeftStop', entityID);
+        });
+        socket.on('rotateRight', (x, y, entityID) => {
+            io.emit('rotateRight', x, y, entityID);
+        });
+        socket.on('rotateRightStop', (entityID) => {
+            io.emit('rotateRightStop', entityID);
+        });
+        socket.on('shoot laser', (targetX, targetY, shootingEntity) => {
+            io.emit('shoot laser', targetX, targetY, shootingEntity)
+        })
+    }
 });
 
 let dragon = null;
@@ -92,6 +106,7 @@ server.listen(3000, () => {
     const myConsole = relp.start({ prompt: 'node-server>' });
     const Console = myConsole.context;
     Console.dragon = dragon;
+    Console.cyclops = cyclops;
     Console.entitiesList = entitiesListGet();
     Console.cruiserPartsList = cruiserPartsListGet();
     Console.normalizeDeg = normalizeDeg;

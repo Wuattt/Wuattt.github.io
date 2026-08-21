@@ -32,7 +32,7 @@ $(document).on("keydown", async function (event) {
                 x = controlledEntity.x;
                 y = controlledEntity.y;
                 id = controlledEntity.id;
-                socket.emit('moveForward', x, y, id);
+                socket.emit('accelerate', x, y, id);
             }
             break;
         case 83: // s key
@@ -41,7 +41,7 @@ $(document).on("keydown", async function (event) {
                 x = controlledEntity.x;
                 y = controlledEntity.y;
                 id = controlledEntity.id;
-                socket.emit('moveBackwards', x, y, id);
+                socket.emit('decelerate', x, y, id);
             }
             break;
         case 65: // a key
@@ -150,14 +150,14 @@ $(document).on("keyup", function (event) {
             x = controlledEntity.x;
             y = controlledEntity.y;
             id = controlledEntity.id;
-            socket.emit('moveForwardStop', id);
+            socket.emit('accelerateStop', id);
             break;
         case 83:
             sKeyPressed = false;
             x = controlledEntity.x;
             y = controlledEntity.y;
             id = controlledEntity.id;
-            socket.emit('moveBackwardsStop', id);
+            socket.emit('decelerateStop', id);
             break;
         case 81:
             qKeyPressed = false;

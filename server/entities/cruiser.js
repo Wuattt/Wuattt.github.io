@@ -10,6 +10,7 @@ export class Battlecruiser extends Entity {
     constructor(x = 0, y = 0, deg = 0) {
         super(x, y, deg);
         this.type = 'cruiser';
+        this.player = null;
         this.width = 81;
         this.height = 118;
         // this.sprite.src = './Images/Sprites/battlecruiser.png';
@@ -45,7 +46,7 @@ export class Battlecruiser extends Entity {
         this.speedBoost = (this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax));
         this.speed = this.acceleration * ((this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax)) + (this.isSpeedBoostOn * this.speedBoost));
         this.maxSpeed = this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax);
-        this.moveForward();
+        this.accelerate();
     }
     updateSpeed() {
         this.maxSpeed = this.speedTechLimit * (this.engineEnergyAllocated / this.engineEnergyMax);

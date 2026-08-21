@@ -17,7 +17,7 @@ export class Laser extends Entity {
         this.energy = 0;
         this.size = 1;
         this.cruiser = cruiser;
-        this.moveForward();
+        this.accelerate();
         setTimeout(() => {
             this.kill();
         }, this.life);
