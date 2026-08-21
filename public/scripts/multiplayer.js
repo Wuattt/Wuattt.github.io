@@ -1,6 +1,9 @@
 'use strict'
 import { input } from './DOM_variables.js';
 export const socket = io();
+import { entitiesFind } from './gamestate_variables.js'
+import {controlledEntitySet, controlledEntityGet} from "./gamestate_variables.js";
+import {sleep, TICK_INTERVAL} from "../../shared/constants.js";
 
 let playerId = null;
 const setPlayerId = (passedPlayerId) => playerId = passedPlayerId;
@@ -15,7 +18,15 @@ socket.on('connected', (socket) => {
     }, 2000);
     input.before(message);
 })
+socket.on('giveControl', async (playerId, entityId) => {
+    //TODO: instead of sleep() there should be a "loading"
+    // function that says "the game is ready to setup"
+    await sleep(500);
+    controlledEntitySet(entitiesFind(entityId));
+    console.log(controlledEntityGet());
+});
 socket.on('setPlayerId', (passedPlayerId) => {
+    console.log('player: ' + passedPlayerId);
     setPlayerId(passedPlayerId);
 });
 socket.on('disconnected', (socket, reason) => {

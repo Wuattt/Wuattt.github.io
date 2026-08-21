@@ -2,8 +2,15 @@
 import { openConsole, closeConsole, isConsoleOpen, isControlPanelOpen } from './console_commands.js'
 import { socket } from './multiplayer.js';
 import { getPlayerId } from './multiplayer.js';
+import { entitiesFind } from './gamestate_variables.js'
+import {controlledEntityGet, controlledEntitySet} from "./gamestate_variables.js";
+import {sleep, TICK_INTERVAL} from "../../shared/constants.js";
 
 const player = getPlayerId();
+(async () => {
+    await sleep(1000);
+    console.log(controlledEntityGet());
+})();
 
 let wKeyPressed = false;
 let sKeyPressed = false;

@@ -14,7 +14,7 @@ export function playersAdd (playerSocket) {
     return playersIdCounterAdd();
 }
 export function playersDelete (playerId) {
-    players.set(playerId, null);
+    players.delete(playerId);
 }
 export function playersGet () {
     return players.values();

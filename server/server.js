@@ -35,6 +35,9 @@ io.on('connection', (socket) => {
         freeCruisers[0].player = socket.id;
         occupiedCruiser = freeCruisers[0];
     }
+    if ((occupiedCruiser != null)) {
+        socket.emit('giveControl', playerId, occupiedCruiser.id);
+    }
     socket.on('disconnect', (reason) => {
         playersDelete(playerId);
         occupiedCruiser.player = null;

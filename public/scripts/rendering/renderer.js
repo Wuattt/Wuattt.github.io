@@ -1,9 +1,9 @@
 //work in progress
 import { TICK_INTERVAL, inRad } from '../../../shared/constants.js';
 import { mapCtx, map } from '../DOM_variables.js'
-//import { controlledEntity } from '../controller.js';
 import { entitiesGet } from '../gamestate_variables.js'
 import { SPRITES, ENTITY_VISUALS } from './sprites.js'
+//import { controlledEntity } from '../controller.js';
 
 function clearMap () {
     mapCtx.clearRect(0, 0, map.width, map.height);
