@@ -6,7 +6,6 @@ socket.on('connected', (socket) => {
     let message = document.createElement('p');
     message.innerHTML = socket + ' connected!';
     message.style.visibility = 'visible';
-    console.log(message.innerHTML);
     setTimeout(() => {
         message.style.visibility = 'inherit';
     }, 2000);
