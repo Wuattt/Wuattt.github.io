@@ -9,7 +9,7 @@ import { Cruiser__Part } from './cruiser__part.js'
 export class Battlecruiser extends Entity {
     constructor(x = 0, y = 0, deg = 0) {
         super(x, y, deg);
-        this.name = 'Cruiser';
+        this.type = 'cruiser';
         this.width = 81;
         this.height = 118;
         // this.sprite.src = './Images/Sprites/battlecruiser.png';
@@ -170,7 +170,6 @@ export class Battlecruiser extends Entity {
 class Shield extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg, 70, cruiser, 'shield');
-        this.name = 'Shield';
     }
     updateCoordinates() {
         this.x = this.cruiser.x;
@@ -230,7 +229,6 @@ class Shield extends Cruiser__Part {
 class Cruiser__Bow extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg, 13, cruiser, 'bow');
-        this.name = 'Cruiser Bow';
     }
     updateCoordinates() {
         this.x = this.cruiser.x - this.cruiser.height / 2.65 * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
@@ -241,7 +239,6 @@ class Cruiser__Bow extends Cruiser__Part {
 class Cruiser__leftBow extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg, 10, cruiser, 'leftBow');
-        this.name = 'Cruiser Left Bow';
     }
     updateCoordinates() {
         this.x = this.cruiser.x - this.cruiser.height / 2.65 * (Math.round(((Math.cos(inRad(this.cruiser.deg - 30) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
@@ -251,7 +248,6 @@ class Cruiser__leftBow extends Cruiser__Part {
 class Cruiser__rightBow extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg, 10, cruiser, 'rightBow');
-        this.name = 'Cruiser Right Bow';
     }
     updateCoordinates() {
         this.x = this.cruiser.x - this.cruiser.height / 2.65 * (Math.round(((Math.cos(inRad(this.cruiser.deg + 30) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
@@ -263,7 +259,6 @@ class Cruiser__rightBow extends Cruiser__Part {
 class Cruiser__Deck extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg, 18, cruiser, 'deck');
-        this.name = 'Cruiser Deck';
     }
     updateCoordinates() {
         this.x = this.cruiser.x - this.cruiser.height / 10 * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
@@ -274,7 +269,6 @@ class Cruiser__Deck extends Cruiser__Part {
 class Cruiser__Aft extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg, 20, cruiser, 'aft');
-        this.name = 'Cruiser Aft';
     }
     updateCoordinates() {
         this.x = this.cruiser.x + this.cruiser.height / 4 * (Math.round(((Math.cos(inRad(this.cruiser.deg) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
@@ -284,7 +278,6 @@ class Cruiser__Aft extends Cruiser__Part {
 class Cruiser__LeftWing extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg, 15, cruiser, 'leftWing');
-        this.name = 'Cruiser Left Wing';
     }
     updateCoordinates() {
         this.x = this.cruiser.x + this.cruiser.height / 3.15 * (Math.round(((Math.cos(inRad(this.cruiser.deg + 45) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);
@@ -294,7 +287,6 @@ class Cruiser__LeftWing extends Cruiser__Part {
 class Cruiser__RightWing extends Cruiser__Part {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(cruiser.x, cruiser.y, cruiser.deg, 15, cruiser, 'rightWing');
-        this.name = 'Cruiser Right Wing';
     }
     updateCoordinates() {
         this.x = this.cruiser.x + this.cruiser.height / 3.15 * (Math.round(((Math.cos(inRad(this.cruiser.deg - 45) + Math.PI / 2 + Number.EPSILON) * 1000))) / 1000);

@@ -5,7 +5,7 @@ import { entitiesListGet, entitiesListDelete } from '../global_variables.js';
 export class Laser extends Entity {
     constructor(x = 0, y = 0, deg = 0, cruiser) {
         super(x, y, deg);
-        this.name = 'Laser Projectile';
+        this.type = 'laser';
         this.width = 80;
         this.height = 80;
         // this.sprite.src = './Images/Sprites/laser-sprites/33.png';

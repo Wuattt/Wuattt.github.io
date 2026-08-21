@@ -6,12 +6,12 @@ import { inDeg, inRad, sleep } from '../../shared/constants.js';
 export class Entity {
     constructor(x = 0, y = 0, deg = 0) {
         entityIdCounterAdd();
-        this.name = 'Generic Entity';
         this.x = x;
         this.y = y;
         this.deg = deg;
         this.baseSpeed = 0;
         this.speed = this.baseSpeed;
+        //TODO: move speed stuff to cruiser.js
         this.acceleration = 0;
         this.rotationSpeed = 1;
         this.momentumAlong = this.baseSpeed * 0;
