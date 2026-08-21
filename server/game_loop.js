@@ -1,6 +1,5 @@
 //work in progress
 import { TICK_INTERVAL } from "../shared/constants.js";
-import { packState } from './state_broadcast.js'
 
 let timeloop = null;
 

@@ -2,6 +2,7 @@
 import { BROADCAST_INTERVAL } from '../shared/constants.js';
 import { io } from './server.js'
 import { ENTITY_TYPE, BYTES_PER_ENTITY } from '../shared/network_protocol.js'
+import { entitiesListGet } from './global_variables.js';
 
 let timeloop = null;
 
@@ -9,14 +10,14 @@ export const setBROADCAST_INTERVAL = () => {
     timeloop ? clearInterval(timeloop) : 0;
     io.on('connection', (socket) => {
         timeloop = setInterval(() => {
-            socket.emit('updateState');
+            socket.emit('updateState', packState(Array.from(entitiesListGet())));
         }, (BROADCAST_INTERVAL + 1000));
     });
 }
 
 export const packState = (entities) => {
-    const buffer = ArrayBuffer(2 + entities.length * BYTES_PER_ENTITY); // 2 bytes for entities counter. It's not required and can be removed to improve network. Then you would need to derive amount of entities from amount of bytes like this: bytes / 16.
-    const view = DataView(buffer);
+    const buffer = new ArrayBuffer(2 + entities.length * BYTES_PER_ENTITY); // 2 bytes for entities counter. It's not required and can be removed to improve network. Then you would need to derive amount of entities from amount of bytes like this: bytes / 16.
+    const view = new DataView(buffer);
 
     view.setUint16(0, entities.length);
     let offset = 2;

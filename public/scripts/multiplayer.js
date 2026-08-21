@@ -2,9 +2,7 @@
 import { input } from './DOM_variables.js';
 export const socket = io();
 
-socket.on('updateState', () => {
-    console.log('pinged');
-});
+
 socket.on('chatmessage', (text) => {
     let isSlashFirst = /^\//g.test(text);
     let usedCommand = document.createElement('p');
