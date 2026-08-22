@@ -2,6 +2,7 @@
 import { socket } from './multiplayer.js';
 import { ENTITY_TYPE, BYTES_PER_ENTITY } from '../shared/network_protocol.js'
 import { applyServerState } from './sync.js'
+import {markFirstStateReceived} from "./loading.js";
 
 const TYPE_NAMES = Object.fromEntries(
     Object.entries(ENTITY_TYPE).map(([name, id]) => [id, name.toLowerCase()])
@@ -26,7 +27,11 @@ const unpackState = (buffer) => {
     }
     return entities;
 }
-
+let isFirstTime = true;
 socket.on('updateState', (buffer) => {
     applyServerState(unpackState(buffer));
+    if (isFirstTime) {
+        markFirstStateReceived();
+        isFirstTime = false;
+    }
 });

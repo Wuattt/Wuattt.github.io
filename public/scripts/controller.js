@@ -7,10 +7,7 @@ import {controlledEntityGet, controlledEntitySet} from "./gamestate_variables.js
 import {sleep, TICK_INTERVAL} from "../../shared/constants.js";
 
 const player = getPlayerId();
-(async () => {
-    await sleep(1000);
-    console.log(controlledEntityGet());
-})();
+
 
 let wKeyPressed = false;
 let sKeyPressed = false;
