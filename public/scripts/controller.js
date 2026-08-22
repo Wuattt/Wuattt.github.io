@@ -5,9 +5,15 @@ import { getPlayerId } from './multiplayer.js';
 import { entitiesFind } from './gamestate_variables.js'
 import {controlledEntityGet, controlledEntitySet} from "./gamestate_variables.js";
 import {sleep, TICK_INTERVAL} from "../../shared/constants.js";
+import {gameReady, readyState} from "./loading.js";
 
 const player = getPlayerId();
-
+const onLoading = async () => {
+    await gameReady;
+    let controlledEntity = controlledEntityGet();
+    console.log(controlledEntity);
+};
+onLoading();
 
 let wKeyPressed = false;
 let sKeyPressed = false;

@@ -35,12 +35,14 @@ io.on('connection', (socket) => {
         freeCruisers[0].player = socket.id;
         occupiedCruiser = freeCruisers[0];
     }
-    if ((occupiedCruiser != null)) {
+    if (occupiedCruiser != null) {
         socket.emit('giveControl', playerId, occupiedCruiser.id);
     }
     socket.on('disconnect', (reason) => {
         playersDelete(playerId);
-        occupiedCruiser.player = null;
+        if (occupiedCruiser != null) {
+            occupiedCruiser.player = null;
+        }
         io.emit('disconnected', socket.id, reason);
     })
     socket.on('chatmessage', (input) => {

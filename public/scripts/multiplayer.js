@@ -4,7 +4,7 @@ export const socket = io();
 import { entitiesFind } from './gamestate_variables.js'
 import {controlledEntitySet, controlledEntityGet} from "./gamestate_variables.js";
 import {sleep, TICK_INTERVAL} from "../../shared/constants.js";
-import {gameReady, markConnected} from "./loading.js";
+import {gameReady, markConnected, FirstStateReceived} from "./loading.js";
 
 let playerId = null;
 const setPlayerId = (passedPlayerId) => playerId = passedPlayerId;
@@ -23,11 +23,10 @@ socket.on('connected', (socket) => {
 socket.on('giveControl', async (playerId, entityId) => {
     //TODO: instead of sleep() there should be a "loading"
     // function that says "the game is ready to setup"
-    await gameReady;
+    await FirstStateReceived;
     controlledEntitySet(entitiesFind(entityId));
 });
 socket.on('setPlayerId', (passedPlayerId) => {
-    console.log('player: ' + passedPlayerId);
     setPlayerId(passedPlayerId);
 });
 socket.on('disconnected', (socket, reason) => {

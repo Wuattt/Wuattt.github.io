@@ -1,5 +1,6 @@
 'use strict'
 import { startRendering } from '/scripts/rendering/renderer.js';
+import {gameReady} from "./loading.js";
 //import { startRoundTimer } from '/scripts/clock.js'
 
 
@@ -12,7 +13,8 @@ import { startRendering } from '/scripts/rendering/renderer.js';
     // checkAllCollisions(); // move to game_loop.js
 } */
 
-const init = () => {
+const init = async () => {
+    await gameReady;
     startRendering();
     //startRoundTimer();
 }

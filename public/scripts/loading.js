@@ -3,7 +3,7 @@ export const gameReady = new Promise ((resolve) => {
     resolveGameReady = resolve;
 });
 
-const readyState = {
+export const readyState = {
     connected: false,
     firstStateReceived: false,
 }
@@ -11,7 +11,6 @@ const readyState = {
 function checkReady() {
     const isReady = Object.values(readyState).every(Boolean);
     if (isReady) resolveGameReady();
-    console.log(isReady);
 }
 
 export function markConnected () {
@@ -19,8 +18,14 @@ export function markConnected () {
     checkReady();
 }
 
+let resolveFirstStateReceived;
+export const FirstStateReceived = new Promise ((resolve) => {
+    resolveFirstStateReceived = resolve;
+});
+
 export function markFirstStateReceived () {
     readyState.firstStateReceived = true;
+    resolveFirstStateReceived();
     checkReady();
 }
 
