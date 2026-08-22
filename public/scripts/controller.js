@@ -46,23 +46,19 @@ $(document).on("keydown", async function (event) {
                 sKeyPressed = true;
                 socket.emit('decelerate', controlledEntity.id, player);
             }
-            break;/*
+            break;
         case 65: // a key
             if (controlledEntity && isConsoleOpen == false && aKeyPressed != true) {
                 aKeyPressed = true;
-                deg = controlledEntity.deg;
-                id = controlledEntity.id;
-                socket.emit('rotateLeft', deg, id)
+                socket.emit('rotateLeft', controlledEntity.id, player)
             }
             break;
         case 68: // d key
             if (controlledEntity && isConsoleOpen == false && dKeyPressed != true) {
                 dKeyPressed = true;
-                deg = controlledEntity.deg;
-                id = controlledEntity.id;
-                socket.emit('rotateRight', deg, id)
+                socket.emit('rotateRight', controlledEntity.id, player)
             }
-            break;
+            break;/*
         case 81: // q key
             if (controlledEntity && isConsoleOpen == false && qKeyPressed != true) {
                 qKeyPressed = true;
@@ -136,25 +132,21 @@ $(document).on("keydown", async function (event) {
 
 $(document).on("keyup", function (event) {
     switch (event.which) {
-        /* case 65:
-            aKeyPressed = false;
-            deg = controlledEntity.deg;
-            id = controlledEntity.id;
-            socket.emit('rotateLeftStop', id);
-            break;
-        case 68:
-            dKeyPressed = false;
-            deg = controlledEntity.deg;
-            id = controlledEntity.id;
-            socket.emit('rotateRightStop', id);
-            break;*/
         case 87:
             wKeyPressed = false;
             break;
         case 83:
             sKeyPressed = false;
-            break;/*
-        case 81:
+            break;
+        case 65:
+            aKeyPressed = false;
+            socket.emit('rotateLeftStop', controlledEntity.id, player);
+            break;
+        case 68:
+            dKeyPressed = false;
+            socket.emit('rotateRightStop', controlledEntity.id, player);
+            break;
+        case 81:/*
             qKeyPressed = false;
             x = controlledEntity.x;
             y = controlledEntity.y;

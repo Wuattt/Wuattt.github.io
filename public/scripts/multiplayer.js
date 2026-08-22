@@ -92,34 +92,6 @@ socket.on('strafeRightStop', (entityID) => {
         entity.momentumAcross = 0;
     }
 });
-socket.on('rotateLeft', (deg, entityID) => {
-    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
-    entity.deg = deg;
-    if (entity) {
-        entity.momentumRotation = -entity.rotationSpeed;
-        entity.rotateLeft();
-    }
-});
-socket.on('rotateLeftStop', (entityID) => {
-    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
-    if (entity) {
-        entity.momentumRotation = 0;
-    }
-});
-socket.on('rotateRight', (deg, entityID) => {
-    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
-    entity.deg = deg;
-    if (entity) {
-        entity.momentumRotation = entity.rotationSpeed;
-        entity.rotateRight();
-    }
-});
-socket.on('rotateRightStop', (entityID) => {
-    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
-    if (entity) {
-        entity.momentumRotation = 0;
-    }
-});
 socket.on('shoot laser', (targetX, targetY, entityID) => {
     let shootingEntity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     shootingEntity.shootLaser(targetX, targetY);

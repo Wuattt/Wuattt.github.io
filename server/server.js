@@ -75,11 +75,40 @@ io.on('connection', (socket) => {
             }
             entity.updateSpeed();
         });
+        socket.on('rotateLeft', (entityID, player) => {
+            let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
+            if (entity) {
+                entity.momentumRotation = -entity.rotationSpeed;
+                entity.rotateLeft();
+            }
+        });
+        socket.on('rotateLeftStop', (entityID, player) => {
+            let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
+            if (entity) {
+                entity.momentumRotation = 0;
+            }
+        });
+        socket.on('rotateRight', (entityID, player) => {
+            let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
+            if (entity) {
+                entity.momentumRotation = entity.rotationSpeed;
+                entity.rotateRight();
+            }
+        });
+        socket.on('rotateRightStop', (entityID, player) => {
+            let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
+            if (entity) {
+                entity.momentumRotation = 0;
+            }
+        });
         socket.on('strafeLeft', (x, y, entityID) => {
             io.emit('strafeLeft', x, y, entityID);
         });
         socket.on('strafeLeftStop', (entityID) => {
-            io.emit('strafeLeftStop', entityID);
+            let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
+            if (entity) {
+                entity.momentumRotation = 0;
+            }
         });
 
         socket.on('strafeRight', (x, y, entityID) => {
@@ -87,18 +116,6 @@ io.on('connection', (socket) => {
         });
         socket.on('strafeRightStop', (entityID) => {
             io.emit('strafeRightStop', entityID);
-        });
-        socket.on('rotateLeft', (x, y, entityID) => {
-            io.emit('rotateLeft', x, y, entityID);
-        });
-        socket.on('rotateLeftStop', (entityID) => {
-            io.emit('rotateLeftStop', entityID);
-        });
-        socket.on('rotateRight', (x, y, entityID) => {
-            io.emit('rotateRight', x, y, entityID);
-        });
-        socket.on('rotateRightStop', (entityID) => {
-            io.emit('rotateRightStop', entityID);
         });
         socket.on('shoot laser', (targetX, targetY, shootingEntity) => {
             io.emit('shoot laser', targetX, targetY, shootingEntity)
