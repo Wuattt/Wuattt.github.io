@@ -62,22 +62,8 @@ socket.on('engineBoostOff', (entityID) => {
     entity.isSpeedBoostOn = 0;
     entity.updateSpeed();
 });
-socket.on('accelerate', (x, y, entityID) => {
-    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
-    entity.x = x;
-    entity.y = y;
-    if (entity) {
-        if (entity.acceleration < 1) {
-                entity.acceleration = Math.round((entity.acceleration + 0.1 + Number.EPSILON) * 100) / 100;
-            } else {
-                entity.acceleration = 1;
-            }
-        entity.updateSpeed();
-    }
-});
-socket.on('accelerateStop', (entityID) => {
 
-});
+
 socket.on('decelerate', (x, y, entityID) => {
     let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     entity.x = x;
@@ -88,9 +74,6 @@ socket.on('decelerate', (x, y, entityID) => {
                     entity.acceleration = 0;
                 }
                 entity.updateSpeed();
-});
-socket.on('decelerateStop', (entityID) => {
-
 });
 socket.on('strafeLeft', (x, y, entityID) => {
     let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);

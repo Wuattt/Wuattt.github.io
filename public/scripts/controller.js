@@ -8,12 +8,12 @@ import {sleep, TICK_INTERVAL} from "../../shared/constants.js";
 import {gameReady, readyState} from "./loading.js";
 
 const player = getPlayerId();
-const onLoading = async () => {
+let controlledEntity = null;
+const giveControl = async () => {
     await gameReady;
-    let controlledEntity = controlledEntityGet();
-    console.log(controlledEntity);
+    controlledEntity = controlledEntityGet();
 };
-onLoading();
+giveControl().catch (err => {console.error(err.message)});
 
 let wKeyPressed = false;
 let sKeyPressed = false;
@@ -24,11 +24,7 @@ let eKeyPressed = false;
 let shiftKeyPressed = false;
 
 
-//export let controlledEntity = null; // null until multiplayer part is done. Should be set to dragon
-/* let x = controlledEntity.x;
-let y = controlledEntity.y;
-let deg = controlledEntity.deg;
-let id = controlledEntity.id; */
+
 
 /* const whichKeyPressed = (subject) => {
     console.log(subject);
@@ -37,17 +33,15 @@ let id = controlledEntity.id; */
 
 $(document).on("keydown", async function (event) {
     // whichKeyPressed(event.which);
+    if (!controlledEntity) return;
     switch (event.which) {
-        /*case 87: // w key
+        case 87: // w key
             if (controlledEntity && isConsoleOpen == false && wKeyPressed != true) {
                 wKeyPressed = true;
-                x = controlledEntity.x;
-                y = controlledEntity.y;
-                id = controlledEntity.id;
-                socket.emit('accelerate', x, y, id);
+                socket.emit('accelerate', controlledEntity.id, player);
             }
             break;
-        case 83: // s key
+        /*case 83: // s key
             if (controlledEntity && isConsoleOpen == false && sKeyPressed != true) {
                 sKeyPressed = true;
                 x = controlledEntity.x;
@@ -156,14 +150,10 @@ $(document).on("keyup", function (event) {
             deg = controlledEntity.deg;
             id = controlledEntity.id;
             socket.emit('rotateRightStop', id);
-            break;
+            break;*/
         case 87:
             wKeyPressed = false;
-            x = controlledEntity.x;
-            y = controlledEntity.y;
-            id = controlledEntity.id;
-            socket.emit('accelerateStop', id);
-            break;
+            break;/*
         case 83:
             sKeyPressed = false;
             x = controlledEntity.x;
