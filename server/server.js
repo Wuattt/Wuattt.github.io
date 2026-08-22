@@ -101,21 +101,32 @@ io.on('connection', (socket) => {
                 entity.momentumRotation = 0;
             }
         });
-        socket.on('strafeLeft', (x, y, entityID) => {
-            io.emit('strafeLeft', x, y, entityID);
-        });
-        socket.on('strafeLeftStop', (entityID) => {
+        socket.on('strafeLeft', (entityID, player) => {
             let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
             if (entity) {
-                entity.momentumRotation = 0;
+                entity.momentumAcross = -entity.speed;
+                entity.strafeLeft();
+            }
+        });
+        socket.on('strafeLeftStop', (entityID, player) => {
+            let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
+            if (entity) {
+                entity.momentumAcross = 0;
             }
         });
 
-        socket.on('strafeRight', (x, y, entityID) => {
-            io.emit('strafeRight', x, y, entityID);
+        socket.on('strafeRight', (entityID, player) => {
+            let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
+            if (entity) {
+                entity.momentumAcross = entity.speed;
+                entity.strafeRight();
+            }
         });
-        socket.on('strafeRightStop', (entityID) => {
-            io.emit('strafeRightStop', entityID);
+        socket.on('strafeRightStop', (entityID, player) => {
+            let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
+            if (entity) {
+                entity.momentumAcross = 0;
+            }
         });
         socket.on('shoot laser', (targetX, targetY, shootingEntity) => {
             io.emit('shoot laser', targetX, targetY, shootingEntity)

@@ -58,25 +58,19 @@ $(document).on("keydown", async function (event) {
                 dKeyPressed = true;
                 socket.emit('rotateRight', controlledEntity.id, player)
             }
-            break;/*
+            break;
         case 81: // q key
             if (controlledEntity && isConsoleOpen == false && qKeyPressed != true) {
                 qKeyPressed = true;
-                x = controlledEntity.x;
-                y = controlledEntity.y;
-                id = controlledEntity.id;
-                socket.emit('strafeLeft', x, y, id);
+                socket.emit('strafeLeft', controlledEntity.id, player);
             }
             break;
         case 69: // e key
             if (controlledEntity && isConsoleOpen == false && eKeyPressed != true) {
                 eKeyPressed = true;
-                x = controlledEntity.x;
-                y = controlledEntity.y;
-                id = controlledEntity.id;
-                socket.emit('strafeRight', x, y, id)
+                socket.emit('strafeRight', controlledEntity.id, player);
             }
-            break;
+            break;/*
         case 16: // shift key
             if (controlledEntity && isConsoleOpen == false && shiftKeyPressed != true) {
                 shiftKeyPressed = true;
@@ -146,20 +140,14 @@ $(document).on("keyup", function (event) {
             dKeyPressed = false;
             socket.emit('rotateRightStop', controlledEntity.id, player);
             break;
-        case 81:/*
+        case 81:
             qKeyPressed = false;
-            x = controlledEntity.x;
-            y = controlledEntity.y;
-            id = controlledEntity.id;
-            socket.emit('strafeLeftStop', id);
+            socket.emit('strafeLeftStop', controlledEntity.id, player);
             break;
         case 69:
             eKeyPressed = false;
-            x = controlledEntity.x;
-            y = controlledEntity.y;
-            id = controlledEntity.id;
-            socket.emit('strafeRightStop', id);
-            break;
+            socket.emit('strafeRightStop', controlledEntity.id, player);
+            break;/*
         case 16:
             shiftKeyPressed = false;
             if (controlledEntity) {
