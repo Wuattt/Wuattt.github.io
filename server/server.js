@@ -49,12 +49,6 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('chatmessage', input);
     });
     if (occupiedCruiser != null) {
-        socket.on('engineBoostOn', (entityID) => {
-            io.emit('engineBoostOn', entityID);
-        });
-        socket.on('engineBoostOff', (entityID) => {
-            io.emit('engineBoostOff', entityID);
-        });
         socket.on('accelerate', (entityID, player) => {
             let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
             if (entity) {
@@ -127,6 +121,16 @@ io.on('connection', (socket) => {
             if (entity) {
                 entity.momentumAcross = 0;
             }
+        });
+        socket.on('engineBoostOn', (entityID, player) => {
+            let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
+            entity.isSpeedBoostOn = 1;
+            entity.updateSpeed();
+        });
+        socket.on('engineBoostOff', (entityID, player) => {
+            let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
+            entity.isSpeedBoostOn = 0;
+            entity.updateSpeed();
         });
         socket.on('shoot laser', (targetX, targetY, shootingEntity) => {
             io.emit('shoot laser', targetX, targetY, shootingEntity)

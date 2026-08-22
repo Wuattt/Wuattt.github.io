@@ -70,13 +70,13 @@ $(document).on("keydown", async function (event) {
                 eKeyPressed = true;
                 socket.emit('strafeRight', controlledEntity.id, player);
             }
-            break;/*
+            break;
         case 16: // shift key
             if (controlledEntity && isConsoleOpen == false && shiftKeyPressed != true) {
                 shiftKeyPressed = true;
-                socket.emit('engineBoostOn', id);
+                socket.emit('engineBoostOn', controlledEntity.id, player);
             }
-            break;
+            break;/*
         case 193: // ` key
             if (isConsoleOpen == false) {
                 // TODO: change view from outside view to inside
@@ -147,14 +147,13 @@ $(document).on("keyup", function (event) {
         case 69:
             eKeyPressed = false;
             socket.emit('strafeRightStop', controlledEntity.id, player);
-            break;/*
+            break;
         case 16:
             shiftKeyPressed = false;
             if (controlledEntity) {
-                id = controlledEntity.id;
-                socket.emit('engineBoostOff', id)
+                socket.emit('engineBoostOff', controlledEntity.id, player);
             }
-            break; */
+            break;
         case 84: // t key
             if (isConsoleOpen == true) {
                 $('#console input').focus();

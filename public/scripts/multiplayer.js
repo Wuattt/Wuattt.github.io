@@ -52,16 +52,6 @@ socket.on('chatmessage', (text) => {
     }, 2000);
     input.before(usedCommand);
 });
-socket.on('engineBoostOn', (entityID) => {
-    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
-    entity.isSpeedBoostOn = 1;
-    entity.updateSpeed();
-});
-socket.on('engineBoostOff', (entityID) => {
-    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
-    entity.isSpeedBoostOn = 0;
-    entity.updateSpeed();
-});
 socket.on('shoot laser', (targetX, targetY, entityID) => {
     let shootingEntity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     shootingEntity.shootLaser(targetX, targetY);
