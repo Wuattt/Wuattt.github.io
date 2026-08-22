@@ -62,19 +62,6 @@ socket.on('engineBoostOff', (entityID) => {
     entity.isSpeedBoostOn = 0;
     entity.updateSpeed();
 });
-
-
-socket.on('decelerate', (x, y, entityID) => {
-    let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
-    entity.x = x;
-    entity.y = y;
-    if (entity.acceleration > 0) {
-                    entity.acceleration = Math.round((entity.acceleration - 0.1 + Number.EPSILON) * 100) / 100;
-                } else {
-                    entity.acceleration = 0;
-                }
-                entity.updateSpeed();
-});
 socket.on('strafeLeft', (x, y, entityID) => {
     let entity = Array.from(entitiesListGet()).find(e => e.id === entityID);
     entity.x = x;

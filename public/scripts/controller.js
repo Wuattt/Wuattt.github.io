@@ -41,15 +41,12 @@ $(document).on("keydown", async function (event) {
                 socket.emit('accelerate', controlledEntity.id, player);
             }
             break;
-        /*case 83: // s key
+        case 83: // s key
             if (controlledEntity && isConsoleOpen == false && sKeyPressed != true) {
                 sKeyPressed = true;
-                x = controlledEntity.x;
-                y = controlledEntity.y;
-                id = controlledEntity.id;
-                socket.emit('decelerate', x, y, id);
+                socket.emit('decelerate', controlledEntity.id, player);
             }
-            break;
+            break;/*
         case 65: // a key
             if (controlledEntity && isConsoleOpen == false && aKeyPressed != true) {
                 aKeyPressed = true;
@@ -153,14 +150,10 @@ $(document).on("keyup", function (event) {
             break;*/
         case 87:
             wKeyPressed = false;
-            break;/*
+            break;
         case 83:
             sKeyPressed = false;
-            x = controlledEntity.x;
-            y = controlledEntity.y;
-            id = controlledEntity.id;
-            socket.emit('decelerateStop', id);
-            break;
+            break;/*
         case 81:
             qKeyPressed = false;
             x = controlledEntity.x;
