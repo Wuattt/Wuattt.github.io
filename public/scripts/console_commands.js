@@ -4,7 +4,6 @@ import { socket } from './multiplayer.js';
 
 
  export let isConsoleOpen = false;
- export let isControlPanelOpen = true;
 
  export function openConsole () {
      if (!gameConsole.style.display || gameConsole.style.visibility === 'hidden') {

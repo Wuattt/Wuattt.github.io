@@ -1,14 +1,16 @@
 'use strict'
-import { openConsole, closeConsole, isConsoleOpen, isControlPanelOpen } from './console_commands.js'
+import { openConsole, closeConsole, isConsoleOpen } from './console_commands.js'
 import { socket } from './multiplayer.js';
 import { getPlayerId } from './multiplayer.js';
 import { entitiesFind } from './gamestate_variables.js'
 import {controlledEntityGet, controlledEntitySet} from "./gamestate_variables.js";
 import {sleep, TICK_INTERVAL} from "../../shared/constants.js";
 import {gameReady, readyState} from "./loading.js";
+import {control_panel} from './DOM_variables.js';
 
 const player = getPlayerId();
 let controlledEntity = null;
+let isControlPanelOpen = true;
 const giveControl = async () => {
     await gameReady;
     controlledEntity = controlledEntityGet();
@@ -76,7 +78,7 @@ $(document).on("keydown", async function (event) {
                 shiftKeyPressed = true;
                 socket.emit('engineBoostOn', controlledEntity.id, player);
             }
-            break;/*
+            break;
         case 193: // ` key
             if (isConsoleOpen == false) {
                 // TODO: change view from outside view to inside
@@ -97,7 +99,7 @@ $(document).on("keydown", async function (event) {
                 control_panel.style.display = 'block';
                 isControlPanelOpen = true;
             }
-            break; */
+            break;
         case 84: // t key
             if (isConsoleOpen == false) {
                 openConsole();
